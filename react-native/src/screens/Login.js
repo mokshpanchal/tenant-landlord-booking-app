@@ -4,12 +4,16 @@ import Icon from "@expo/vector-icons/AntDesign";
 
 class Login extends Component {
   state = {
-    isValidEmailId: true,
-    isValidPassword: true,
+    isValidEmailId: false,
+    isValidPassword: false,
+    isFormSubmitted: false,
   };
   makeLogin() {
+    this.setState({ isFormSubmitted: true });
+    console.log("inside func");
     if (!(this.state.isValidEmailId && this.state.isValidPassword)) {
-      Alert.alert("Wrong Validation", "Please enter correct email/password", [
+      console.log("I am fired");
+      Alert.alert("Error Occured!", "Please enter correct email/password", [
         {
           text: "OK",
         },
@@ -17,20 +21,25 @@ class Login extends Component {
     }
   }
   render() {
+    console.log(this.state);
     const { navigate } = this.props.navigation;
     const checkValidEmailId = (value) => {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (reg.test(value.trim()) === true) {
-        this.setState({ isValidEmailId: true });
-      } else {
-        this.setState({ isValidEmailId: false });
+      if (this.state.isFormSubmitted) {
+        if (reg.test(value.trim()) === true) {
+          this.setState({ isValidEmailId: true });
+        } else {
+          this.setState({ isValidEmailId: false });
+        }
       }
     };
     const checkValidPassword = (value) => {
-      if (value.trim().length >= 5) {
-        this.setState({ isValidPassword: true });
-      } else {
-        this.setState({ isValidPassword: false });
+      if (this.state.isFormSubmitted) {
+        if (value.trim().length >= 5) {
+          this.setState({ isValidPassword: true });
+        } else {
+          this.setState({ isValidPassword: false });
+        }
       }
     };
     return (
@@ -86,7 +95,9 @@ class Login extends Component {
             alignSelf: "center",
           }}
         >
-          {this.state.isValidEmailId ? null : "Enter valid email"}
+          {this.state.isFormSubmitted && !this.state.isValidEmailId
+            ? "Enter valid email"
+            : null}
         </Text>
         <View
           style={{
@@ -114,9 +125,9 @@ class Login extends Component {
             alignSelf: "center",
           }}
         >
-          {this.state.isValidPassword
-            ? null
-            : "Password must be atleast 5 characters long."}
+          {this.state.isFormSubmitted && !this.state.isValidPassword
+            ? "Password must be atleast 5 characters long."
+            : null}
         </Text>
         <View
           style={{
