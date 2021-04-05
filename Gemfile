@@ -23,6 +23,11 @@ gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
+gem "mini_magick"
+# gem 'omniauth-google-oauth2'
+gem 'active_model_serializers', '~> 0.10.0'
+gem 'carrierwave', '~> 2.0'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

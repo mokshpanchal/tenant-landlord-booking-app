@@ -39,7 +39,7 @@ module ResourceRenderer
 		ActiveModel::Serializer::CollectionSerializer
 	end
 
-	def single_serializer(object, serialize, other_options = {})
+	def single_serializer(object, serializer, other_options = {})
 		serializer.new(object, other_options)		
 	end
 	

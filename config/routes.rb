@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, defaults: { format: :json}, path: '',
+  	path_names: {
+  		sign_in: 'login',
+  		sign_out: 'log_out',
+  		registration: 'signup'
+  	},
+  	controllers: {
+  		sessions: 'sessions',
+  		registrations: 'registrations',
+  		passwords: 'passwords',
+  		confirmations: 'confirmations'
+  	}
+
+  	resources :properties
+  	resources :aminities
+  	resources :property_types
+  	resources :slots
+  	resources :rent_details
+  	resources :verications
 end

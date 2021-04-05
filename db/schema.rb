@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_085339) do
+ActiveRecord::Schema.define(version: 2021_04_04_171422) do
 
   create_table "amenities", charset: "latin1", force: :cascade do |t|
     t.bigint "property_id", null: false
@@ -48,7 +48,18 @@ ActiveRecord::Schema.define(version: 2021_03_26_085339) do
     t.integer "for_sell"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "property_type_id", null: false
+    t.string "sites"
+    t.index ["property_type_id"], name: "index_properties_on_property_type_id"
     t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "property_attachments", charset: "latin1", force: :cascade do |t|
+    t.string "site"
+    t.bigint "property_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["property_id"], name: "index_property_attachments_on_property_id"
   end
 
   create_table "property_types", charset: "latin1", force: :cascade do |t|
@@ -111,12 +122,24 @@ ActiveRecord::Schema.define(version: 2021_03_26_085339) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "verifications", charset: "latin1", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "is_verified"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_verifications_on_user_id"
+  end
+
   add_foreign_key "amenities", "properties"
+  add_foreign_key "properties", "property_types"
   add_foreign_key "properties", "users"
+  add_foreign_key "property_attachments", "properties"
   add_foreign_key "rent_details", "properties"
   add_foreign_key "reserved_slots", "properties"
   add_foreign_key "reserved_slots", "slots"
   add_foreign_key "reserved_slots", "users"
   add_foreign_key "reserved_slots", "users", column: "recipient_id"
   add_foreign_key "slots", "properties"
+  add_foreign_key "verifications", "users"
 end
