@@ -8,10 +8,48 @@ import {
   ScrollView,
   Button,
   SafeAreaView,
+  StyleSheet
 } from "react-native";
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import Utility from "../../common/utility";
+// =====================STYLE_SHEET===========================
+  const styles = StyleSheet.create({
+      container: {
+                  backgroundColor:"#fff" ,
+                  flex:1,},
+
+      view:{
+            backgroundColor: "#FFF",
+            flexGrow:1, 
+            height: "100%", 
+            flex: 1},
+
+      frontHead:{ 
+                width: "100%", 
+                height: "30%" },
+
+      mainText:{
+                fontSize: 25,
+                fontFamily: "SemiBold",
+                justifyContent: "center",
+                textAlign: "center",
+                marginTop: 10},
+
+      subText:{
+              fontFamily: "Medium",
+              marginHorizontal: 50,
+              textAlign: "center",
+              marginTop: 5,
+              opacity: 0.4},
+
+      textBox:{
+              color: "#5694ca",
+              textAlign: "right",
+              marginRight: "20%",
+              fontFamily: "SemiBold",},
+    });
+// =====================STYLE_SHEET===========================
 
 class Register extends Component {
   constructor(props) {
@@ -39,47 +77,18 @@ class Register extends Component {
     this.setState({ [fieldname]: fieldvalue });
     console.log("in parent handled radio", this.state);
   };
-  render() {
+render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView>
-        <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
-          <Image
-            source={require("../../images/asset1.jpg")}
-            style={{ width: "100%", height: "30%" }}
-          />
-          <Text
-            style={{
-              fontSize: 25,
-              fontFamily: "SemiBold",
-              justifyContent: "center",
-              textAlign: "center",
-              marginTop: 10,
-            }}
-          >
-            Tenant Landlord Booking
-          </Text>
-          <Text
-            style={{
-              fontFamily: "Medium",
-              marginHorizontal: 50,
-              textAlign: "center",
-              marginTop: 5,
-              opacity: 0.4,
-            }}
-          >
+      <ScrollView  contentContainerStyle={styles.container}>
+        <View style={styles.view}>
+          <Image source={require("../../images/asset1.jpg")}style={styles.frontHead}/>
+          <Text style={styles.mainText}> Tenant Landlord Booking </Text>
+          <Text style={styles.subText}>
             “Real Estate provides the highest returns, the greatest values, and
             the least risk.” –Armstrong Williams, entrepreneur
           </Text>
-          <Text
-            style={{
-              fontFamily: "Medium",
-              marginHorizontal: 50,
-              textAlign: "center",
-              marginTop: 5,
-              opacity: 0.4,
-            }}
-          >
+          <Text  style={styles.subText}>
             Step {this.state.formStep} of 2
           </Text>
           {this.state.formStep == 1 ? (
@@ -101,12 +110,7 @@ class Register extends Component {
           {this.state.formStep == 1 ? (
             <Text
               textBreakStrategy="simple"
-              style={{
-                color: "green",
-                textAlign: "right",
-                marginRight: "20%",
-                fontFamily: "SemiBold",
-              }}
+              style={styles.subText}
               onPress={() => this.handlePress("formStep", 2)}
             >
               Next
@@ -114,12 +118,7 @@ class Register extends Component {
           ) : (
             <Text
               textBreakStrategy="simple"
-              style={{
-                color: "green",
-                textAlign: "right",
-                marginRight: "20%",
-                fontFamily: "SemiBold",
-              }}
+              style={styles.subText}
               onPress={() => this.handlePress("formStep", 1)}
             >
               Previous

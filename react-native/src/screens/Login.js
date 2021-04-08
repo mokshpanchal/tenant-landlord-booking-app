@@ -1,6 +1,27 @@
 import React, { useState, Component } from "react";
-import { Text, View, Image, TextInput, Alert } from "react-native";
-import Icon from "@expo/vector-icons/AntDesign";
+import { Text, View, Image, TextInput, Alert, StyleSheet } from "react-native";
+import Icon from "@expo/vector-icons/Entypo";
+
+// =====================STYLE_SHEET===========================
+const styles = StyleSheet.create({
+  view:{
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 55,
+    borderWidth: 0,
+    marginTop: 15,
+    paddingHorizontal: 10,
+    // borderColor: "#5694ca",
+    borderRadius: 23,
+    paddingVertical: 2,
+    shadowColor: '#000',
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: {width:0 ,height: 3},
+    height: 40,
+  },
+});
+// =====================STYLE_SHEET===========================
 
 class Login extends Component {
   state = {
@@ -21,7 +42,7 @@ class Login extends Component {
     }
   }
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     const { navigate } = this.props.navigation;
     const checkValidEmailId = (value) => {
       let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -46,7 +67,7 @@ class Login extends Component {
       <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
         <Image
           source={require("../images/asset1.jpg")}
-          style={{ width: "100%", height: "40%" }}
+          style={{ width: "100%", height: "40%"}}
         />
         <Text
           style={{
@@ -70,22 +91,10 @@ class Login extends Component {
         >
           Make yourself comfortable by becoming member of our app!
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: 55,
-            borderWidth: 2,
-            marginTop: 15,
-            paddingHorizontal: 10,
-            borderColor: "#00716F",
-            borderRadius: 23,
-            paddingVertical: 2,
-          }}
-        >
-          <Icon name="mail" color="#00716F" size={24} />
+        <View style={styles.view} >
+          <Icon name="mail-with-circle" color="#5694ca" size={24} />
           <TextInput
-            style={{ paddingHorizontal: 10, paddingVertical: 2 }}
+            style={{ paddingHorizontal: 10, paddingVertical: 2, width: "100%", }}
             onChangeText={(element) => checkValidEmailId(element)}
           />
         </View>
@@ -99,23 +108,11 @@ class Login extends Component {
             ? "Enter valid email"
             : null}
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: 55,
-            borderWidth: 2,
-            marginTop: 15,
-            paddingHorizontal: 10,
-            borderColor: "#00716F",
-            borderRadius: 23,
-            paddingVertical: 2,
-          }}
-        >
-          <Icon name="lock" color="#00716F" size={24} />
+        <View style={styles.view} >
+          <Icon name="key" color="#5694ca" size={24} />
           <TextInput
             secureTextEntry
-            style={{ paddingHorizontal: 10 }}
+            style={{ paddingHorizontal: 10, width: "100%", }}
             onChangeText={(value) => checkValidPassword(value)}
           />
         </View>
@@ -135,9 +132,15 @@ class Login extends Component {
             alignItems: "center",
             justifyContent: "center",
             marginTop: 30,
-            backgroundColor: "#00716F",
+            backgroundColor: "#5694ca",
             paddingVertical: 10,
             borderRadius: 23,
+            shadowColor: '#000',
+            shadowRadius: 5,
+            shadowOpacity: 0.7,
+            shadowOffset: {width:0 ,height: 3},
+            // width: 100,
+            // marginLeft: "38vw"
           }}
         >
           <Text
@@ -154,7 +157,7 @@ class Login extends Component {
           onPress={() => navigate("Register")}
           style={{
             alignSelf: "center",
-            color: "#00716F",
+            color: "#5694ca",
             fontFamily: "SemiBold",
             paddingVertical: 30,
           }}
