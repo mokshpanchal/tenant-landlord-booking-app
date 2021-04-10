@@ -11,41 +11,43 @@ import {
 import DropDownPicker from "react-native-dropdown-picker";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
-      view: {
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: 55,
-            borderWidth: 0,
-            marginTop: 15,
-            paddingHorizontal: 10,
-            // borderColor: "#5694ca",
-            borderRadius: 23,
-            paddingVertical: 2,
-            shadowColor: '#000',
-            shadowRadius: 5,
-            shadowOpacity: 0.7,
-            shadowOffset: {width:0 ,height: 3},
-            height: 40},
+  view: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 55,
+    borderWidth: 0,
+    marginTop: 15,
+    paddingHorizontal: 10,
+    // borderColor: "#5694ca",
+    borderRadius: 23,
+    paddingVertical: 2,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    height: 40,
+  },
 
-      viewOne: {  
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginHorizontal: 55,
-                marginTop: 15,
-                paddingHorizontal: 10,
-                borderRadius: 23,
-                paddingVertical: 2,
-                zIndex: 1},
+  viewOne: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginHorizontal: 55,
+    marginTop: 15,
+    paddingHorizontal: 10,
+    borderRadius: 23,
+    paddingVertical: 2,
+    zIndex: 1,
+  },
 
-      radioText:{
-                  fontSize: 15,
-                  fontFamily: "SemiBold",
-                  textAlign: "center",
-                  justifyContent: "center",
-                  marginTop: 10,
-                  marginHorizontal: 55},
-
+  radioText: {
+    fontSize: 15,
+    fontFamily: "SemiBold",
+    textAlign: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginHorizontal: 55,
+  },
 });
 // =====================STYLE_SHEET===========================
 
@@ -53,12 +55,12 @@ class RegisterStep2 extends Component {
   state = {};
   render() {
     console.log(this);
-    // const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
       <>
         {this.props.formdata.currentUserRole == 2 ? (
           <View style={{ zIndex: 1 }}>
-            <View style={styles.view} >
+            <View style={styles.view}>
               <TextInput
                 placeholder="Building Name"
                 placeholderTextColor="#5694ca"
@@ -68,7 +70,7 @@ class RegisterStep2 extends Component {
                 }
               />
             </View>
-            <View style={styles.view} >
+            <View style={styles.view}>
               <TextInput
                 multiline={true}
                 numberOfLines={4}
@@ -83,7 +85,7 @@ class RegisterStep2 extends Component {
                 }
               />
             </View>
-            <View style={styles.viewOne} >
+            <View style={styles.viewOne}>
               <Text>Purpose:</Text>
               <DropDownPicker
                 items={this.props.puposeList}
@@ -97,7 +99,7 @@ class RegisterStep2 extends Component {
                 activeLabelStyle={{ color: "green" }}
               />
             </View>
-            <View style={styles.view} >
+            <View style={styles.view}>
               <TextInput
                 keyboardType="phone-pad"
                 placeholder="Zipcode"
@@ -110,7 +112,7 @@ class RegisterStep2 extends Component {
             </View>
           </View>
         ) : null}
-        <View style={styles.view} >
+        <View style={styles.view}>
           <TextInput
             secureTextEntry
             placeholder="Password"
@@ -124,12 +126,12 @@ class RegisterStep2 extends Component {
             }
           />
         </View>
-        <View style={styles.view} >
+        <View style={styles.view}>
           <TextInput
             secureTextEntry
             placeholder="Confirm Password"
             placeholderTextColor="#5694ca"
-            style={{ paddingHorizontal: 10, width: "100%", }}
+            style={{ paddingHorizontal: 10, width: "100%" }}
             onChangeText={(cpassword) =>
               this.props.changeText("user_cpassword", cpassword)
             }
@@ -144,10 +146,10 @@ class RegisterStep2 extends Component {
             backgroundColor: "#5694ca",
             paddingVertical: 10,
             borderRadius: 23,
-            shadowColor: '#000',
+            shadowColor: "#000",
             shadowRadius: 5,
             shadowOpacity: 0.7,
-            shadowOffset: {width:0 ,height: 3},
+            shadowOffset: { width: 0, height: 3 },
             height: 40,
           }}
         >
@@ -164,7 +166,7 @@ class RegisterStep2 extends Component {
         </View>
         <Text
           textBreakStrategy="simple"
-          // onPress={() => navigate("Login")}
+          onPress={() => navigate("Login")}
           style={{
             alignSelf: "center",
             color: "#5694ca",
@@ -174,7 +176,7 @@ class RegisterStep2 extends Component {
         >
           Already a member?
         </Text>
-        </>
+      </>
     );
   }
 }

@@ -8,47 +8,53 @@ import {
   ScrollView,
   Button,
   SafeAreaView,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import Utility from "../../common/utility";
 // =====================STYLE_SHEET===========================
-  const styles = StyleSheet.create({
-      container: {
-                  backgroundColor:"#fff" ,
-                  flex:1,},
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    flex: 1,
+  },
 
-      view:{
-            backgroundColor: "#FFF",
-            flexGrow:1, 
-            height: "100%", 
-            flex: 1},
+  view: {
+    backgroundColor: "#FFF",
+    flexGrow: 1,
+    height: "100%",
+    flex: 1,
+  },
 
-      frontHead:{ 
-                width: "100%", 
-                height: "30%" },
+  frontHead: {
+    width: "100%",
+    height: "30%",
+  },
 
-      mainText:{
-                fontSize: 25,
-                fontFamily: "SemiBold",
-                justifyContent: "center",
-                textAlign: "center",
-                marginTop: 10},
+  mainText: {
+    fontSize: 25,
+    fontFamily: "SemiBold",
+    justifyContent: "center",
+    textAlign: "center",
+    marginTop: 10,
+  },
 
-      subText:{
-              fontFamily: "Medium",
-              marginHorizontal: 50,
-              textAlign: "center",
-              marginTop: 5,
-              opacity: 0.4},
+  subText: {
+    fontFamily: "Medium",
+    marginHorizontal: 50,
+    textAlign: "center",
+    marginTop: 5,
+    opacity: 0.4,
+  },
 
-      textBox:{
-              color: "#5694ca",
-              textAlign: "right",
-              marginRight: "20%",
-              fontFamily: "SemiBold",},
-    });
+  textBox: {
+    color: "#5694ca",
+    textAlign: "right",
+    marginRight: "20%",
+    fontFamily: "SemiBold",
+  },
+});
 // =====================STYLE_SHEET===========================
 
 class Register extends Component {
@@ -77,20 +83,21 @@ class Register extends Component {
     this.setState({ [fieldname]: fieldvalue });
     console.log("in parent handled radio", this.state);
   };
-render() {
+  render() {
     const { navigate } = this.props.navigation;
     return (
-      <ScrollView  contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.view}>
-          <Image source={require("../../images/asset1.jpg")}style={styles.frontHead}/>
+          <Image
+            source={require("../../images/asset1.jpg")}
+            style={styles.frontHead}
+          />
           <Text style={styles.mainText}> Tenant Landlord Booking </Text>
           <Text style={styles.subText}>
             “Real Estate provides the highest returns, the greatest values, and
             the least risk.” –Armstrong Williams, entrepreneur
           </Text>
-          <Text  style={styles.subText}>
-            Step {this.state.formStep} of 2
-          </Text>
+          <Text style={styles.subText}>Step {this.state.formStep} of 2</Text>
           {this.state.formStep == 1 ? (
             <RegisterStep1
               formdata={this.state}
@@ -99,6 +106,7 @@ render() {
             />
           ) : (
             <RegisterStep2
+              navigation={this.props.navigation}
               formdata={this.state}
               puposeList={this.buildingPurpose}
               changeText={this.handleText}
