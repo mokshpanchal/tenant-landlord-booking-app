@@ -6,27 +6,27 @@ class Utility extends Component {
     this.state = {};
     console.log("this is util constructor");
   }
-  makePostRequest(path, data) {
+
+  async makePostRequest(path, data) {
     // creates entity
     console.log("from utility fetch", path, data);
-    // fetch(apiUrl + path, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //     accept: "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     notes: this.state.notes,
-    //   }),
+    response = await fetch(apiUrl + path, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(response.json());
+    // .then((response) => response.json())
+    // .then((response) => {
+    //   console.log(response);
+    //   return "abc";
     // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    // .catch((err) => {
+    //   console.log("error", err);
+    // });
   }
 }
 

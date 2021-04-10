@@ -1,10 +1,10 @@
 import React, { useState, Component } from "react";
 import { Text, View, Image, TextInput, Alert, StyleSheet } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
-
+import Utility from "../common/utility";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
-  view:{
+  view: {
     flexDirection: "row",
     alignItems: "center",
     marginHorizontal: 55,
@@ -14,60 +14,72 @@ const styles = StyleSheet.create({
     // borderColor: "#5694ca",
     borderRadius: 23,
     paddingVertical: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowRadius: 5,
     shadowOpacity: 0.7,
-    shadowOffset: {width:0 ,height: 3},
+    shadowOffset: { width: 0, height: 3 },
     height: 40,
   },
 });
 // =====================STYLE_SHEET===========================
 
 class Login extends Component {
+  utility;
   state = {
     isValidEmailId: false,
     isValidPassword: false,
     isFormSubmitted: false,
   };
+  constructor() {
+    super();
+    this.utility = new Utility();
+  }
   makeLogin() {
     this.setState({ isFormSubmitted: true });
-    console.log("inside func");
     if (!(this.state.isValidEmailId && this.state.isValidPassword)) {
-      console.log("I am fired");
       Alert.alert("Error Occured!", "Please enter correct email/password", [
         {
           text: "OK",
         },
       ]);
+      return false;
     }
+    const loginData = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    this.utility.makePostRequest("login", loginData);
   }
+  checkValidEmailId = (value) => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    value = value.trim();
+    let isValid = false;
+    this.setState({ isValidEmailId: false });
+
+    if (reg.test(value) === true) {
+      this.setState({ email: value, isValidEmailId: true });
+      isValid = true;
+    }
+    return isValid;
+  };
+  checkValidPassword = (value) => {
+    value = value.trim();
+    let isValid = false;
+    this.setState({ isValidPassword: false });
+
+    if (value.length >= 5) {
+      this.setState({ password: value, isValidPassword: true });
+      isValid = true;
+    }
+    return isValid;
+  };
   render() {
-    // console.log(this.state);
     const { navigate } = this.props.navigation;
-    const checkValidEmailId = (value) => {
-      let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (this.state.isFormSubmitted) {
-        if (reg.test(value.trim()) === true) {
-          this.setState({ isValidEmailId: true });
-        } else {
-          this.setState({ isValidEmailId: false });
-        }
-      }
-    };
-    const checkValidPassword = (value) => {
-      if (this.state.isFormSubmitted) {
-        if (value.trim().length >= 5) {
-          this.setState({ isValidPassword: true });
-        } else {
-          this.setState({ isValidPassword: false });
-        }
-      }
-    };
     return (
       <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
         <Image
           source={require("../images/asset1.jpg")}
-          style={{ width: "100%", height: "40%"}}
+          style={{ width: "100%", height: "40%" }}
         />
         <Text
           style={{
@@ -91,11 +103,11 @@ class Login extends Component {
         >
           Make yourself comfortable by becoming member of our app!
         </Text>
-        <View style={styles.view} >
+        <View style={styles.view}>
           <Icon name="mail-with-circle" color="#5694ca" size={24} />
           <TextInput
-            style={{ paddingHorizontal: 10, paddingVertical: 2, width: "100%", }}
-            onChangeText={(element) => checkValidEmailId(element)}
+            style={{ paddingHorizontal: 10, paddingVertical: 2, width: "100%" }}
+            onChangeText={(element) => this.checkValidEmailId(element)}
           />
         </View>
         <Text
@@ -108,12 +120,12 @@ class Login extends Component {
             ? "Enter valid email"
             : null}
         </Text>
-        <View style={styles.view} >
+        <View style={styles.view}>
           <Icon name="key" color="#5694ca" size={24} />
           <TextInput
             secureTextEntry
-            style={{ paddingHorizontal: 10, width: "100%", }}
-            onChangeText={(value) => checkValidPassword(value)}
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(value) => this.checkValidPassword(value)}
           />
         </View>
         <Text
@@ -135,10 +147,10 @@ class Login extends Component {
             backgroundColor: "#5694ca",
             paddingVertical: 10,
             borderRadius: 23,
-            shadowColor: '#000',
+            shadowColor: "#000",
             shadowRadius: 5,
             shadowOpacity: 0.7,
-            shadowOffset: {width:0 ,height: 3},
+            shadowOffset: { width: 0, height: 3 },
             // width: 100,
             // marginLeft: "38vw"
           }}
