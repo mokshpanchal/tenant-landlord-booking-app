@@ -16,6 +16,7 @@ class Property < ApplicationRecord
   after_create :add_slots
   after_create :verified_seller
   after_create :add_phone_number
+  after_create :add_email 
 
   def add_slots
   	for i in 0..11 do
@@ -31,5 +32,8 @@ class Property < ApplicationRecord
     self.update!(contact: self.user.phone_number) if self.phone_number
   end
 
+  def add_email
+    self.update!(email: self.user.email) if self.email
+  end
 end
 
