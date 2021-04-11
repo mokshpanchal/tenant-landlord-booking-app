@@ -58,8 +58,10 @@ const styles = StyleSheet.create({
 // =====================STYLE_SHEET===========================
 
 class Register extends Component {
+  utility;
   constructor(props) {
     super(props);
+    this.utility = new Utility();
   }
   //https://www.pluralsight.com/guides/how-to-reference-a-function-in-another-component
   buildingPurpose = [
@@ -72,17 +74,49 @@ class Register extends Component {
       { id: 1, name: "Buyer" },
       { id: 2, name: "Seller" },
     ],
-    currentUserRole: null,
+    formOneData: {},
+    formTwoData: {},
+    currentUserRole: 1,
     formStep: 1,
+    isValidStepOne: false,
+    isValidStepTwo: false,
   };
-  handleText = (fieldname, fieldvalue) => {
-    this.setState({ [fieldname]: fieldvalue });
-    console.log("in parent handled text", this.state);
+  handleText = (fieldname, fieldvalue, formType) => {
+    let category = { ...this.state[formType] };
+    category[fieldname] = fieldvalue.trim();
+    this.setState({ [formType]: category });
   };
   handlePress = (fieldname, fieldvalue) => {
-    this.setState({ [fieldname]: fieldvalue });
+    if (fieldname != "formStep") {
+      this.setState({ [fieldname]: fieldvalue });
+      return;
+    }
+    switch (fieldvalue) {
+      case 1:
+        this.stepTwoValidation();
+        if (this.isValidStepTwo) this.setState({ [fieldname]: fieldvalue });
+        break;
+      case 2:
+        this.stepOneValidation();
+        if (this.isValidStepOne) this.setState({ [fieldname]: fieldvalue });
+        break;
+    }
     console.log("in parent handled radio", this.state);
   };
+  stepOneValidation() {
+    let formFields = { ...this.state.formOneData };
+    this.isValidStepOne =
+      formFields["user_name"]?.length > 0 &&
+      formFields["user_phone"]?.length > 0 &&
+      this.utility.validate("email", formFields["user_email"]);
+  }
+  stepTwoValidation() {
+    let formFields = { ...this.state.formTwoData };
+    this.isValidStepOne =
+      formFields["user_name"]?.length > 0 &&
+      formFields["user_phone"]?.length > 0 &&
+      this.utility.validate("email", formFields["user_email"]);
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -119,6 +153,7 @@ class Register extends Component {
             <Text
               textBreakStrategy="simple"
               style={styles.subText}
+              disabled={true}
               onPress={() => this.handlePress("formStep", 2)}
             >
               Next
@@ -132,6 +167,15 @@ class Register extends Component {
               Previous
             </Text>
           )}
+          <Text
+            textBreakStrategy="simple"
+            onPress={() => navigate("Login")}
+            style={{
+              color: "#5694ca",
+            }}
+          >
+            Already a member?
+          </Text>
         </View>
       </ScrollView>
     );

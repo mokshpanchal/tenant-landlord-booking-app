@@ -66,7 +66,11 @@ class RegisterStep2 extends Component {
                 placeholderTextColor="#5694ca"
                 style={{ paddingHorizontal: 10 }}
                 onChangeText={(building_name) =>
-                  this.props.changeText("user_building_name", building_name)
+                  this.props.changeText(
+                    "user_building_name",
+                    building_name,
+                    "formTwoData"
+                  )
                 }
               />
             </View>
@@ -80,7 +84,8 @@ class RegisterStep2 extends Component {
                 onChangeText={(building_address) =>
                   this.props.changeText(
                     "user_building_address",
-                    building_address
+                    building_address,
+                    "formTwoData"
                   )
                 }
               />
@@ -93,7 +98,7 @@ class RegisterStep2 extends Component {
                 containerStyle={{ width: 150, height: 40, marginLeft: 20 }}
                 dropDownStyle={{ backgroundColor: "#fafafa" }}
                 onChangeItem={(purpose) =>
-                  this.props.changeText("purpose", purpose)
+                  this.props.changeText("purpose", purpose, "formTwoData")
                 }
                 placeholder="Select Purpose"
                 activeLabelStyle={{ color: "green" }}
@@ -106,7 +111,7 @@ class RegisterStep2 extends Component {
                 placeholderTextColor="#5694ca"
                 style={{ paddingHorizontal: 10 }}
                 onChangeText={(zipcode) =>
-                  this.props.changeText("user_zipcode", zipcode)
+                  this.props.changeText("user_zipcode", zipcode, "formTwoData")
                 }
               />
             </View>
@@ -122,7 +127,7 @@ class RegisterStep2 extends Component {
               width: "100%",
             }}
             onChangeText={(password) =>
-              this.props.changeText("user_password", password)
+              this.props.changeText("user_password", password, "formTwoData")
             }
           />
         </View>
@@ -133,7 +138,7 @@ class RegisterStep2 extends Component {
             placeholderTextColor="#5694ca"
             style={{ paddingHorizontal: 10, width: "100%" }}
             onChangeText={(cpassword) =>
-              this.props.changeText("user_cpassword", cpassword)
+              this.props.changeText("user_cpassword", cpassword, "formTwoData")
             }
           />
         </View>
@@ -164,18 +169,6 @@ class RegisterStep2 extends Component {
             Register
           </Text>
         </View>
-        <Text
-          textBreakStrategy="simple"
-          onPress={() => navigate("Login")}
-          style={{
-            alignSelf: "center",
-            color: "#5694ca",
-            fontFamily: "SemiBold",
-            paddingVertical: 30,
-          }}
-        >
-          Already a member?
-        </Text>
       </>
     );
   }

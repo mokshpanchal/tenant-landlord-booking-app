@@ -45,31 +45,28 @@ class Login extends Component {
       return false;
     }
     const loginData = {
-      email: this.state.email,
-      password: this.state.password,
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+      },
     };
-    this.utility.makePostRequest("login", loginData);
+    this.utility.makePostRequest("users/login", loginData);
   }
   checkValidEmailId = (value) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     value = value.trim();
-    let isValid = false;
     this.setState({ isValidEmailId: false });
-
-    if (reg.test(value) === true) {
+    let isValid = this.utility.validate("email", value);
+    if (isValid) {
       this.setState({ email: value, isValidEmailId: true });
-      isValid = true;
     }
     return isValid;
   };
   checkValidPassword = (value) => {
     value = value.trim();
-    let isValid = false;
     this.setState({ isValidPassword: false });
-
-    if (value.length >= 5) {
+    let isValid = this.utility.validate("password", value);
+    if (isValid) {
       this.setState({ password: value, isValidPassword: true });
-      isValid = true;
     }
     return isValid;
   };
