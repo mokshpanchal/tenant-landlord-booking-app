@@ -50,7 +50,14 @@ class Login extends Component {
         password: this.state.password,
       },
     };
-    this.utility.makePostRequest("users/login", loginData);
+    const response = this.utility
+      .makePostRequest("users/login", loginData)
+      .then((resp) => {
+        if (resp?.id) {
+          this.utility.setValue("user", resp);
+          this.props.navigation.navigate("Home");
+        }
+      });
   }
   checkValidEmailId = (value) => {
     value = value.trim();

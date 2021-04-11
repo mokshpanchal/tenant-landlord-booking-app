@@ -97,11 +97,7 @@ class Register extends Component {
         if (this.isValidStepTwo) this.setState({ [fieldname]: fieldvalue });
         break;
       case 2:
-        this.stepOneValidation();
-        if (!this.isValidStepOne) return;
-        this.register();
-
-        if (this.isSeller()) this.setState({ [fieldname]: fieldvalue });
+        this.setState({ [fieldname]: fieldvalue });
 
         break;
     }
@@ -129,6 +125,7 @@ class Register extends Component {
     return this.state.currentUserRole === 2;
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.view}>
@@ -178,14 +175,14 @@ class Register extends Component {
                 color: "#FFF",
                 fontFamily: "SemiBold",
               }}
-              onPress={() => this.handlePress("formStep", 2)}
+              onPress={() => this.register()}
             >
               Register
             </Text>
           </View>
           <Text
             textBreakStrategy="simple"
-            onPress={() => this.navigate("Login")}
+            onPress={() => navigate("Login")}
             style={{
               color: "#5694ca",
               textAlign: "center",
@@ -199,9 +196,9 @@ class Register extends Component {
   }
 
   register() {
+    this.stepOneValidation();
+    if (!this.isValidStepOne) return;
     const formData = this.state.formOneData;
-
-    console.log("from reg", this.state);
     const loginData = {
       user: {
         name: formData.user_name,
@@ -214,22 +211,28 @@ class Register extends Component {
     };
     console.log("is buyer", this.isBuyer());
 
-    // const apiResponse = this.utility.makePostRequest("users/signup", loginData);
-    // if (!apiResponse) {
-    //   Alert.alert(
-    //     "Error Occured!",
-    //     "Error occured while registering, please try again later!",
-    //     [
-    //       {
-    //         text: "OK",
-    //       },
-    //     ]
-    //   );
-    //   return false;
-    // }
-    if (this.isBuyer()) {
-      console.log("inside ifff");
-      this.navigate("Home");
+    const apiResponse = this.utility
+      .makePostRequest("users/signup", loginData)
+      .then((resp) => {
+        if (resp?.id) {
+          this.utility.setValue("user", resp);
+          if (this.isSeller()) {
+            return this.handlePress("formStep", 2);
+          }
+          if (this.isBuyer()) this.props.navigation.navigate("Home");
+        }
+      });
+    if (!apiResponse) {
+      Alert.alert(
+        "Error Occured!",
+        "Error occured while registering, please try again later!",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
+      return false;
     }
     // console.log(this.util);
     // new Utility().makePostRequest("register", values);

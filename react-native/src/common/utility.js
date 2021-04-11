@@ -1,13 +1,27 @@
 import React, { Component } from "react";
-const apiUrl = "http://c119de529109.ngrok.io/";
+import { ToastAndroid } from "react-native";
+const apiUrl = "http://b178db5d834b.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passLength = 5;
-
+const invalidResponseRegex = /^[4-5][0-9][0-9]$/;
 class Utility extends Component {
   constructor(props) {
     super(props);
     this.state = {};
     console.log("this is util constructor");
+  }
+  setValue(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+  getValue(key) {
+    value = localStorage.getItem(key);
+    return JSON.parse(value);
+  }
+  removeValue(key) {
+    localStorage.removeItem(key);
+  }
+  clearAllValues() {
+    localStorage.clear();
   }
   validate(fieldType, fieldValue) {
     let isValid = false;
@@ -25,17 +39,23 @@ class Utility extends Component {
   }
   async makePostRequest(path, data) {
     // creates entity
-    console.log("from utility fetch", path, data);
-    const response = await fetch(apiUrl + path, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const jsonResponse = await response.json();
-    return jsonResponse;
+    try {
+      const apiResponse = await fetch(apiUrl + path, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      let response = await apiResponse.json();
+
+      if (invalidResponseRegex.test(apiResponse.status))
+        console.log("Error: ", response.error);
+
+      console.log("make post", response);
+      return response;
+    } catch (error) {}
   }
   async makeGetRequest(path) {
     // get entity
