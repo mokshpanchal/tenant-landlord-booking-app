@@ -1,5 +1,5 @@
 class ReservedSlotsController < ApplicationController
-
+	include ResourceRenderer
 	def index
 		reserved_slot = ReservedSlot.where(property_id: params[:id]).first
 		if reserved_slot.pesent?

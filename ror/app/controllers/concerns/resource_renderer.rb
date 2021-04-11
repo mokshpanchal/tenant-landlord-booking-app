@@ -31,7 +31,7 @@ module ResourceRenderer
 		}, 200)
 	end
 
-	def json_reponse(options = {}, status = 500)
+	def json_response(options = {}, status = 500)
 		render json: JsonResponse.new(options)
 	end
 

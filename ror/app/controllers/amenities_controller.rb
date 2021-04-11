@@ -1,5 +1,5 @@
 class AmenitiesController < ApplicationController
-
+	include ResourceRenderer
 	def index
 		amenity = Amenity.where(property_id: params[:id]).first
 		if amenity.pesent?

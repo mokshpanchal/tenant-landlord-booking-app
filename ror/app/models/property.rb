@@ -29,11 +29,11 @@ class Property < ApplicationRecord
   end
 
   def add_phone_number
-    self.update!(contact: self.user.phone_number) if self.phone_number
+    self.update!(contact: self.user.phone_number) if self.user.phone_number
   end
 
   def add_email
-    self.update!(email: self.user.email) if self.email
+    self.update!(email: self.user.email) if self.user.email
   end
 end
 

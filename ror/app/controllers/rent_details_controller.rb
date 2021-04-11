@@ -1,5 +1,5 @@
 class RentDetailsController < ApplicationController
-
+	include ResourceRenderer
 	def index
 		rent_detail = RentDetail.where(property_id: params[:id]).first
 		if rent_detail.pesent?

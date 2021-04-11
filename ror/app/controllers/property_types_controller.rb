@@ -1,5 +1,5 @@
 class PropertyTypesController < ApplicationController
-
+  include ResourceRenderer
 	def index
 		property_types = PropertyType.all
 		if property_types.pesent?
