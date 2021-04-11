@@ -10,17 +10,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "splash":{
-      "image": "../assets/favicon.png",
-      // "video": "../assets/splash-blue.mp4",
-      "resizeMode": "cover"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
