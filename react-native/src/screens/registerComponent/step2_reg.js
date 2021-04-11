@@ -117,58 +117,6 @@ class RegisterStep2 extends Component {
             </View>
           </View>
         ) : null}
-        <View style={styles.view}>
-          <TextInput
-            secureTextEntry
-            placeholder="Password"
-            placeholderTextColor="#5694ca"
-            style={{
-              paddingHorizontal: 10,
-              width: "100%",
-            }}
-            onChangeText={(password) =>
-              this.props.changeText("user_password", password, "formTwoData")
-            }
-          />
-        </View>
-        <View style={styles.view}>
-          <TextInput
-            secureTextEntry
-            placeholder="Confirm Password"
-            placeholderTextColor="#5694ca"
-            style={{ paddingHorizontal: 10, width: "100%" }}
-            onChangeText={(cpassword) =>
-              this.props.changeText("user_cpassword", cpassword, "formTwoData")
-            }
-          />
-        </View>
-        <View
-          style={{
-            marginHorizontal: 55,
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 30,
-            backgroundColor: "#5694ca",
-            paddingVertical: 10,
-            borderRadius: 23,
-            shadowColor: "#000",
-            shadowRadius: 5,
-            shadowOpacity: 0.7,
-            shadowOffset: { width: 0, height: 3 },
-            height: 40,
-          }}
-        >
-          <Text
-            textBreakStrategy="simple"
-            style={{
-              color: "#FFF",
-              fontFamily: "SemiBold",
-            }}
-            onPress={() => this.props.registerEvent(this.props.formdata)}
-          >
-            Register
-          </Text>
-        </View>
       </>
     );
   }

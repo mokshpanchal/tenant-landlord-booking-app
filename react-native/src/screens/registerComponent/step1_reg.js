@@ -144,6 +144,29 @@ class RegisterStep1 extends Component {
             );
           })}
         </View>
+
+        <View style={styles.view}>
+          <TextInput
+            secureTextEntry
+            placeholder="Password"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(password) =>
+              this.props.changeText("user_password", password, "formOneData")
+            }
+          />
+        </View>
+        <View style={styles.view}>
+          <TextInput
+            secureTextEntry
+            placeholder="Confirm Password"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(cpassword) =>
+              this.props.changeText("user_cpassword", cpassword, "formOneData")
+            }
+          />
+        </View>
       </Fragment>
     );
   }

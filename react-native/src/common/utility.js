@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-const apiUrl = "http://73bfceaa722c.ngrok.io/";
+const apiUrl = "http://c119de529109.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passLength = 5;
 
@@ -37,7 +37,7 @@ class Utility extends Component {
     const jsonResponse = await response.json();
     return jsonResponse;
   }
-  async makeGetRequest(path, data) {
+  async makeGetRequest(path) {
     // get entity
     const response = await fetch(apiUrl + path, {
       method: "GET",

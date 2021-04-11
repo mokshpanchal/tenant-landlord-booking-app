@@ -71,8 +71,8 @@ class Register extends Component {
   ];
   state = {
     userTypes: [
-      { id: 1, name: "Buyer" },
-      { id: 2, name: "Seller" },
+      { id: 1, name: "Buyer", value: "buyer" },
+      { id: 2, name: "Seller", value: "seller" },
     ],
     formOneData: {},
     formTwoData: {},
@@ -98,17 +98,22 @@ class Register extends Component {
         break;
       case 2:
         this.stepOneValidation();
-        if (this.isValidStepOne) this.setState({ [fieldname]: fieldvalue });
+        if (!this.isValidStepOne) return;
+        this.register();
+
+        if (this.isSeller()) this.setState({ [fieldname]: fieldvalue });
+
         break;
     }
-    console.log("in parent handled radio", this.state);
   };
   stepOneValidation() {
     let formFields = { ...this.state.formOneData };
     this.isValidStepOne =
       formFields["user_name"]?.length > 0 &&
       formFields["user_phone"]?.length > 0 &&
-      this.utility.validate("email", formFields["user_email"]);
+      this.utility.validate("email", formFields["user_email"]) &&
+      this.utility.validate("password", formFields["user_password"]) &&
+      this.utility.validate("password", formFields["user_cpassword"]);
   }
   stepTwoValidation() {
     let formFields = { ...this.state.formTwoData };
@@ -117,8 +122,13 @@ class Register extends Component {
       formFields["user_phone"]?.length > 0 &&
       this.utility.validate("email", formFields["user_email"]);
   }
+  isBuyer() {
+    return this.state.currentUserRole === 1;
+  }
+  isSeller() {
+    return this.state.currentUserRole === 2;
+  }
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.view}>
@@ -131,7 +141,6 @@ class Register extends Component {
             “Real Estate provides the highest returns, the greatest values, and
             the least risk.” –Armstrong Williams, entrepreneur
           </Text>
-          <Text style={styles.subText}>Step {this.state.formStep} of 2</Text>
           {this.state.formStep == 1 ? (
             <RegisterStep1
               formdata={this.state}
@@ -145,33 +154,41 @@ class Register extends Component {
               puposeList={this.buildingPurpose}
               changeText={this.handleText}
               pressEvent={this.handlePress}
-              registerEvent={this.register}
             />
           )}
-
-          {this.state.formStep == 1 ? (
+          <View
+            style={{
+              marginHorizontal: 55,
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 30,
+              backgroundColor: "#5694ca",
+              paddingVertical: 10,
+              borderRadius: 23,
+              shadowColor: "#000",
+              shadowRadius: 5,
+              shadowOpacity: 0.7,
+              shadowOffset: { width: 0, height: 3 },
+              height: 40,
+            }}
+          >
             <Text
               textBreakStrategy="simple"
-              style={styles.subText}
-              disabled={true}
+              style={{
+                color: "#FFF",
+                fontFamily: "SemiBold",
+              }}
               onPress={() => this.handlePress("formStep", 2)}
             >
-              Next
+              Register
             </Text>
-          ) : (
-            <Text
-              textBreakStrategy="simple"
-              style={styles.subText}
-              onPress={() => this.handlePress("formStep", 1)}
-            >
-              Previous
-            </Text>
-          )}
+          </View>
           <Text
             textBreakStrategy="simple"
-            onPress={() => navigate("Login")}
+            onPress={() => this.navigate("Login")}
             style={{
               color: "#5694ca",
+              textAlign: "center",
             }}
           >
             Already a member?
@@ -181,12 +198,41 @@ class Register extends Component {
     );
   }
 
-  register(values) {
-    console.log("from register");
-    console.log(this.state, values);
-    console.log(this.util);
-    new Utility().makePostRequest("register", values);
+  register() {
+    const formData = this.state.formOneData;
+
+    console.log("from reg", this.state);
+    const loginData = {
+      user: {
+        name: formData.user_name,
+        email: formData.user_email,
+        password: formData.user_password,
+        password_confirmation: formData.user_cpassword,
+        phone_number: "+91" + formData.user_phone,
+        role: this.isBuyer() ? "buyer" : "seller",
+      },
+    };
+    console.log("is buyer", this.isBuyer());
+
+    // const apiResponse = this.utility.makePostRequest("users/signup", loginData);
+    // if (!apiResponse) {
+    //   Alert.alert(
+    //     "Error Occured!",
+    //     "Error occured while registering, please try again later!",
+    //     [
+    //       {
+    //         text: "OK",
+    //       },
+    //     ]
+    //   );
+    //   return false;
+    // }
+    if (this.isBuyer()) {
+      console.log("inside ifff");
+      this.navigate("Home");
+    }
+    // console.log(this.util);
+    // new Utility().makePostRequest("register", values);
   }
 }
-
 export default Register;
