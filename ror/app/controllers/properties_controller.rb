@@ -39,7 +39,6 @@ class PropertiesController < ApplicationController
         if property_attachment.present?
         	property_attachment.update(site: pr, property_id: property_update_params[:property_attachments][:property_id])
         end
-        (:site => p, :property => property.id)
   		render_success_response(single_serializer(property, PropertySerializer, current_user: current_user),"Property updated successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
