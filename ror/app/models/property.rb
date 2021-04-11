@@ -12,9 +12,10 @@ class Property < ApplicationRecord
   enum for_rent: [:true, :false]
   enum for_sell: [:true, :false],  _prefix: :sell
 
-  validates_presence_of :property_type_id, :name, :contact
+  validates_presence_of :property_type_id, :name
   after_create :add_slots
   after_create :verified_seller
+  after_create :add_phone_number
 
   def add_slots
   	for i in 0..11 do
@@ -24,6 +25,10 @@ class Property < ApplicationRecord
 
   def verified_seller
     Verification.create!(user_id: self.user_id, is_verified: 0, name: self.user.name) if self.user.role == "seller"
+  end
+
+  def add_phone_number
+    self.update!(contact: self.user.phone_number) if self.phone_number
   end
 
 end
