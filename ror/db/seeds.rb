@@ -45,4 +45,4 @@ PropertyType.create!(category: "office")
  Amenity.create!(property_id: 3, bedroom_count: 0, bathroom_count: 1, house_area: "2000ft", floor_no: "0", lift: 1, pet_friendly: 1, garage: 1, apartment: 1, free_when: DateTime.now)
  Amenity.create!(property_id: 3, bedroom_count: 0, bathroom_count: 1, house_area: "2000ft", floor_no: "0", lift: 1, pet_friendly: 1, garage: 1, apartment: 1, free_when: DateTime.now)
 
- RentDetail.create!(property_id: 2, state_of_property: :untouched, contract_intial_length: 6, break_clause: 10000, security_deposite: 5000, rent_per_month: 50000, percent_increase: 0.1)
+ RentDetail.create!(property_id: 2, state_of_property: :untouched, contract_intial_length: 6, break_clause: 10000, security_deposite: 5000, rent_per_month: 50000, percent_increase: 0.1, members: 4)

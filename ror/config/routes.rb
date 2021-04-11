@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users, defaults: { format: :json}, path: '',
+  devise_for :users, path: 'users',
   	path_names: {
   		sign_in: 'login',
   		sign_out: 'log_out',
   		registration: 'signup'
   	},
   	controllers: {
-  		sessions: 'sessions',
-  		registrations: 'registrations',
-  		passwords: 'passwords',
-  		confirmations: 'confirmations'
+  		sessions: 'users/sessions',
+  		registrations: 'users/registrations',
+  		passwords: 'users/passwords',
+  		confirmations: 'users/confirmations'
   	}
 
   	resources :properties

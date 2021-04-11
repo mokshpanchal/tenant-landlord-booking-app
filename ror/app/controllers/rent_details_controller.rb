@@ -48,10 +48,10 @@ class RentDetailsController < ApplicationController
   private
 
   def rent_detail_params
-  	params.require(:rent_detail).permit(:state_of_property, :contract_intial_length, :break_clause, :security_deposite, :period_split, :rent_per_month, :percent_increase, :property_id)
+  	params.require(:rent_detail).permit(:state_of_property, :contract_intial_length, :break_clause, :security_deposite, :period_split, :rent_per_month, :percent_increase, :property_id, :members)
   end
 
   def rent_detail_update_params
-  	params.require(:rent_detail).permit(:state_of_property, :contract_intial_length, :break_clause, :security_deposite, :period_split, :rent_per_month, :percent_increase)
+  	params.require(:rent_detail).permit(:state_of_property, :contract_intial_length, :break_clause, :security_deposite, :period_split, :rent_per_month, :percent_increase, :members)
   end
 end
