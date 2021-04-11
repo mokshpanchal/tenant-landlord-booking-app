@@ -14,11 +14,17 @@ class Property < ApplicationRecord
 
   validates_presence_of :property_type_id, :name, :contact
   after_create :add_slots
+  after_create :verified_seller
 
   def add_slots
   	for i in 0..11 do
   		Slot.create!(property_id: self.id, time: i)
   	end
   end
+
+  def verified_seller
+    Verification.create!(user_id: self.user_id, is_verified: 0, name: self.user.name) if self.user.role == "seller"
+  end
+
 end
 
