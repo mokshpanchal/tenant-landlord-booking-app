@@ -34,16 +34,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  
+
   main: {
     backgroundColor: "#fff",
-    width: "100%",
+    width: "70%",
     display: "flex",
     maxHeight: "20%",
     flex: 1,
     flexDirection: "row",
     marginTop: "5%",
   },
+
+  footer: {
+    minHeight: "10%",
+
+  }
 
 });
 // =====================STYLE_SHEET===========================
@@ -152,6 +157,9 @@ class home extends React.Component {
             />
             <Text>Surat</Text>
           </View>
+        </View>
+        <View style={styles.footer}>
+
         </View>
       </View>
     );
