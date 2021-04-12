@@ -28,22 +28,23 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
   },
   property: {
-    height: "20%",
-    width: "50%",
+    height: "70%",
+    width: "70%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
   },
+  
   main: {
     backgroundColor: "#fff",
     width: "100%",
-    width: "100%",
     display: "flex",
-    height: "100%",
+    maxHeight: "20%",
     flex: 1,
     flexDirection: "row",
     marginTop: "5%",
   },
+
 });
 // =====================STYLE_SHEET===========================
 
@@ -107,7 +108,7 @@ class home extends React.Component {
           style={{ width: "100%", height: "40%" }}
         />
         <View style={styles.view}>
-          <Icon name="search1" color="#5694ca" size={24} />
+          <Icon name="magnifying-glass" color="#5694ca" size={24} />
           <TextInput
             placeholder="WHERE ARE YOU GOING?"
             placeholderTextColor="#5694ca"

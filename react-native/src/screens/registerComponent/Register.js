@@ -167,6 +167,11 @@ class Register extends Component {
               shadowOpacity: 0.7,
               shadowOffset: { width: 0, height: 3 },
               height: 40,
+              shadowRadius: 1,
+              overflow:"hidden",
+              elevation:4,
+              color:"#000",
+              backgroundColor:"#fff"
             }}
           >
             <Text

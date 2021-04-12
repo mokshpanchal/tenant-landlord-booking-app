@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ToastAndroid } from "react-native";
-const apiUrl = "http://b178db5d834b.ngrok.io/";
+const apiUrl = "http://247eafb63aba.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passLength = 5;
 const invalidResponseRegex = /^[4-5][0-9][0-9]$/;

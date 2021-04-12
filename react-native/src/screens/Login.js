@@ -15,10 +15,14 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     paddingVertical: 2,
     shadowColor: "#000",
-    shadowRadius: 5,
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     height: 40,
+    shadowRadius: 1,
+    overflow:"hidden",
+    elevation:4,
+    color:"#000",
+    backgroundColor:"#fff"
   },
 });
 // =====================STYLE_SHEET===========================
