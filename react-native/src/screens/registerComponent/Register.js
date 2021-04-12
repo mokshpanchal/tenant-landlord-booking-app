@@ -13,11 +13,14 @@ import {
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import Utility from "../../common/utility";
+import { auto } from "async";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flexGrow: 1,
+    flex: 1,
+    overflow: "auto",
   },
 
   view: {
@@ -167,6 +170,11 @@ class Register extends Component {
               shadowOpacity: 0.7,
               shadowOffset: { width: 0, height: 3 },
               height: 40,
+              shadowRadius: 1,
+              overflow: "hidden",
+              elevation: 4,
+              color: "#000",
+              backgroundColor: "#fff",
             }}
           >
             <Text
