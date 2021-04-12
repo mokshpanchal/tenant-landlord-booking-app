@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flexGrow: 1,
     flex: 1,
-    overflow: "auto",
   },
 
   view: {
@@ -174,7 +173,7 @@ class Register extends Component {
               overflow: "hidden",
               elevation: 4,
               color: "#000",
-              backgroundColor: "#fff",
+              backgroundColor: "#5694ca",
             }}
           >
             <Text

@@ -21,7 +21,7 @@ class Utility extends Component {
   async getValue(key) {
     try {
       const value = await AsyncStorage.getItem(key);
-      return value;
+      return JSON.parse(value);
     } catch (e) {
       console.error("Storage get error ", e);
     }

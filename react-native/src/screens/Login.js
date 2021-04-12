@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     height: 40,
     shadowRadius: 1,
-    overflow:"hidden",
-    elevation:4,
-    color:"#000",
-    backgroundColor:"#fff"
+    overflow: "hidden",
+    elevation: 4,
+    color: "#000",
+    backgroundColor: "#fff",
   },
 });
 // =====================STYLE_SHEET===========================
@@ -59,7 +59,6 @@ class Login extends Component {
       .then((resp) => {
         if (resp?.id) {
           this.utility.setValue("user", resp).then((data) => {
-            console.log("after login api call", this.utility.getValue("user"));
             this.props.navigation.navigate("Home");
           });
         }

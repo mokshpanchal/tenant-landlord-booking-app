@@ -47,18 +47,14 @@ const styles = StyleSheet.create({
 
   footer: {
     minHeight: "10%",
-
-  }
-
+  },
 });
 // =====================STYLE_SHEET===========================
 
 class home extends React.Component {
   utility;
   state = {
-    isValidEmailId: false,
-    isValidPassword: false,
-    isFormSubmitted: false,
+    user: {},
     search: "",
   };
 
@@ -66,48 +62,20 @@ class home extends React.Component {
     super();
     this.utility = new Utility();
   }
-  makeLogin() {
-    this.setState({ isFormSubmitted: true });
-    if (!(this.state.isValidEmailId && this.state.isValidPassword)) {
-      Alert.alert("Error Occured!", "Please enter correct email/password", [
-        {
-          text: "OK",
-        },
-      ]);
-      return false;
-    }
-    const loginData = {
-      user: {
-        email: this.state.email,
-        password: this.state.password,
-      },
-    };
-    this.utility.makePostRequest("users/login", loginData);
+  componentDidMount() {
+    this.utility.getValue("user").then((user) => {
+      this.setState({ user: user });
+      console.log("user in home", user);
+    });
   }
-  checkValidEmailId = (value) => {
-    value = value.trim();
-    this.setState({ isValidEmailId: false });
-    let isValid = this.utility.validate("email", value);
-    if (isValid) {
-      this.setState({ email: value, isValidEmailId: true });
-    }
-    return isValid;
-  };
-  checkValidPassword = (value) => {
-    value = value.trim();
-    this.setState({ isValidPassword: false });
-    let isValid = this.utility.validate("password", value);
-    if (isValid) {
-      this.setState({ password: value, isValidPassword: true });
-    }
-    return isValid;
-  };
   render() {
     const { search } = this.state;
 
     const { navigate } = this.props.navigation;
     return (
       <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
+        <Text>here {this.state.user.id}</Text>
+
         <Image
           source={require("../../../assets/home_back.jpg")}
           style={{ width: "100%", height: "40%" }}
@@ -158,9 +126,7 @@ class home extends React.Component {
             <Text>Surat</Text>
           </View>
         </View>
-        <View style={styles.footer}>
-
-        </View>
+        <View style={styles.footer}></View>
       </View>
     );
   }
