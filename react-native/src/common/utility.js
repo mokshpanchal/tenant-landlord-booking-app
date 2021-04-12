@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import { Alert } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-const apiUrl = "http://6050b4ced0e8.ngrok.io/";
+const apiUrl = "http://839ee59ae7fa.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const amountRegex = /^\d+(\.\d{1,2})?$/;
 const passLength = 5;
 const invalidResponseRegex = /^[4-5][0-9][0-9]$/;
+const stateList = ["Ahmedabad", "Surat", "Baroda"];
 class Utility extends Component {
   constructor(props) {
     super(props);
@@ -18,10 +21,10 @@ class Utility extends Component {
       console.error("Storage set error ", e);
     }
   }
-  async getValue(key) {
+  getValue(key) {
     try {
-      const value = await AsyncStorage.getItem(key);
-      return JSON.parse(value);
+      const value = AsyncStorage.getItem(key);
+      return value;
     } catch (e) {
       console.error("Storage get error ", e);
     }
@@ -51,6 +54,9 @@ class Utility extends Component {
         isValid = fieldValue.length >= passLength;
         break;
       }
+      case "amount": {
+        isValid = amountRegex.test(fieldValue);
+      }
     }
     return isValid;
   }
@@ -68,12 +74,29 @@ class Utility extends Component {
       });
       let response = await apiResponse.json();
 
-      if (invalidResponseRegex.test(apiResponse.status))
-        console.log("Error: ", response.error);
-
+      if (invalidResponseRegex.test(apiResponse.status)) {
+        let errors = Object.values(response.errors).join();
+        console.log(errors);
+        Alert.alert("Error Occured!", errors, [
+          {
+            text: "OK",
+          },
+        ]);
+        return false;
+      }
       console.log("make post", response);
       return response;
-    } catch (error) {}
+    } catch (error) {
+      Alert.alert(
+        "Error Occured!",
+        "Error occured while registering, please try again later!",
+        [
+          {
+            text: "OK",
+          },
+        ]
+      );
+    }
   }
   async makeGetRequest(path) {
     // get entity

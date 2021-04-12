@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     height: 40,
     shadowRadius: 1,
-    overflow:"hidden",
-    elevation:4,
-    color:"#000",
-    backgroundColor:"#fff"
+    overflow: "hidden",
+    elevation: 4,
+    color: "#000",
+    backgroundColor: "#fff",
   },
 
   radioText: {
@@ -54,9 +54,8 @@ const styles = StyleSheet.create({
 class RegisterStep1 extends Component {
   state = {};
   render() {
-    console.log("props ion step 1", this.props);
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView>
         <Fragment>
           {this.props.children}
           <View style={styles.view}>

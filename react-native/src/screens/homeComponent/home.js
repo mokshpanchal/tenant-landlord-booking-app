@@ -64,8 +64,8 @@ class home extends React.Component {
   }
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
-      this.setState({ user: user });
-      console.log("user in home", user);
+      this.setState({ user: JSON.parse(user) });
+      console.log("user in home", JSON.parse(user));
     });
   }
   render() {
@@ -75,58 +75,6 @@ class home extends React.Component {
     return (
       <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
         <Text>here {this.state.user.id}</Text>
-
-        <Image
-          source={require("../../../assets/home_back.jpg")}
-          style={{ width: "100%", height: "40%" }}
-        />
-        <View style={styles.view}>
-          <Icon name="magnifying-glass" color="#5694ca" size={24} />
-          <TextInput
-            placeholder="WHERE ARE YOU GOING?"
-            placeholderTextColor="#5694ca"
-            style={{
-              paddingHorizontal: 10,
-              width: "90%",
-              height: "40px",
-              marginLeft: "5%",
-            }}
-          />
-        </View>
-        <View style={styles.main}>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/1.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Ahmedabad</Text>
-          </View>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/2.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Surat</Text>
-          </View>
-        </View>
-
-        <View style={styles.main}>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/1.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Ahmedabad</Text>
-          </View>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/2.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Surat</Text>
-          </View>
-        </View>
-        <View style={styles.footer}></View>
       </View>
     );
   }
