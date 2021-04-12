@@ -54,8 +54,10 @@ class Login extends Component {
       .makePostRequest("users/login", loginData)
       .then((resp) => {
         if (resp?.id) {
-          this.utility.setValue("user", resp);
-          this.props.navigation.navigate("Home");
+          this.utility.setValue("user", resp).then((data) => {
+            console.log("after login api call", this.utility.getValue("user"));
+            this.props.navigation.navigate("Home");
+          });
         }
       });
   }

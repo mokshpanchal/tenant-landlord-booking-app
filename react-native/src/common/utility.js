@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { ToastAndroid } from "react-native";
-const apiUrl = "http://b178db5d834b.ngrok.io/";
+import AsyncStorage from "@react-native-community/async-storage";
+const apiUrl = "http://6050b4ced0e8.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const passLength = 5;
 const invalidResponseRegex = /^[4-5][0-9][0-9]$/;
@@ -10,18 +10,35 @@ class Utility extends Component {
     this.state = {};
     console.log("this is util constructor");
   }
-  setValue(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+  async setValue(key, value) {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem(key, jsonValue);
+    } catch (e) {
+      console.error("Storage set error ", e);
+    }
   }
-  getValue(key) {
-    value = localStorage.getItem(key);
-    return JSON.parse(value);
+  async getValue(key) {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      return value;
+    } catch (e) {
+      console.error("Storage get error ", e);
+    }
   }
-  removeValue(key) {
-    localStorage.removeItem(key);
+  async removeValue(key) {
+    try {
+      const value = await AsyncStorage.removeItem(key);
+    } catch (e) {
+      console.error("Storage remove item error ", e);
+    }
   }
-  clearAllValues() {
-    localStorage.clear();
+  async clearAllValues() {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      console.error("Storage clear error ", e);
+    }
   }
   validate(fieldType, fieldValue) {
     let isValid = false;
@@ -40,6 +57,7 @@ class Utility extends Component {
   async makePostRequest(path, data) {
     // creates entity
     try {
+      console.log("inside make post funcc", path, data);
       const apiResponse = await fetch(apiUrl + path, {
         method: "POST",
         headers: {

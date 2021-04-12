@@ -17,7 +17,7 @@ import Utility from "../../common/utility";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    flex: 1,
+    flexGrow: 1,
   },
 
   view: {
