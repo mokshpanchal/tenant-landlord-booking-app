@@ -13,11 +13,13 @@ import {
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import Utility from "../../common/utility";
+import { auto } from "async";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flex: 1,
+    overflow: "auto",
   },
 
   view: {
