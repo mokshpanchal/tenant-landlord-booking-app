@@ -59,7 +59,7 @@ class Login extends Component {
       .then((resp) => {
         if (resp?.id) {
           this.utility.setValue("user", resp).then((data) => {
-            this.props.navigation.navigate("Home");
+            this.props.navigation.navigate("Dashboard");
           });
         }
       });
