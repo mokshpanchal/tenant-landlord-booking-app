@@ -8,7 +8,6 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import DropDownPicker from "react-native-dropdown-picker";
 
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
