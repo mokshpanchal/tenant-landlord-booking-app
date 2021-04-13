@@ -1,9 +1,10 @@
 class PropertiesController < ApplicationController
   include ResourceRenderer
 	def index
-		property = Property.where(id: params[:id]).first
-		if property.pesent?
-			render_success_response(single_serializer(property, PropertySerializer, current_user: current_user), 200)
+		# property = Property.where(id: params[:id]).first
+    properties = Property.all
+		if properties.present?
+			render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
@@ -53,6 +54,16 @@ class PropertiesController < ApplicationController
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
+  end
+
+  def search
+    if params[:search].present?
+      query = params[:search].downcase
+      properties = Property.where('lower(name) LIKE ? OR lower(address_1) LIKE ? OR lower(address_2) LIKE ? OR lower(location) LIKE ?',"%#{query}%","%#{query}%","%#{query}%","%#{query}%")
+      render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
+    else
+      index()
+    end
   end
 
   private
