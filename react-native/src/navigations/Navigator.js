@@ -6,7 +6,7 @@ import home from "../screens/homeComponent/home";
 import profile from "../screens/profileComponent/profile";
 import detail from "../screens/detailPageComponent/detail";
 import list from "../screens/propertyListingComponent/list";
-
+import Dashboard from "../screens/dashboardComponent/dashboard";
 const stackNavigatorOptions = {
   headerShown: false,
 };
@@ -16,8 +16,9 @@ const AppNavigator = createStackNavigator(
     Register: { screen: Register },
     Home: { screen: home },
     Profile: { screen: profile },
-    Detail: {screen: detail},
+    Detail: { screen: detail },
     PropertyListing: { screen: list },
+    Dashboard: { screen: Dashboard },
   },
 
   {
