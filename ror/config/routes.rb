@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   	resources :slots
   	resources :rent_details
   	resources :verications
+
+    get '/search' => 'properties#search', as: :search
 end
