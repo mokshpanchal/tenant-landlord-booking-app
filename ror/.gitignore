@@ -67,3 +67,18 @@ yarn-debug.log*
 /storage/*
 !/storage/.keep
 /public/uploads
+
+//frontend ignores
+react-native/node_modules/**/*
+react-native/.expo/*
+react-native/npm-debug.*
+react-native/*.jks
+react-native/*.p8
+react-native/*.p12
+react-native/*.key
+react-native/*.mobileprovision
+react-native/*.orig.*
+react-native/web-build/
+# macOS
+react-native/.DS_Store
+react-native/package-lock.json
