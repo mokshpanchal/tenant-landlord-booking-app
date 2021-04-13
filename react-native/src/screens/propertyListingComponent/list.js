@@ -2,7 +2,6 @@ import React, { useState, Component } from "react";
 import { Text, View, Image, TextInput, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
-import { detailed } from "yargs-parser";
 
 const styles = StyleSheet.create({
     view: {
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   });
   // =====================STYLE_SHEET===========================
 
-class detail extends React.Component {
+class list extends React.Component {
     utility;
     state = {
       user: {},
@@ -81,15 +80,15 @@ class detail extends React.Component {
               style={{ width: "50px", height: "50px" }}
             />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity = { .5 } onPress={() => navigate("")}>
+            <TouchableOpacity activeOpacity = { .5 } onPress={() => navigate("PropertyListing")}>
             <Image
-              source={require("../../../assets/book.png")}
+              source={require("../../../assets/book_active.png")}
               style={{ width: "50px", height: "50px" }}
             />
             </TouchableOpacity>
             <TouchableOpacity activeOpacity = { .5 } onPress={() => navigate("Profile")}>
               <Image
-                source={require("../../../assets/user_active.png")}
+                source={require("../../../assets/user.png")}
                 style={{ width: "50px", height: "50px" }}
               />
             </TouchableOpacity>
@@ -97,4 +96,4 @@ class detail extends React.Component {
         </View>);
     }
 }
-export default detail;
+export default list;

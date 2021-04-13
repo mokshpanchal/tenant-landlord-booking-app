@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
-import RegisterStep3 from "./step3_reg";
+// import RegisterStep3 from "./step3_reg";
 import Utility from "../../common/utility";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({

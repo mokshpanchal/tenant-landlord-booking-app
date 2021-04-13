@@ -12,11 +12,11 @@ class PropertiesController < ApplicationController
   def create
   	# return render_unprocessable_entity("Please verify your account to upload property details", 422) if current_user.present? && !current_user.verification.present? || current_user.verification.is_verified == "approved"
 		property = Property.new(property_params)
-		if property.save
+		if property.save!
 			property_params[:property_attachments]['site'].each do |pr|
         property_attachment = property.property_attachments.create!(site: pr, property_id: property.id)
       end if property_params[:property_attachments].present?
-			render_success_response("Property added successfully", 200)
+			render_success_response(property, "Property added successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
