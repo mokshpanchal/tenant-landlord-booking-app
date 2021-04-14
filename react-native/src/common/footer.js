@@ -1,0 +1,79 @@
+import React, { Component } from "react";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
+const styles = StyleSheet.create({
+  footer: {
+    minHeight: "40",
+    width: "100%",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    shadowColor: "#000",
+    shadowRadius: 2,
+    overflow: "hidden",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: -3 },
+    elevation: 4,
+    color: "#000",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    bottom: 0,
+    backgroundColor: "#FFF"
+  },
+});
+class Footer extends Component {
+  state = {};
+  render() {
+    const { navigate } = this.props.navigation;
+    let screen = this.props.initialRouteName;
+    let search_img = require("../../assets/search.png");
+    let profile_img = require("../../assets/user.png");
+    let book_img = require("../../assets/book.png");
+    switch(screen)
+    {
+      case "home":
+        search_img = require("../../assets/search_active.png");
+      break;
+      case "profile":
+        profile_img = require("../../assets/user_active.png");
+      break;
+      case "property-list":
+        book_img = require("../../assets/book_active.png");
+      break;
+            
+    }
+    return (
+      <View style={styles.footer}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => this.props.pressEvent("home")}
+        >
+          <Image
+            source={search_img}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => this.props.pressEvent("property-list")}
+        >
+          <Image
+            source={book_img}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => this.props.pressEvent("profile")}
+        >
+          <Image
+            source={profile_img}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+export default Footer;

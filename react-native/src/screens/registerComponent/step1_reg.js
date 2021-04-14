@@ -55,7 +55,7 @@ class RegisterStep1 extends Component {
   state = {};
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{paddingBottom: 10}}>
         <Fragment>
           {this.props.children}
           <View style={styles.view}>

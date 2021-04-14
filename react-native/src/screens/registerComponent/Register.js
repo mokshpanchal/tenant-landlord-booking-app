@@ -298,7 +298,7 @@ class Register extends Component {
         if (resp?.id) {
           this.utility.setValue("user", resp);
           if (this.isBuyer()) {
-            return this.props.navigation.navigate("Home");
+            return this.props.navigation.navigate("Dashboard");
           }
           return this.handlePress("formStep", 2);
         }
@@ -335,7 +335,7 @@ class Register extends Component {
           if (resp?.success) {
             this.setState({ property: resp.data });
             if (this.forSellPurpose()) {
-              return this.props.navigation.navigate("Home");
+              return this.props.navigation.navigate("Dashboard");
             }
           }
         });
@@ -362,7 +362,7 @@ class Register extends Component {
       .then((resp) => {
         console.log("response property", resp);
         if (resp?.success) {
-          return this.props.navigation.navigate("Home");
+          return this.props.navigation.navigate("Dashboard");
         }
       });
   }
