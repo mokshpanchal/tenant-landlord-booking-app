@@ -1,5 +1,5 @@
 import React, { useState, Component, Fragment } from "react";
-import { Text } from "react-native";
+import { Text, Platform, View } from "react-native";
 import Home from "../homeComponent/home";
 import List from "../propertyListingComponent/list";
 import Profile from "../profileComponent/profile";
@@ -16,33 +16,51 @@ class Dashboard extends Component {
     defaultScreen: "home",
     screen: "",
     propertyList: "",
+    searchKey: "",
   };
   renderElement;
   searchText = (searchKey) => {
     const apiResponse = this.utility
-      .makeGetRequest("search?search=" + searchKey)
+      .makeGetRequest("search?" + searchKey)
       .then((resp) => {
         console.log("response property", resp);
         if (resp?.success) {
-          this.setState({ screen: "property-list", propertyList: resp?.data });
+          this.setState({
+            screen: "property-list",
+            propertyList: resp?.data,
+            searchKey: searchKey,
+          });
         }
       });
   };
   setScreen = (screen) => {
     this.setState({ screen: screen });
   };
+  resetKey = (key) => {
+    this.setState({ searchKey: key });
+  };
   render() {
     console.log(this.state);
-    screen = this.state.screen ? this.state.screen : this.state.defaultScreen;
+    let screen = this.state.screen
+      ? this.state.screen
+      : this.state.defaultScreen;
     switch (screen) {
       case "home":
-        this.renderElement = <Home navigation={this.props.navigation} />;
+        this.renderElement = (
+          <Home
+            navigation={this.props.navigation}
+            pressEvent={this.searchText}
+          />
+        );
         break;
       case "property-list":
+        console.log("search key in dash", this.state.searchKey);
         this.renderElement = (
           <List
             navigation={this.props.navigation}
             propertyList={this.state.propertyList}
+            searchKey={this.state.searchKey}
+            resetSearch={this.resetKey}
           />
         );
         break;
@@ -50,14 +68,18 @@ class Dashboard extends Component {
         this.renderElement = <Profile navigation={this.props.navigation} />;
         break;
       default:
-        this.renderElement = <Text></Text>;
+        this.renderElement = <Text>here</Text>;
         break;
     }
     return (
       <Fragment>
+        <View
+          style={{ marginTop: Platform.OS === "android" ? "8%" : "" }}
+        ></View>
         {this.renderElement}
-        {this.state.screen != "home" ? (
-          ""
+
+        {screen != "home" ? (
+          <Text>""</Text>
         ) : (
           <Search
             navigation={this.props.navigation}
@@ -67,7 +89,7 @@ class Dashboard extends Component {
         <Footer
           navigation={this.props.navigation}
           pressEvent={this.setScreen}
-          initialRouteName = {screen}
+          initialRouteName={this.screen}
         />
       </Fragment>
     );

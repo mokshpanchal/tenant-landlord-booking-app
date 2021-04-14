@@ -63,34 +63,47 @@ class List extends React.Component {
         });
   }
   componentDidMount() {
-    if (this.props.propertyList.length > 0)
+    console.log(this.props);
+    if (this.props.searchKey.length > 0)
       return this.setState({ propertyList: this.props.propertyList });
+    this.setPropertyList();
+  }
+  componentWillUnmount() {
+    this.props.resetSearch("");
   }
   render() {
     const { search } = this.state;
-    this.setPropertyList();
     return (
-      <ScrollView style={{ backgroundColor: "#FFF", height: "100%", display: "flex", flexDirection: "column" }}>
+      <ScrollView
+        style={{
+          backgroundColor: "#FFF",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <View style={styles.main}>
-          {this.state.propertyList.length
-            ? this.state.propertyList.map((property) => {
-                return (
-                  <View style={styles.property}>
-                    <Image
-                      key={property?.id}
-                      source={require("../../../assets/1.jpg")}
-                      style={{
-                        width: "40%",
-                        height: "80%",
-                        borderRadius: 15,
-                        marginTop: "2.5%"
-                      }}
-                    />
-                    <Text>{property?.location}</Text>
-                  </View>
-                );
-              })
-            : null}
+          {this.state.propertyList.length ? (
+            this.state.propertyList.map((property) => {
+              return (
+                <View style={styles.property} key={property?.id}>
+                  <Image
+                    key={property?.id}
+                    source={require("../../../assets/1.jpg")}
+                    style={{
+                      width: "40%",
+                      height: "80%",
+                      borderRadius: 15,
+                      marginTop: "2.5%",
+                    }}
+                  />
+                  <Text>Location : {property?.location}</Text>
+                </View>
+              );
+            })
+          ) : (
+            <Text>No property matched with your current search!</Text>
+          )}
         </View>
       </ScrollView>
     );

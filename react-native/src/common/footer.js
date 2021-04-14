@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 const styles = StyleSheet.create({
   footer: {
-    minHeight: "40",
     width: "100%",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -29,47 +28,40 @@ class Footer extends Component {
     let search_img = require("../../assets/search.png");
     let profile_img = require("../../assets/user.png");
     let book_img = require("../../assets/book.png");
-    switch(screen)
-    {
+    switch (screen) {
       case "home":
         search_img = require("../../assets/search_active.png");
-      break;
+        break;
       case "profile":
         profile_img = require("../../assets/user_active.png");
-      break;
+        break;
       case "property-list":
         book_img = require("../../assets/book_active.png");
-      break;
-            
+        break;
     }
     return (
       <View style={styles.footer}>
         <TouchableOpacity
+          accessible={true}
           activeOpacity={0.5}
           onPress={() => this.props.pressEvent("home")}
         >
-          <Image
-            source={search_img}
-            style={{ width: "50px", height: "50px" }}
-          />
+          <Image source={search_img} style={{ width: 50, height: 50 }} />
         </TouchableOpacity>
+
         <TouchableOpacity
+          accessible={true}
           activeOpacity={0.5}
           onPress={() => this.props.pressEvent("property-list")}
         >
-          <Image
-            source={book_img}
-            style={{ width: "50px", height: "50px" }}
-          />
+          <Image source={book_img} style={{ width: 50, height: 50 }} />
         </TouchableOpacity>
         <TouchableOpacity
+          accessible={true}
           activeOpacity={0.5}
           onPress={() => this.props.pressEvent("profile")}
         >
-          <Image
-            source={profile_img}
-            style={{ width: "50px", height: "50px" }}
-          />
+          <Image source={profile_img} style={{ width: 50, height: 50 }} />
         </TouchableOpacity>
       </View>
     );

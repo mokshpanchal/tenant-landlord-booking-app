@@ -34,7 +34,12 @@ const styles = StyleSheet.create({
 
 class Home extends React.Component {
   utility;
+
   state = {
+    abdCount: 0,
+    suratCount: 0,
+    mehsanaCount: 0,
+    barodaCount: 0,
     user: {},
     search: "",
   };
@@ -46,7 +51,30 @@ class Home extends React.Component {
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
       this.setState({ user: JSON.parse(user) });
-      console.log("user in home", JSON.parse(user));
+      const apiResponse = this.utility
+        .makeGetRequest("search?search=all")
+        .then((resp) => {
+          resp.map((value, key) => {
+            switch (Object.keys(value)[0]) {
+              case "Surat":
+                this.setState({ suratCount: Object.values(value)[0] });
+                break;
+              case "Ahmedabad":
+                this.setState({ abdCount: Object.values(value)[0] });
+
+                break;
+              case "Baroda":
+                this.setState({ barodaCount: Object.values(value)[0] });
+
+                break;
+              default:
+                this.setState({ mehsanaCount: Object.values(value)[0] });
+
+                break;
+            }
+          });
+          console.log("surat", this.suratCount);
+        });
     });
   }
   render() {
@@ -59,7 +87,7 @@ class Home extends React.Component {
             textAlign: "center",
             fontWeight: "bold",
             letterSpacing: 1.5,
-            fontFamily: "Calibri",
+            // fontFamily: "Calibri",
           }}
         >
           Get the latest on covid-19 responses
@@ -74,37 +102,89 @@ class Home extends React.Component {
             borderTopRightRadius: 10,
           }}
         />
-        <View style={styles.main}>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/1.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Ahmedabad</Text>
-          </View>
-          <View style={styles.property}>
-            <Image
-              source={require("../../../assets/2.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Surat</Text>
-          </View>
-        </View>
 
         <View style={styles.main}>
           <View style={styles.property}>
-            <Image
-              source={require("../../../assets/1.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Ahmedabad</Text>
+            <TouchableOpacity
+              style={styles.property}
+              activeOpacity={1}
+              onPress={() => {
+                this.props.pressEvent("location=ahmedabad");
+              }}
+            >
+              <Image
+                source={require("../../../assets/1.jpg")}
+                style={{ width: "50%", height: "100%", borderRadius: 15 }}
+              />
+            </TouchableOpacity>
+            <Text>
+              Ahmedabad{"\n"}
+              <Text style={{ fontSize: 12 }}>
+                {this.state?.abdCount} properties
+              </Text>
+            </Text>
           </View>
           <View style={styles.property}>
-            <Image
-              source={require("../../../assets/2.jpg")}
-              style={{ width: "50%", height: "100%", borderRadius: "15px" }}
-            />
-            <Text>Surat</Text>
+            <TouchableOpacity
+              style={styles.property}
+              activeOpacity={1}
+              onPress={() => {
+                this.props.pressEvent("location=surat");
+              }}
+            >
+              <Image
+                source={require("../../../assets/2.jpg")}
+                style={{ width: "50%", height: "100%", borderRadius: 15 }}
+              />
+            </TouchableOpacity>
+            <Text>
+              Surat{"\n"}
+              <Text style={{ fontSize: 12 }}>
+                {this.state?.suratCount} properties
+              </Text>
+            </Text>
+          </View>
+        </View>
+        <View style={styles.main}>
+          <View style={styles.property}>
+            <TouchableOpacity
+              style={styles.property}
+              activeOpacity={0.5}
+              onPress={() => {
+                this.props.pressEvent("location=baroda");
+              }}
+            >
+              <Image
+                source={require("../../../assets/1.jpg")}
+                style={{ width: "50%", height: "100%", borderRadius: 15 }}
+              />
+            </TouchableOpacity>
+            <Text>
+              Baroda{"\n"}
+              <Text style={{ fontSize: 12 }}>
+                {this.state?.barodaCount} properties
+              </Text>
+            </Text>
+          </View>
+          <View style={styles.property}>
+            <TouchableOpacity
+              style={styles.property}
+              activeOpacity={0.5}
+              onPress={() => {
+                this.props.pressEvent("location=mehsana");
+              }}
+            >
+              <Image
+                source={require("../../../assets/1.jpg")}
+                style={{ width: "50%", height: "100%", borderRadius: 15 }}
+              />
+            </TouchableOpacity>
+            <Text>
+              Mehsana{"\n"}
+              <Text style={{ fontSize: 12 }}>
+                {this.state?.mehsanaCount} properties
+              </Text>
+            </Text>
           </View>
         </View>
       </View>
