@@ -27,13 +27,13 @@ PropertyType.create!(category: "shop")
 PropertyType.create!(category: "office")
 
 
- Property.create!(user_id: 3, name: "Patel's House", address_1: "A-10 Krishna Soc", address_2: "Ranip, Ahmedabad", post_code: "382400", latitude: "23.0810", longitude: "72.5768", location: "Gujarat", status: "available", for_rent: "false", for_sell: "true", property_type_id: 1, email: "krishna@gmail.com", contact: "+918160098765")
+ Property.create!(user_id: 3, name: "Patel's House", address_1: "A-10 Krishna Soc", address_2: "Ranip, Ahmedabad", post_code: "382400", latitude: "23.0810", longitude: "72.5768", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 1, email: "krishna@gmail.com", contact: "+918160098765")
 
- Property.create!(user_id: 4, name: "K showroom", address_1: "A-10 Shiv Arcade", address_2: "Ghatlodia, Ahmedabad", post_code: "382450", latitude: "23.1234", longitude: "72.8765", location: "Gujarat", status: "available", for_rent: "true", for_sell: "true", property_type_id: 2, email: "moksh@gmail.com", contact: "+918160864310")
+ Property.create!(user_id: 4, name: "K showroom", address_1: "A-10 Shiv Arcade", address_2: "Ghatlodia, Ahmedabad", post_code: "382450", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "true", for_sell: "true", property_type_id: 2, email: "moksh@gmail.com", contact: "+918160864310")
 
-  Property.create!(user_id: 5, name: "Mark Office", address_1: "GF-10 Business hub", address_2: "Sola, Ahmedabad", post_code: "380016", latitude: "23.1234", longitude: "72.8765", location: "Gujarat", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "jaini@gmail.com", contact: "+918160321654")
+  Property.create!(user_id: 5, name: "Mark Office", address_1: "GF-10 Business hub", address_2: "Sola, Ahmedabad", post_code: "380016", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "jaini@gmail.com", contact: "+918160321654")
 
-  Property.create!(user_id: 6, name: " New Shop", address_1: "GF-10 market place", address_2: "Vadodara", post_code: "390009", latitude: "22.2563", longitude: "73.2162", location: "Gujarat", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "mamta@gmail.com", contact: "+918160671231")
+  Property.create!(user_id: 6, name: " New Shop", address_1: "GF-10 market place", address_2: "Vadodara", post_code: "390009", latitude: "22.2563", longitude: "73.2162", location: "Vadodara", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "mamta@gmail.com", contact: "+918160671231")
 
   ReservedSlot.create!(property_id: 1, user_id: 1, slot_id: 1, recipient_id: 3)
   ReservedSlot.create!(property_id: 2, user_id: 2, slot_id: 13, recipient_id: 4)
