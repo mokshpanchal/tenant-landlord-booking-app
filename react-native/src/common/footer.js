@@ -18,12 +18,30 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     position: "absolute",
     bottom: 0,
+    backgroundColor: "#FFF"
   },
 });
 class Footer extends Component {
   state = {};
   render() {
     const { navigate } = this.props.navigation;
+    let screen = this.props.initialRouteName;
+    let search_img = require("../../assets/search.png");
+    let profile_img = require("../../assets/user.png");
+    let book_img = require("../../assets/book.png");
+    switch(screen)
+    {
+      case "home":
+        search_img = require("../../assets/search_active.png");
+      break;
+      case "profile":
+        profile_img = require("../../assets/user_active.png");
+      break;
+      case "property-list":
+        book_img = require("../../assets/book_active.png");
+      break;
+            
+    }
     return (
       <View style={styles.footer}>
         <TouchableOpacity
@@ -31,7 +49,7 @@ class Footer extends Component {
           onPress={() => this.props.pressEvent("home")}
         >
           <Image
-            source={require("../../assets/search_active.png")}
+            source={search_img}
             style={{ width: "50px", height: "50px" }}
           />
         </TouchableOpacity>
@@ -40,7 +58,7 @@ class Footer extends Component {
           onPress={() => this.props.pressEvent("property-list")}
         >
           <Image
-            source={require("../../assets/book.png")}
+            source={book_img}
             style={{ width: "50px", height: "50px" }}
           />
         </TouchableOpacity>
@@ -49,7 +67,7 @@ class Footer extends Component {
           onPress={() => this.props.pressEvent("profile")}
         >
           <Image
-            source={require("../../assets/user.png")}
+            source={profile_img}
             style={{ width: "50px", height: "50px" }}
           />
         </TouchableOpacity>

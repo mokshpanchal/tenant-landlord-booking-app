@@ -93,7 +93,7 @@ class detail extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.5} onPress={() => navigate("")}>
             <Image
-              source={require("../../../assets/book.png")}
+              source={require("../../../assets/book_active.png")}
               style={{ width: "50px", height: "50px" }}
             />
           </TouchableOpacity>
@@ -102,7 +102,7 @@ class detail extends React.Component {
             onPress={() => navigate("Profile")}
           >
             <Image
-              source={require("../../../assets/user_active.png")}
+              source={require("../../../assets/user.png")}
               style={{ width: "50px", height: "50px" }}
             />
           </TouchableOpacity>

@@ -12,50 +12,40 @@ import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
-  view: {
-    flexDirection: "row",
-    alignItems: "center",
-    //   marginHorizontal: 55,
-    borderWidth: 0,
-    marginTop: 30,
-    paddingHorizontal: 10,
-    // borderColor: "#5694ca",
-    borderRadius: 23,
-    paddingVertical: 2,
-    shadowColor: "#000",
-    shadowRadius: 1,
-    overflow: "hidden",
-    shadowOpacity: 0.7,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 4,
-    color: "#000",
-    height: 40,
-    backgroundColor: "#fff",
-    position: "absolute",
-    width: "90%",
-    marginLeft: "5%",
-  },
+    view: {
+      borderWidth: 0,
+      borderBottomLeftRadius: 23,
+      borderBottomRightRadius: 23,
+      shadowColor: "#000",
+      shadowRadius: 1,
+      overflow: "hidden",
+      shadowOpacity: 0.7,
+      shadowOffset: { width: 0, height: 3 },
+      elevation: 4,
+      color: "#000",
+      height: 150,
+      backgroundColor: "#fff",
+      margin: 0,
+    },
 
-  footer: {
-    minHeight: "40",
-    width: "100%",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    shadowColor: "#000",
-    shadowRadius: 2,
-    overflow: "hidden",
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: -3 },
-    elevation: 4,
-    color: "#000",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    position: "absolute",
-    bottom: 0,
-  },
-});
-// =====================STYLE_SHEET===========================
+    profile:{
+        shadowColor: "#000",
+        shadowRadius: 1,
+        shadowOpacity: 0.7,
+        shadowOffset: { width: 0, height: 3 },
+        elevation: 4,
+        borderWidth: 0,
+        borderRadius: 90,
+        overflow: "hidden",
+        color: "#000",
+        height: 110,
+        width: "30%",
+        backgroundColor: "#fff",
+        marginLeft: "5%",
+        marginTop: "5%", 
+    }
+  });
+  // =====================STYLE_SHEET===========================
 
 class Profile extends React.Component {
   utility;
@@ -76,40 +66,19 @@ class Profile extends React.Component {
     });
   }
 
-  render() {
-    const { search } = this.state;
-    const { navigate } = this.props.navigation;
-    return (
-      <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
-        <View style={styles.footer}>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigate("Home")}
-          >
-            <Image
-              source={require("../../../assets/search.png")}
-              style={{ width: "50px", height: "50px" }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigate("PropertyListing")}
-          >
-            <Image
-              source={require("../../../assets/book.png")}
-              style={{ width: "50px", height: "50px" }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigate("Profile")}
-          >
-            <Image
-              source={require("../../../assets/user_active.png")}
-              style={{ width: "50px", height: "50px" }}
-            />
-          </TouchableOpacity>
-        </View>
+    render() {
+        const { search } = this.state;
+        const { navigate } = this.props.navigation;
+        return(
+        <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
+            <View style={styles.view}>
+                <View style={styles.profile}>
+                    <Image
+                        source={require("../../../assets/avatar.png")}
+                        style={{position: "absolute"}}
+                    />
+                </View>
+            </View>
       </View>
     );
   }

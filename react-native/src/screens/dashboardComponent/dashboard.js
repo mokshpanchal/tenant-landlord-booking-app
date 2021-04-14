@@ -56,7 +56,7 @@ class Dashboard extends Component {
     return (
       <Fragment>
         {this.renderElement}
-        {this.state.screen == "profile" ? (
+        {this.state.screen != "home" ? (
           ""
         ) : (
           <Search
@@ -67,6 +67,7 @@ class Dashboard extends Component {
         <Footer
           navigation={this.props.navigation}
           pressEvent={this.setScreen}
+          initialRouteName = {screen}
         />
       </Fragment>
     );

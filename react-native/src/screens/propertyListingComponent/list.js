@@ -8,24 +8,33 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
     height: "70%",
-    width: "70%",
+    width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+    margin: "5%",
+    shadowColor: "#000",
+    shadowRadius: 1,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+    borderWidth: 0,
+    borderRadius: 15,
   },
 
   main: {
     backgroundColor: "#fff",
-    width: "70%",
+    width: "90%",
     display: "flex",
     maxHeight: "20%",
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: "5%",
   },
 });
@@ -61,7 +70,7 @@ class List extends React.Component {
     const { search } = this.state;
     this.setPropertyList();
     return (
-      <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
+      <ScrollView style={{ backgroundColor: "#FFF", height: "100%", display: "flex", flexDirection: "column" }}>
         <View style={styles.main}>
           {this.state.propertyList.length
             ? this.state.propertyList.map((property) => {
@@ -71,9 +80,10 @@ class List extends React.Component {
                       key={property?.id}
                       source={require("../../../assets/1.jpg")}
                       style={{
-                        width: "50%",
-                        height: "100%",
-                        borderRadius: "15px",
+                        width: "40%",
+                        height: "80%",
+                        borderRadius: 15,
+                        marginTop: "2.5%"
                       }}
                     />
                     <Text>{property?.location}</Text>
@@ -82,7 +92,7 @@ class List extends React.Component {
               })
             : null}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
