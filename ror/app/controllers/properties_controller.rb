@@ -57,10 +57,20 @@ class PropertiesController < ApplicationController
   end
 
   def search
+    if params[:location].present?
+      query = params[:location].downcase
+      properties = Property.where('lower(location) LIKE ?',"%#{query}%")
+      return render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
+    end
     if params[:search].present?
       query = params[:search].downcase
+      if params[:search] == "all"
+        locations = Property.all.pluck(:location).uniq
+        json = locations.map { |e| {e.to_sym => Property.where(location: e).count}}
+        return render json: json
+      end
       properties = Property.where('lower(name) LIKE ? OR lower(address_1) LIKE ? OR lower(address_2) LIKE ? OR lower(location) LIKE ?',"%#{query}%","%#{query}%","%#{query}%","%#{query}%")
-      render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
+      return render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
     else
       index()
     end
