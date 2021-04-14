@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :properties
   validates :email, :password, :name, :phone_number, presence: true, on: :create
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates_uniqueness_of :email
+  validates_uniqueness_of :phone_number
   validates_format_of :phone_number, with:  /\A(\+?\d{1,3})?\d{10}\z/, message: "- Phone number must be in +XXXXXXXXXXXX format"
 
   enum role: [:buyer, :seller]
