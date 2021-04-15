@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
     width: "70%",
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginLeft: "3%"
   },
 
   main: {
@@ -117,7 +119,7 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text>
+            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
               Ahmedabad{"\n"}
               <Text style={{ fontSize: 12 }}>
                 {this.state?.abdCount} properties
@@ -137,12 +139,12 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text>
-              Surat{"\n"}
-              <Text style={{ fontSize: 12 }}>
-                {this.state?.suratCount} properties
+              <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
+                Surat{"\n"}
+                <Text style={{ fontSize: 12 }}>
+                  {this.state?.suratCount} properties
+                </Text>
               </Text>
-            </Text>
           </View>
         </View>
         <View style={styles.main}>
@@ -155,11 +157,11 @@ class Home extends React.Component {
               }}
             >
               <Image
-                source={require("../../../assets/1.jpg")}
+                source={require("../../../assets/3.jpg")}
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text>
+            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
               Baroda{"\n"}
               <Text style={{ fontSize: 12 }}>
                 {this.state?.barodaCount} properties
@@ -175,11 +177,11 @@ class Home extends React.Component {
               }}
             >
               <Image
-                source={require("../../../assets/1.jpg")}
+                source={require("../../../assets/4.jpg")}
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text>
+            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
               Mehsana{"\n"}
               <Text style={{ fontSize: 12 }}>
                 {this.state?.mehsanaCount} properties

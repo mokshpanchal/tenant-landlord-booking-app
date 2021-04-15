@@ -88,9 +88,7 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
-              <View
-                style={{ display: "flex", flexDirection: "row", margin: 20 }}
-              >
+              <View style={{ display: "flex", flexDirection: "row", margin: 20, flexWrap: "wrap" }}>
                 <Text style={styles.radioText}>Property type:</Text>
                 {this.props.formdata.propertyTypes.map((data, key) => {
                   return (

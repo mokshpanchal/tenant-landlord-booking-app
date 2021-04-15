@@ -89,7 +89,7 @@ class Dashboard extends Component {
         <Footer
           navigation={this.props.navigation}
           pressEvent={this.setScreen}
-          initialRouteName={this.screen}
+          initialRouteName={screen}
         />
       </Fragment>
     );
