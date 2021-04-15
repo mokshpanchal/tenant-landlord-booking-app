@@ -63,7 +63,7 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
-            this.setState({ user: JSON.parse(user)});
+            this.setState({ user: JSON.parse([user])});
             console.log("user in profile", user);
     });
   }
