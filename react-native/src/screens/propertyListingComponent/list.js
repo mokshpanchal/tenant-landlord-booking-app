@@ -13,19 +13,16 @@ import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
-    height: "120px",
+    height: "60%",
     width: "100%",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
     margin: "5%",
-    shadowColor: "#000",
-    shadowRadius: 1,
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 4,
+    borderBottomWidth: 2,
     borderWidth: 0,
     borderRadius: 15,
+    marginBottom: 20
   },
 
   main: {
@@ -123,16 +120,24 @@ class List extends React.Component {
                     style={styles.corner}
                     />
                 )}
-                {console.log()}
-                <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%", marginTop: "5%",}}>Location : {property?.location}</Text>
-                <Text style={{fontSize: 12, fontWeight: "bold", position: "absolute", marginLeft: "30%", marginTop: "12%", color: "#057a0f"}}>₹{property.rent_detail?.rent_per_month== undefined ? "50,00000" : property.rent_detail?.rent_per_month+"/month" }</Text>
+                <View style={{marginLeft: "30%", marginTop: "10%", justifyContent:"flex-start"}}>
+                <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", }}>
+                    Location : {property?.location}
+                </Text>
+                <Text style={{fontSize: 12, fontWeight: "bold", color: "#057a0f"}}>
+                ₹{property.rent_detail?.rent_per_month== undefined ? "50,00000/-" : property.rent_detail?.rent_per_month+"/month" }
+                </Text>
+                <Text style={{fontSize: 12, fontWeight: "bold",  color: "#057a0f"}}>
+                    {property.user?.name }
+                </Text>
                 {property.for_rent == "true" ? 
-                (<Text style={{fontSize: 12, fontWeight: "bold", position: "absolute", marginLeft: "32%", marginTop: "17%",}}>
+                (<Text style={{fontSize: 12, fontWeight: "bold", }}>
                     Members Allowed: {property.rent_detail?.members== undefined ? "2" : property.rent_detail?.members}{"\n"}
-                <Text style={{fontSize: 12, fontWeight: "bold", position: "absolute",}}>Published {property.created_at} ago</Text>
+                <Text style={{fontSize: 12, fontWeight: "bold", }}>Published {property.created_at} ago</Text>
                 </Text>):
-                (<Text style={{fontSize: 12, fontWeight: "bold", position: "absolute", marginLeft: "32%", marginTop: "17%"}}>Published {property.created_at} ago</Text>)
+                (<Text style={{fontSize: 12, fontWeight: "bold", }}>Published {property.created_at} ago</Text>)
                 }
+                </View>
                 </View>
               );
             })

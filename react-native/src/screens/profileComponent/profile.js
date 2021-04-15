@@ -31,15 +31,9 @@ const styles = StyleSheet.create({
     },
 
     profile:{
-        shadowColor: "#000",
-        shadowRadius: 1,
-        shadowOpacity: 0.7,
-        shadowOffset: { width: 0, height: 3 },
-        elevation: 4,
         borderWidth: 0,
         borderRadius: 90,
         overflow: "hidden",
-        color: "#000",
         height: 110,
         width: "30%",
         backgroundColor: "#fff",
