@@ -26,6 +26,8 @@ const styles = StyleSheet.create({
       height: 150,
       backgroundColor: "#fff",
       margin: 0,
+      display: "flex",
+      flexDirection: "row"
     },
 
     profile:{
@@ -61,8 +63,8 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
-      this.setState({ user: user });
-      console.log("user in profile", user);
+            this.setState({ user: JSON.parse(user)});
+            console.log("user in profile", user);
     });
   }
 
@@ -72,12 +74,10 @@ class Profile extends React.Component {
         return(
         <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
             <View style={styles.view}>
-                <View style={styles.profile}>
-                    <Image
-                        source={require("../../../assets/avatar.png")}
-                        style={{position: "absolute"}}
-                    />
-                </View>
+                <Image
+                    source={require("../../../assets/avatar.png")}
+                    style={styles.profile}
+                />
             </View>
       </View>
     );

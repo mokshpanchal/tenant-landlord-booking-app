@@ -1,5 +1,5 @@
 import React, { useState, Component } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "./utility";
 
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     //   marginHorizontal: 55,
     borderWidth: 0,
-    marginTop: 30,
+    marginTop: 60,
     paddingHorizontal: 10,
     // borderColor: "#5694ca",
     borderRadius: 23,
@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
   },
 });
 class Search extends Component {
-  state = {};
+  state = {
+    searchKey: "",
+  };
   utility;
   constructor(props) {
     super(props);
@@ -38,19 +40,27 @@ class Search extends Component {
   render() {
     return (
       <View style={styles.view}>
-        <Icon name="magnifying-glass" color="#5694ca" size={24} />
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => {
+            if (!this.state.searchKey.length) return false;
+            this.props.changeText("search=" + this.state.searchKey);
+          }}
+        >
+          <Icon name="magnifying-glass" color="#5694ca" size={24} />
+        </TouchableOpacity>
         <TextInput
           placeholder="WHERE ARE YOU GOING?"
           placeholderTextColor="#5694ca"
           style={{
             paddingHorizontal: 10,
             width: "90%",
-            height: "40px",
+            height: 40,
             marginLeft: "5%",
             fontWeight: "bold",
             zIndex: 9999,
           }}
-          onChangeText={(searchKey) => this.props.changeText(searchKey)}
+          onChangeText={(search) => this.setState({ searchKey: search })}
         />
       </View>
     );

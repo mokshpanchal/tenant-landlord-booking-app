@@ -73,9 +73,10 @@ class Register extends Component {
     { value: "3", label: "PG" },
   ];
   stateList = [
-    { value: "Ahmedabad", label: "Ahmedabad" },
-    { value: "Surat", label: "Surat" },
-    { value: "Baroda", label: "Baroda" },
+    { value: "AHMEDABAD", label: "Ahmedabad" },
+    { value: "SURAT", label: "Surat" },
+    { value: "BARODA", label: "Baroda" },
+    { value: "MEHSANA", label: "Mehsana" },
   ];
   state = {
     userTypes: [

@@ -88,13 +88,13 @@ class detail extends React.Component {
           >
             <Image
               source={require("../../../assets/search.png")}
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: 50, height: 50 }}
             />
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.5} onPress={() => navigate("")}>
             <Image
               source={require("../../../assets/book_active.png")}
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: 50, height: 50 }}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -103,7 +103,7 @@ class detail extends React.Component {
           >
             <Image
               source={require("../../../assets/user.png")}
-              style={{ width: "50px", height: "50px" }}
+              style={{ width: 50, height: 50 }}
             />
           </TouchableOpacity>
         </View>
