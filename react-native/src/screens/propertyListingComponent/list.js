@@ -13,11 +13,7 @@ import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
-<<<<<<< Updated upstream
     height: "60%",
-=======
-    height: 120,
->>>>>>> Stashed changes
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -26,7 +22,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderWidth: 0,
     borderRadius: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   main: {

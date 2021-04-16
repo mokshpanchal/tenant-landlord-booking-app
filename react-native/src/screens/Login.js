@@ -39,7 +39,7 @@ class Login extends Component {
     this.utility = new Utility();
   }
   makeLogin() {
-    return this.props.navigation.navigate("Dashboard");
+    // return this.props.navigation.navigate("Dashboard");
     this.setState({ isFormSubmitted: true });
     if (!(this.state.isValidEmailId && this.state.isValidPassword)) {
       Alert.alert("Error Occured!", "Please enter correct email/password", [

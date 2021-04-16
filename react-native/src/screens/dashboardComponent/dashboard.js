@@ -73,9 +73,6 @@ class Dashboard extends Component {
     }
     return (
       <Fragment>
-        <View
-          style={{ marginTop: Platform.OS === "android" ? "8%" : "" }}
-        ></View>
         {this.renderElement}
 
         {screen != "home" ? (
