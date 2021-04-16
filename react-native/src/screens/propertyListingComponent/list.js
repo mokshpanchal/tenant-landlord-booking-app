@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderWidth: 0,
     borderRadius: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   main: {
@@ -35,14 +35,13 @@ const styles = StyleSheet.create({
     marginTop: "5%",
   },
 
-  corner:{
-      height: "10%",
-      width: "20%",
-      position: "absolute",
-      right: 5,
-      marginTop: "2%"
-
-  }
+  corner: {
+    height: "10%",
+    width: "20%",
+    position: "absolute",
+    right: 5,
+    marginTop: "2%",
+  },
 });
 // =====================STYLE_SHEET===========================
 
@@ -102,42 +101,89 @@ class List extends React.Component {
                       borderRadius: 15,
                       marginTop: "2.5%",
                       position: "absolute",
-                      left: "7%"
+                      left: "7%",
                     }}
                   />
-             
-                {property.for_sell == "true" ? (
-    
-                  <Image 
-                  key={property?.for_rent}
-                  source={require("../../../assets/sell.png")}
-                  style={styles.corner}
-                  />
-                ):(
-                    <Image 
-                    key={property?.for_rent}
-                    source={require("../../../assets/rent.png")}
-                    style={styles.corner}
+
+                  {property.for_sell == "true" ? (
+                    <Image
+                      key={property?.for_rent}
+                      source={require("../../../assets/sell.png")}
+                      style={styles.corner}
                     />
-                )}
-                <View style={{marginLeft: "30%", marginTop: "10%", justifyContent:"flex-start"}}>
-                <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", }}>
+                  ) : (
+                    <Image
+                      key={property?.for_rent}
+                      source={require("../../../assets/rent.png")}
+                      style={styles.corner}
+                    />
+                  )}
+                  {console.log()}
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: "#23b3d5",
+                      fontWeight: "bold",
+                      position: "absolute",
+                      marginLeft: "42%",
+                      marginTop: "5%",
+                    }}
+                  >
                     Location : {property?.location}
-                </Text>
-                <Text style={{fontSize: 12, fontWeight: "bold", color: "#057a0f"}}>
-                ₹{property.rent_detail?.rent_per_month== undefined ? "50,00000/-" : property.rent_detail?.rent_per_month+"/month" }
-                </Text>
-                <Text style={{fontSize: 12, fontWeight: "bold",  color: "#057a0f"}}>
-                    {property.user?.name }
-                </Text>
-                {property.for_rent == "true" ? 
-                (<Text style={{fontSize: 12, fontWeight: "bold", }}>
-                    Members Allowed: {property.rent_detail?.members== undefined ? "2" : property.rent_detail?.members}{"\n"}
-                <Text style={{fontSize: 12, fontWeight: "bold", }}>Published {property.created_at} ago</Text>
-                </Text>):
-                (<Text style={{fontSize: 12, fontWeight: "bold", }}>Published {property.created_at} ago</Text>)
-                }
-                </View>
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      fontWeight: "bold",
+                      position: "absolute",
+                      marginLeft: "30%",
+                      marginTop: "12%",
+                      color: "#057a0f",
+                    }}
+                  >
+                    ₹
+                    {property.rent_detail?.rent_per_month == undefined
+                      ? "50,00000"
+                      : property.rent_detail?.rent_per_month + "/month"}
+                  </Text>
+                  {property.for_rent == "true" ? (
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: "bold",
+                        position: "absolute",
+                        marginLeft: "32%",
+                        marginTop: "17%",
+                      }}
+                    >
+                      Members Allowed:{" "}
+                      {property.rent_detail?.members == undefined
+                        ? "2"
+                        : property.rent_detail?.members}
+                      {"\n"}
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                          position: "absolute",
+                        }}
+                      >
+                        Published {property.created_at} ago
+                      </Text>
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontWeight: "bold",
+                        position: "absolute",
+                        marginLeft: "32%",
+                        marginTop: "17%",
+                      }}
+                    >
+                      Published {property.created_at} ago
+                    </Text>
+                  )}
                 </View>
               );
             })

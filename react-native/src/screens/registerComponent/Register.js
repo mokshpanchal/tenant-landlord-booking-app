@@ -13,6 +13,8 @@ import {
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import RegisterStep3 from "./step3_reg";
+import AssetImage from "./AssetImage";
+
 import Utility from "../../common/utility";
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
@@ -103,6 +105,9 @@ class Register extends Component {
     isValidStepOne: false,
     isValidStepTwo: false,
     isValidStepThree: false,
+    openImage: false,
+    site: [],
+    photos: [],
   };
   handleText = (fieldname, fieldvalue, formType) => {
     if (!fieldvalue) return;
@@ -125,6 +130,19 @@ class Register extends Component {
         break;
     }
   };
+  handleImagePicker = (modal = false, images = []) => {
+    if (!modal && images.length) {
+      let siteImages = [];
+      let photoUrls = [];
+      images.map((image) => {
+        siteImages.push(image.base64Url);
+        photoUrls.push(image.uri);
+      });
+      this.setState({ site: siteImages, photos: photoUrls });
+      this.handleText("imageSelected", images.length.toString(), "formTwoData");
+    }
+    this.setState({ openImage: modal });
+  };
   stepOneValidation() {
     let formFields = { ...this.state.formOneData };
     this.isValidStepOne =
@@ -143,7 +161,9 @@ class Register extends Component {
       formFields["user_building_address1"]?.length > 0 &&
       formFields["user_zipcode"]?.length > 0 &&
       formFields["stateItem"]?.length > 0 &&
-      formFields["purpose"] > 0;
+      formFields["purpose"] > 0 &&
+      formFields["imageSelected"] &&
+      formFields["imageSelected"] > 0;
   }
   stepThreeValidation() {
     let formFields = { ...this.state.formThreeData };
@@ -170,109 +190,117 @@ class Register extends Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.view}>
-          <Image
-            source={require("../../images/asset1.jpg")}
-            style={styles.frontHead}
-          />
-          <Text style={styles.mainText}> Tenant Landlord Booking </Text>
-          <Text style={styles.subText}>
-            “Real Estate provides the highest returns, the greatest values, and
-            the least risk.” –Armstrong Williams, entrepreneur
-          </Text>
-          {this.state.formStep == 1 ? (
-            <RegisterStep1
-              formdata={this.state}
-              changeText={this.handleText}
-              pressEvent={this.handlePress}
+        {this.state.openImage ? (
+          <AssetImage openImage={this.handleImagePicker} />
+        ) : (
+          <View style={styles.view}>
+            <Image
+              source={require("../../images/asset1.jpg")}
+              style={styles.frontHead}
             />
-          ) : this.state.property?.id ? (
-            <RegisterStep3
-              navigation={this.props.navigation}
-              formdata={this.state}
-              stateList={this.stateList}
-              changeText={this.handleText}
-              pressEvent={this.handlePress}
-            />
-          ) : (
-            <RegisterStep2
-              navigation={this.props.navigation}
-              formdata={this.state}
-              puposeList={this.buildingPurpose}
-              stateList={this.stateList}
-              changeText={this.handleText}
-              pressEvent={this.handlePress}
-            />
-          )}
-          <View
-            style={{
-              marginHorizontal: 55,
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 30,
-              backgroundColor: "#5694ca",
-              paddingVertical: 10,
-              borderRadius: 23,
-              shadowColor: "#000",
-              shadowRadius: 5,
-              shadowOpacity: 0.7,
-              shadowOffset: { width: 0, height: 3 },
-              height: 40,
-              shadowRadius: 1,
-              overflow: "hidden",
-              elevation: 4,
-              color: "#000",
-              backgroundColor: "#5694ca",
-            }}
-          >
-            {this.state.property?.id ? (
-              <Text
-                textBreakStrategy="simple"
-                style={{
-                  color: "#FFF",
-                  fontFamily: "SemiBold",
-                }}
-                onPress={() => this.setRentDetail()}
-              >
-                Set Rent Details
-              </Text>
-            ) : this.state.formStep == 1 ? (
-              <Text
-                textBreakStrategy="simple"
-                style={{
-                  color: "#FFF",
-                  fontFamily: "SemiBold",
-                }}
-                onPress={() => this.register()}
-              >
-                Register
-              </Text>
+            <Text style={styles.mainText}> Tenant Landlord Booking </Text>
+            <Text style={styles.subText}>
+              “Real Estate provides the highest returns, the greatest values,
+              and the least risk.” –Armstrong Williams, entrepreneur
+            </Text>
+            {this.state.formStep == 1 ? (
+              <RegisterStep1
+                formdata={this.state}
+                changeText={this.handleText}
+                pressEvent={this.handlePress}
+              />
+            ) : this.state.property?.id ? (
+              <RegisterStep3
+                navigation={this.props.navigation}
+                formdata={this.state}
+                stateList={this.stateList}
+                changeText={this.handleText}
+                pressEvent={this.handlePress}
+              />
             ) : (
-              <Text
-                textBreakStrategy="simple"
-                style={{
-                  color: "#FFF",
-                  fontFamily: "SemiBold",
-                }}
-                onPress={() => this.createProperty()}
-              >
-                Create Property
-              </Text>
+              <RegisterStep2
+                navigation={this.props.navigation}
+                formdata={this.state.formTwoData}
+                propertyTypes={this.state.propertyTypes}
+                currentUserRole={this.state.currentUserRole}
+                puposeList={this.buildingPurpose}
+                stateList={this.stateList}
+                changeText={this.handleText}
+                pressEvent={this.handlePress}
+                openImage={this.handleImagePicker}
+                currentPropertyType={this.state.currentPropertyType}
+              />
             )}
-          </View>
-          {this.state.formStep == 1 ? (
-            <Text
-              textBreakStrategy="simple"
-              onPress={() => navigate("Login")}
+            <View
               style={{
-                color: "#5694ca",
-                textAlign: "center",
+                marginHorizontal: 55,
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 30,
+                backgroundColor: "#5694ca",
+                paddingVertical: 10,
+                borderRadius: 23,
+                shadowColor: "#000",
+                shadowRadius: 5,
+                shadowOpacity: 0.7,
+                shadowOffset: { width: 0, height: 3 },
+                height: 40,
+                shadowRadius: 1,
+                overflow: "hidden",
+                elevation: 4,
+                color: "#000",
+                backgroundColor: "#5694ca",
               }}
             >
-              Already a member?
-            </Text>
-          ) : null}
-        </View>
+              {this.state.property?.id ? (
+                <Text
+                  textBreakStrategy="simple"
+                  style={{
+                    color: "#FFF",
+                    fontFamily: "SemiBold",
+                  }}
+                  onPress={() => this.setRentDetail()}
+                >
+                  Set Rent Details
+                </Text>
+              ) : this.state.formStep == 1 ? (
+                <Text
+                  textBreakStrategy="simple"
+                  style={{
+                    color: "#FFF",
+                    fontFamily: "SemiBold",
+                  }}
+                  onPress={() => this.register()}
+                >
+                  Register
+                </Text>
+              ) : (
+                <Text
+                  textBreakStrategy="simple"
+                  style={{
+                    color: "#FFF",
+                    fontFamily: "SemiBold",
+                  }}
+                  onPress={() => this.createProperty()}
+                >
+                  Create Property
+                </Text>
+              )}
+            </View>
+            {this.state.formStep == 1 ? (
+              <Text
+                textBreakStrategy="simple"
+                onPress={() => navigate("Login")}
+                style={{
+                  color: "#5694ca",
+                  textAlign: "center",
+                }}
+              >
+                Already a member?
+              </Text>
+            ) : null}
+          </View>
+        )}
       </ScrollView>
     );
   }
@@ -314,7 +342,7 @@ class Register extends Component {
       const formData = this.state.formTwoData;
       const propertyData = {
         property: {
-          user_id: data.id,
+          user_id: data?.id,
           name: formData.user_building_name,
           address_1: formData.user_building_address1,
           address_2: formData.user_building_address2
@@ -326,6 +354,7 @@ class Register extends Component {
           for_rent: (!this.forSellPurpose()).toString(),
           for_sell: this.forSellPurpose().toString(),
           property_type_id: this.state.currentPropertyType,
+          property_attachments_attributes: { site: this.state.site },
         },
       };
       console.log("prepared property data", propertyData);

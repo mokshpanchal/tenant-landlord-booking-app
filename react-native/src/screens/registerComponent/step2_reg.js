@@ -7,8 +7,10 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Button,
 } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
+
 // =====================STYLE_SHEET===========================
 const styles = StyleSheet.create({
   view: {
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 23,
     paddingVertical: 2,
-    zIndex: 1,
   },
 
   radioText: {
@@ -66,19 +67,34 @@ const styles = StyleSheet.create({
 // =====================STYLE_SHEET===========================
 
 class RegisterStep2 extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      photos: [],
+    };
+  }
+  renderImage(item, i) {
+    return (
+      <Image
+        style={{ height: 100, width: 100 }}
+        source={{ uri: item.uri }}
+        key={i}
+      />
+    );
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
         <>
-          {this.props.formdata.currentUserRole == 2 ? (
+          {this.props.currentUserRole == 2 ? (
             <View style={{ zIndex: 1 }}>
               <View style={styles.view}>
                 <TextInput
                   placeholder="Building Name"
                   placeholderTextColor="#5694ca"
                   style={{ paddingHorizontal: 10 }}
+                  defaultValue={this.props?.formdata?.user_building_name}
                   onChangeText={(building_name) =>
                     this.props.changeText(
                       "user_building_name",
@@ -88,12 +104,19 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
-              <View style={{ display: "flex", flexDirection: "row", margin: 20, flexWrap: "wrap" }}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  margin: 20,
+                  flexWrap: "wrap",
+                }}
+              >
                 <Text style={styles.radioText}>Property type:</Text>
-                {this.props.formdata.propertyTypes.map((data, key) => {
+                {this.props.propertyTypes.map((data, key) => {
                   return (
                     <View key={key} style={styles.radio}>
-                      {this.props.formdata.currentPropertyType == data.id ? (
+                      {this.props.currentPropertyType == data.id ? (
                         <TouchableOpacity accessible={true}>
                           <Image
                             style={{ height: 20, width: 20 }}
@@ -143,6 +166,7 @@ class RegisterStep2 extends Component {
                   placeholder="Building Address Line 1"
                   placeholderTextColor="#5694ca"
                   style={{ paddingHorizontal: 10 }}
+                  defaultValue={this.props?.formdata?.user_building_address1}
                   onChangeText={(building_address) =>
                     this.props.changeText(
                       "user_building_address1",
@@ -157,6 +181,7 @@ class RegisterStep2 extends Component {
                   placeholder="Building Address Line 2"
                   placeholderTextColor="#5694ca"
                   style={{ paddingHorizontal: 10 }}
+                  defaultValue={this.props?.formdata?.user_building_address2}
                   onChangeText={(building_address) =>
                     this.props.changeText(
                       "user_building_address2",
@@ -171,8 +196,8 @@ class RegisterStep2 extends Component {
                 <DropDownPicker
                   items={this.props.stateList}
                   defaultIndex={0}
+                  defaultValue={this.props?.formdata?.stateItem}
                   containerStyle={{ width: 150, height: 40, marginLeft: 20 }}
-                  dropDownStyle={{ backgroundColor: "#fafafa" }}
                   onChangeItem={(stateItem) =>
                     this.props.changeText(
                       "stateItem",
@@ -189,8 +214,13 @@ class RegisterStep2 extends Component {
                 <DropDownPicker
                   items={this.props.puposeList}
                   defaultIndex={0}
-                  containerStyle={{ width: 150, height: 40, marginLeft: 20 }}
-                  dropDownStyle={{ backgroundColor: "#fafafa" }}
+                  defaultValue={this.props?.formdata?.purpose}
+                  containerStyle={{
+                    width: 150,
+                    height: 40,
+                    marginLeft: 20,
+                  }}
+                  zindex={10}
                   onChangeItem={(purpose) =>
                     this.props.changeText(
                       "purpose",
@@ -207,7 +237,7 @@ class RegisterStep2 extends Component {
                   keyboardType="phone-pad"
                   placeholder="Zipcode"
                   placeholderTextColor="#5694ca"
-                  style={{ paddingHorizontal: 10 }}
+                  defaultValue={this.props?.formdata?.user_zipcode}
                   onChangeText={(zipcode) =>
                     this.props.changeText(
                       "user_zipcode",
@@ -217,6 +247,20 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
+              <Text style={styles.radioText}>Property type:</Text>
+              <Button
+                title="Open image browser"
+                style={{ paddingVertical: 10, marginHorizontal: 55 }}
+                onPress={() => {
+                  this.props.openImage(true);
+                }}
+              />
+              <Text>
+                {this.props?.formdata?.imageSelected
+                  ? this.props?.formdata?.imageSelected
+                  : 0}{" "}
+                images selected
+              </Text>
             </View>
           ) : null}
         </>

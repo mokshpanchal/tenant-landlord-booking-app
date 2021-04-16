@@ -74,7 +74,7 @@ class RegisterStep3 extends Component {
   state = {};
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView>
         <>
           <View style={{ display: "flex", flexDirection: "row", margin: 20 }}>
             <Text style={styles.radioText}>Initial Contract Length:</Text>
