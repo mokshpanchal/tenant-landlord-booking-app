@@ -278,6 +278,7 @@ class Register extends Component {
   }
 
   register() {
+    return this.handlePress("formStep", 2);
     this.stepOneValidation();
     if (!this.isValidStepOne) return;
     const formData = this.state.formOneData;

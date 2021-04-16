@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginLeft: "3%"
+    marginLeft: "3%",
   },
 
   main: {
@@ -119,7 +119,15 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#23b3d5",
+                fontWeight: "bold",
+                position: "absolute",
+                marginLeft: "42%",
+              }}
+            >
               Ahmedabad{"\n"}
               <Text style={{ fontSize: 12, color: "#057a0f" }}>
                 {this.state?.abdCount} properties
@@ -139,12 +147,20 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-              <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
-                Surat{"\n"}
-                <Text style={{ fontSize: 12, color: "#057a0f" }}>
-                  {this.state?.suratCount} properties
-                </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#23b3d5",
+                fontWeight: "bold",
+                position: "absolute",
+                marginLeft: "42%",
+              }}
+            >
+              Surat{"\n"}
+              <Text style={{ fontSize: 12, color: "#057a0f" }}>
+                {this.state?.suratCount} properties
               </Text>
+            </Text>
           </View>
         </View>
         <View style={styles.main}>
@@ -161,7 +177,15 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#23b3d5",
+                fontWeight: "bold",
+                position: "absolute",
+                marginLeft: "42%",
+              }}
+            >
               Baroda{"\n"}
               <Text style={{ fontSize: 12, color: "#057a0f" }}>
                 {this.state?.barodaCount} properties
@@ -181,7 +205,15 @@ class Home extends React.Component {
                 style={{ width: "50%", height: "100%", borderRadius: 15 }}
               />
             </TouchableOpacity>
-            <Text style={{fontSize: 16, color: "#23b3d5", fontWeight: "bold", position: "absolute", marginLeft: "42%"}}>
+            <Text
+              style={{
+                fontSize: 16,
+                color: "#23b3d5",
+                fontWeight: "bold",
+                position: "absolute",
+                marginLeft: "42%",
+              }}
+            >
               Mehsana{"\n"}
               <Text style={{ fontSize: 12, color: "#057a0f" }}>
                 {this.state?.mehsanaCount} properties
