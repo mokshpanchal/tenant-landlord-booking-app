@@ -7,7 +7,7 @@ import profile from "../screens/profileComponent/profile";
 import detail from "../screens/detailPageComponent/detail";
 import list from "../screens/propertyListingComponent/list";
 import Dashboard from "../screens/dashboardComponent/dashboard";
-import Buffer from "../screens/registerComponent/Buffer";
+import AssetImage from "../screens/registerComponent/AssetImage";
 import AuthLoading from "../screens/AuthLoading";
 
 const stackNavigatorOptions = {
@@ -21,7 +21,7 @@ const AppStack = createStackNavigator(
     Profile: { screen: profile },
     Detail: { screen: detail },
     PropertyListing: { screen: list },
-    Buffer: { screen: Buffer },
+    AssetImage: { screen: AssetImage },
   },
 
   {
