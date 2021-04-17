@@ -13,7 +13,7 @@ import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
-    height: "60%",
+    height: "40%",
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -97,11 +97,12 @@ class List extends React.Component {
                     source={require("../../../assets/1.jpg")}
                     style={{
                       width: "40%",
-                      height: "80%",
+                      height: "70%",
                       borderRadius: 15,
                       marginTop: "2.5%",
                       position: "absolute",
                       left: "7%",
+                      marginRight: "70%"
                     }}
                   />
 
@@ -119,14 +120,17 @@ class List extends React.Component {
                     />
                   )}
                   {console.log()}
+                  <View 
+                  style={{
+                    marginLeft: "30%", 
+                    marginTop: "10%",
+                    justifyContent:"flex-start"
+                    }}>
                   <Text
                     style={{
                       fontSize: 16,
                       color: "#23b3d5",
                       fontWeight: "bold",
-                      position: "absolute",
-                      marginLeft: "42%",
-                      marginTop: "5%",
                     }}
                   >
                     Location : {property?.location}
@@ -135,9 +139,6 @@ class List extends React.Component {
                     style={{
                       fontSize: 12,
                       fontWeight: "bold",
-                      position: "absolute",
-                      marginLeft: "30%",
-                      marginTop: "12%",
                       color: "#057a0f",
                     }}
                   >
@@ -151,9 +152,6 @@ class List extends React.Component {
                       style={{
                         fontSize: 12,
                         fontWeight: "bold",
-                        position: "absolute",
-                        marginLeft: "32%",
-                        marginTop: "17%",
                       }}
                     >
                       Members Allowed:{" "}
@@ -176,14 +174,12 @@ class List extends React.Component {
                       style={{
                         fontSize: 12,
                         fontWeight: "bold",
-                        position: "absolute",
-                        marginLeft: "32%",
-                        marginTop: "17%",
                       }}
                     >
                       Published {property.created_at} ago
                     </Text>
                   )}
+                </View>
                 </View>
               );
             })
