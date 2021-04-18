@@ -11,6 +11,6 @@ class UserSerializer < ActiveModel::Serializer
   end
 
   def created_at
-  	object.created_at.to_date
+  	object.created_at.to_formatted_s(:rfc822)[0,16]
   end
 end

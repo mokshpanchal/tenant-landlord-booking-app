@@ -1,11 +1,12 @@
 class Property < ApplicationRecord
   belongs_to :user
   belongs_to :property_type
-  has_many :property_attachments
-  has_many :slots
-  has_many :reserved_slots
-  has_one :amenity
-  has_one :rent_detail
+  has_many :property_attachments, dependent: :destroy
+  has_many :slots, dependent: :destroy
+  has_many :reserved_slots, dependent: :destroy
+  has_one :amenity, dependent: :destroy
+  has_one :rent_detail, dependent: :destroy
+  has_one_attached :picture
   accepts_nested_attributes_for :property_attachments
 
   enum status: [:available, :occupied, :removed]

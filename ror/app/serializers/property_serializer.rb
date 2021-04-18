@@ -3,6 +3,7 @@ class PropertySerializer < ActiveModel::Serializer
   has_one :property_type, serializer: PropertyTypeSerializer
   has_many :property_attachments, serializer: PropertyAttachmentSerializer
   has_one :rent_detail, serializer: RentDetailSerializer
+  has_one :user, serializer: UserSerializer
 
   def created_at
   	# object.created_at.to_date
@@ -17,4 +18,9 @@ class PropertySerializer < ActiveModel::Serializer
   		return "More than 1 year"
  		end
   end
+
+  def image_url
+  	object.image_url.present? ? object.image_url : (object.picture.present? ? Rails.application.routes.url_helpers.rails_blob_path(object.picture, only_path: true) : "")
+  end
+
 end

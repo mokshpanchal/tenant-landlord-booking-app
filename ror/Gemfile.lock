@@ -80,9 +80,12 @@ GEM
       mimemagic (>= 0.3.0)
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
+    carrierwave-base64 (2.8.1)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
+      mimemagic (~> 0.3.2)
     case_transform (0.2)
       activesupport
-    choice (0.2.0)
     concurrent-ruby (1.1.8)
     crass (1.0.6)
     devise (4.7.3)
@@ -109,6 +112,9 @@ GEM
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (1.0.0)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2021.0225)
     mimemagic (0.3.5)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
@@ -146,11 +152,6 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
-    rails-erd (1.6.1)
-      activerecord (>= 4.2)
-      activesupport (>= 4.2)
-      choice (~> 0.2.0)
-      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
     railties (6.1.3)
@@ -163,9 +164,6 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.5)
-    ruby-graphviz (1.2.5)
-      rexml
     ruby-vips (2.1.0)
       ffi (~> 1.12)
     sprockets (4.0.2)
@@ -196,13 +194,13 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   carrierwave (~> 2.0)
+  carrierwave-base64
   devise
   mini_magick
   mysql2 (~> 0.5)
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.3)
-  rails-erd
   tzinfo-data
 
 RUBY VERSION
