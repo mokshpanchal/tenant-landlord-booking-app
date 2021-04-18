@@ -78,11 +78,12 @@ class List extends React.Component {
   }
   render() {
     const { search } = this.state;
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView
         style={{
           backgroundColor: "#FFF",
-          height: "100%",
+          // height: "100%",
           display: "flex",
           flexDirection: "column",
         }}
@@ -92,9 +93,8 @@ class List extends React.Component {
             this.state.propertyList.map((property) => {
               return (
                 <View style={styles.property} key={property?.id}>
-                  <Image
-                    key={property?.id}
-                    source={require("../../../assets/1.jpg")}
+                  <TouchableOpacity
+                    activeOpacity={1}
                     style={{
                       width: "40%",
                       height: "70%",
@@ -104,7 +104,17 @@ class List extends React.Component {
                       left: "7%",
                       marginRight: "70%"
                     }}
+                    onPress={() => {
+                      navigate("Detail",{id: property?.id});
+                    }}
+                  >
+                  <Image
+                    key={property?.id}
+                    source={require("../../../assets/1.jpg")}
+                    style={{ width: "100%", height: "100%", borderRadius: 15 }}
                   />
+
+                  </TouchableOpacity>
 
                   {property.for_sell == "true" ? (
                     <Image
