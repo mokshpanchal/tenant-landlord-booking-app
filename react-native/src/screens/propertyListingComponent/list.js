@@ -102,18 +102,26 @@ class List extends React.Component {
                       marginTop: "2.5%",
                       position: "absolute",
                       left: "7%",
-                      marginRight: "70%"
+                      marginRight: "70%",
                     }}
                     onPress={() => {
-                      navigate("Detail",{id: property?.id});
+                      navigate("Detail", { id: property?.id });
                     }}
                   >
-                  <Image
-                    key={property?.id}
-                    source={require("../../../assets/1.jpg")}
-                    style={{ width: "100%", height: "100%", borderRadius: 15 }}
-                  />
-
+                    <Image
+                      key={property?.id}
+                      source={
+                        property?.image_url
+                          ? this.utility.getApiUrl().slice(0, -1) +
+                            property?.image_url
+                          : require("../../../assets/1.jpg")
+                      }
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: 15,
+                      }}
+                    />
                   </TouchableOpacity>
 
                   {property.for_sell == "true" ? (
@@ -130,66 +138,67 @@ class List extends React.Component {
                     />
                   )}
                   {console.log()}
-                  <View 
-                  style={{
-                    marginLeft: "30%", 
-                    marginTop: "10%",
-                    justifyContent:"flex-start"
-                    }}>
-                  <Text
+                  <View
                     style={{
-                      fontSize: 16,
-                      color: "#23b3d5",
-                      fontWeight: "bold",
+                      marginLeft: "30%",
+                      marginTop: "10%",
+                      justifyContent: "flex-start",
                     }}
                   >
-                    Location : {property?.location}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: "bold",
-                      color: "#057a0f",
-                    }}
-                  >
-                    ₹
-                    {property.rent_detail?.rent_per_month == undefined
-                      ? "50,00000"
-                      : property.rent_detail?.rent_per_month + "/month"}
-                  </Text>
-                  {property.for_rent == "true" ? (
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: "#23b3d5",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Location : {property?.location}
+                    </Text>
                     <Text
                       style={{
                         fontSize: 12,
                         fontWeight: "bold",
+                        color: "#057a0f",
                       }}
                     >
-                      Members Allowed:{" "}
-                      {property.rent_detail?.members == undefined
-                        ? "2"
-                        : property.rent_detail?.members}
-                      {"\n"}
+                      ₹
+                      {property.rent_detail?.rent_per_month == undefined
+                        ? "50,00000"
+                        : property.rent_detail?.rent_per_month + "/month"}
+                    </Text>
+                    {property.for_rent == "true" ? (
                       <Text
                         style={{
                           fontSize: 12,
                           fontWeight: "bold",
-                          position: "absolute",
+                        }}
+                      >
+                        Members Allowed:{" "}
+                        {property.rent_detail?.members == undefined
+                          ? "2"
+                          : property.rent_detail?.members}
+                        {"\n"}
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontWeight: "bold",
+                            position: "absolute",
+                          }}
+                        >
+                          Published {property.created_at} ago
+                        </Text>
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
                         }}
                       >
                         Published {property.created_at} ago
                       </Text>
-                    </Text>
-                  ) : (
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontWeight: "bold",
-                      }}
-                    >
-                      Published {property.created_at} ago
-                    </Text>
-                  )}
-                </View>
+                    )}
+                  </View>
                 </View>
               );
             })
