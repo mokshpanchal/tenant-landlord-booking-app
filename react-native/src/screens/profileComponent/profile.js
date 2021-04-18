@@ -58,7 +58,7 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
-      this.setState({ user: JSON.parse([user]) });
+      this.setState({ user: user });
       console.log("user in profile", user);
     });
   }
@@ -66,6 +66,7 @@ class Profile extends React.Component {
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
+    const { user } = this.state.user;
     const logOutUser = () => {
       this.utility
         .clearAllValues()

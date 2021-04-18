@@ -61,6 +61,7 @@ class Dashboard extends Component {
             propertyList={this.state.propertyList}
             searchKey={this.state.searchKey}
             resetSearch={this.resetKey}
+            pressEvent={this.searchText}
           />
         );
         break;

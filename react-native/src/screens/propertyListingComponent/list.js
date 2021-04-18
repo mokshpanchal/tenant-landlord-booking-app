@@ -13,7 +13,7 @@ import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
-    height: "60%",
+    height: "40%",
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -78,11 +78,12 @@ class List extends React.Component {
   }
   render() {
     const { search } = this.state;
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView
         style={{
           backgroundColor: "#FFF",
-          height: "100%",
+          // height: "100%",
           display: "flex",
           flexDirection: "column",
         }}
@@ -92,18 +93,28 @@ class List extends React.Component {
             this.state.propertyList.map((property) => {
               return (
                 <View style={styles.property} key={property?.id}>
-                  <Image
-                    key={property?.id}
-                    source={require("../../../assets/1.jpg")}
+                  <TouchableOpacity
+                    activeOpacity={1}
                     style={{
                       width: "40%",
-                      height: "80%",
+                      height: "70%",
                       borderRadius: 15,
                       marginTop: "2.5%",
                       position: "absolute",
                       left: "7%",
+                      marginRight: "70%"
                     }}
+                    onPress={() => {
+                      navigate("Detail",{id: property?.id});
+                    }}
+                  >
+                  <Image
+                    key={property?.id}
+                    source={require("../../../assets/1.jpg")}
+                    style={{ width: "100%", height: "100%", borderRadius: 15 }}
                   />
+
+                  </TouchableOpacity>
 
                   {property.for_sell == "true" ? (
                     <Image
@@ -119,14 +130,17 @@ class List extends React.Component {
                     />
                   )}
                   {console.log()}
+                  <View 
+                  style={{
+                    marginLeft: "30%", 
+                    marginTop: "10%",
+                    justifyContent:"flex-start"
+                    }}>
                   <Text
                     style={{
                       fontSize: 16,
                       color: "#23b3d5",
                       fontWeight: "bold",
-                      position: "absolute",
-                      marginLeft: "42%",
-                      marginTop: "5%",
                     }}
                   >
                     Location : {property?.location}
@@ -135,9 +149,6 @@ class List extends React.Component {
                     style={{
                       fontSize: 12,
                       fontWeight: "bold",
-                      position: "absolute",
-                      marginLeft: "30%",
-                      marginTop: "12%",
                       color: "#057a0f",
                     }}
                   >
@@ -151,9 +162,6 @@ class List extends React.Component {
                       style={{
                         fontSize: 12,
                         fontWeight: "bold",
-                        position: "absolute",
-                        marginLeft: "32%",
-                        marginTop: "17%",
                       }}
                     >
                       Members Allowed:{" "}
@@ -176,14 +184,12 @@ class List extends React.Component {
                       style={{
                         fontSize: 12,
                         fontWeight: "bold",
-                        position: "absolute",
-                        marginLeft: "32%",
-                        marginTop: "17%",
                       }}
                     >
                       Published {property.created_at} ago
                     </Text>
                   )}
+                </View>
                 </View>
               );
             })

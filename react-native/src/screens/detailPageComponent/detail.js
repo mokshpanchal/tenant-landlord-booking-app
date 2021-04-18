@@ -36,23 +36,25 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
   },
 
-  footer: {
-    minHeight: "40",
-    width: "100%",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    shadowColor: "#000",
-    shadowRadius: 2,
-    overflow: "hidden",
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: -3 },
-    elevation: 4,
-    color: "#000",
+  property: {
+    height: "100%",
+    width: "80%",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "space-around",
+    margin: "5%",
+    borderBottomWidth: 2,
+    borderWidth: 0,
+    borderRadius: 15,
+    marginBottom: 20,
+  },
+  
+  corner: {
+    height: "10%",
+    width: "20%",
     position: "absolute",
-    bottom: 0,
+    right: 5,
+    marginTop: "2%",
   },
 });
 // =====================STYLE_SHEET===========================
@@ -62,6 +64,7 @@ class detail extends React.Component {
   state = {
     user: {},
     search: "",
+    property: {},
   };
 
   constructor() {
@@ -71,43 +74,121 @@ class detail extends React.Component {
 
   componentDidMount() {
     this.utility.getValue("user").then((user) => {
-      this.setState({ user: user });
-      console.log("user in profile", user);
+      this.setState({ user: JSON.parse(user) });
+      this.setState({ property_id: this.props.navigation.getParam('id')});
+      const apiResponse = this.utility
+        .makeGetRequest("properties/"+this.state.property_id)
+        .then((resp) => {
+          if (resp.success) {
+            this.setState({ property: resp.data });
+            console.log(this.state)
+          }
+        })
+      console.log("user in profile", this.state.user);
     });
   }
 
   render() {
-    const { search } = this.state;
     const { navigate } = this.props.navigation;
+    var property  = this.state.property;
     return (
-      <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>
-        <View style={styles.footer}>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigate("Home")}
+      <View style={styles.property} key={property?.id}>
+      <TouchableOpacity
+        activeOpacity={1}
+        style={{
+          width: "60%",
+          height: "70%",
+          borderRadius: 15,
+          marginTop: "2.5%",
+          position: "absolute",
+          left: "7%",
+          marginRight: "70%"
+        }}
+        onPress={() => {
+          navigate("Detail",{id: property?.id});
+        }}
+      >
+      <Image
+        key={property?.id}
+        source={require("../../../assets/1.jpg")}
+        style={{ width: "100%", height: "100%", borderRadius: 15 }}
+      />
+
+      </TouchableOpacity>
+      {property?.for_sell == "true" ? (
+        <Image
+          key={property?.for_rent}
+          source={require("../../../assets/sell.png")}
+          style={styles.corner}
+        />
+      ) : (
+        <Image
+          key={property?.for_rent}
+          source={require("../../../assets/rent.png")}
+          style={styles.corner}
+        />
+      )}
+      <View 
+      style={{
+        marginLeft: "30%", 
+        marginTop: "10%",
+        justifyContent:"flex-start"
+        }}>
+      <Text
+        style={{
+          fontSize: 16,
+          color: "#23b3d5",
+          fontWeight: "bold",
+        }}
+      >
+        Location : {property?.location}
+      </Text>
+      <Text
+        style={{
+          fontSize: 12,
+          fontWeight: "bold",
+          color: "#057a0f",
+        }}
+      >
+        ₹
+        {property?.rent_detail?.rent_per_month == undefined
+          ? "50,00000"
+          : property?.rent_detail?.rent_per_month + "/month"}
+      </Text>
+      {property?.for_rent == "true" ? (
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "bold",
+          }}
+        >
+          Members Allowed:{" "}
+          {property?.rent_detail?.members == undefined
+            ? "2"
+            : property?.rent_detail?.members}
+          {"\n"}
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: "bold",
+              position: "absolute",
+            }}
           >
-            <Image
-              source={require("../../../assets/search.png")}
-              style={{ width: 50, height: 50 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} onPress={() => navigate("")}>
-            <Image
-              source={require("../../../assets/book_active.png")}
-              style={{ width: 50, height: 50 }}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigate("Profile")}
-          >
-            <Image
-              source={require("../../../assets/user.png")}
-              style={{ width: 50, height: 50 }}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+            Published {property?.created_at} ago
+          </Text>
+        </Text>
+      ) : (
+        <Text
+          style={{
+            fontSize: 12,
+            fontWeight: "bold",
+          }}
+        >
+          Published {property?.created_at} ago
+        </Text>
+      )}
+    </View>
+    </View>
     );
   }
 }
