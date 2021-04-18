@@ -354,7 +354,7 @@ class Register extends Component {
           for_rent: (!this.forSellPurpose()).toString(),
           for_sell: this.forSellPurpose().toString(),
           property_type_id: this.state.currentPropertyType,
-          property_attachments_attributes: { site: this.state.site },
+          property_attachments_attributes: { site: this.state.site[0] },
         },
       };
       console.log("prepared property data", propertyData);

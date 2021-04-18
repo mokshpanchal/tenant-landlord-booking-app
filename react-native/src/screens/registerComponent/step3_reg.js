@@ -62,8 +62,7 @@ const styles = StyleSheet.create({
   radio: {
     fontSize: 15,
     fontFamily: "SemiBold",
-    textAlign: "center",
-    justifyContent: "center",
+    textAlign: "right",
     color: "#5694ca",
     marginHorizontal: 20,
   },
@@ -76,7 +75,15 @@ class RegisterStep3 extends Component {
     return (
       <ScrollView>
         <>
-          <View style={{ display: "flex", flexDirection: "row", margin: 20 }}>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              margin: 20,
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
             <Text style={styles.radioText}>Initial Contract Length:</Text>
             {this.props.formdata.contractLength.map((data, key) => {
               return (
@@ -179,8 +186,16 @@ class RegisterStep3 extends Component {
               }
             />
           </View>
-          <View style={{ display: "flex", flexDirection: "row", margin: 20 }}>
-            <Text style={styles.radioText}>Initial Contract Length</Text>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              margin: 20,
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            <Text style={styles.radioText}>Current Property status</Text>
             {this.props.formdata.propertyStatus.map((data, key) => {
               return (
                 <View key={key} style={styles.radio}>
