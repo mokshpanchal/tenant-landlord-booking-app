@@ -6,7 +6,7 @@ class PropertiesController < ApplicationController
 		# property = Property.where(id: params[:id]).first
     properties = Property.all
 		if properties.present?
-			render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
+			render_success_response(array_serializer.new(properties.reverse, serializer: PropertySerializer, current_user: current_user),200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
