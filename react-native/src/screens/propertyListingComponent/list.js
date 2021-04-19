@@ -79,10 +79,6 @@ class List extends React.Component {
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
-    console.log(String( this.utility.getApiUrl().slice(0, -1))+
-    property.image_url)
-    var property_image = property?.image_url ? (String( this.utility.getApiUrl().slice(0, -1))+
-    property.image_url) :  require("../../../assets/1.jpg")
     return (
       <ScrollView
         style={{
@@ -114,7 +110,14 @@ class List extends React.Component {
                   >
                     <Image
                       key={property?.id}
-                      source={(property_image)
+                      source={
+                        !property?.image_url
+                          ? require("../../../assets/1.jpg")
+                          : {
+                              uri:
+                                this.utility.getApiUrl().slice(0, -1) +
+                                property.image_url,
+                            }
                       }
                       style={{
                         width: "100%",
@@ -124,7 +127,7 @@ class List extends React.Component {
                     />
                   </TouchableOpacity>
 
-                  {property.for_sell == "true" ? (
+                  {property?.for_sell == "true" ? (
                     <Image
                       key={property?.for_rent}
                       source={require("../../../assets/sell.png")}
@@ -151,7 +154,7 @@ class List extends React.Component {
                         fontWeight: "bold",
                       }}
                     >
-                    {property?.name}
+                      {property?.name}
                     </Text>
                     <Text
                       style={{
@@ -170,11 +173,11 @@ class List extends React.Component {
                       }}
                     >
                       ₹
-                      {property.rent_detail?.rent_per_month == undefined
+                      {property?.rent_detail?.rent_per_month == undefined
                         ? "50,00000"
-                        : property.rent_detail?.rent_per_month + "/month"}
+                        : property?.rent_detail?.rent_per_month + "/month"}
                     </Text>
-                    {property.for_rent == "true" ? (
+                    {property?.for_rent == "true" ? (
                       <Text
                         style={{
                           fontSize: 12,
@@ -184,7 +187,7 @@ class List extends React.Component {
                         Members Allowed:{" "}
                         {property.rent_detail?.members == undefined
                           ? "2"
-                          : property.rent_detail?.members}
+                          : property?.rent_detail?.members}
                         {"\n"}
                         <Text
                           style={{
@@ -193,7 +196,7 @@ class List extends React.Component {
                             position: "absolute",
                           }}
                         >
-                          Published {property.created_at} ago
+                          Published {property?.created_at} ago
                         </Text>
                       </Text>
                     ) : (
@@ -203,7 +206,7 @@ class List extends React.Component {
                           fontWeight: "bold",
                         }}
                       >
-                        Published {property.created_at} ago
+                        Published {property?.created_at} ago
                       </Text>
                     )}
                   </View>
