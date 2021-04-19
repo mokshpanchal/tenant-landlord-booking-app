@@ -54,7 +54,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginHorizontal: 55,
+    color: "#5694ca",
   },
+
   radio: {
     fontSize: 15,
     fontFamily: "SemiBold",
@@ -113,6 +115,7 @@ class RegisterStep2 extends Component {
                 }}
               >
                 <Text style={styles.radioText}>Property type:</Text>
+                <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30}}>
                 {this.props.propertyTypes.map((data, key) => {
                   return (
                     <View key={key} style={styles.radio}>
@@ -161,6 +164,7 @@ class RegisterStep2 extends Component {
                   );
                 })}
               </View>
+              </View>
               <View style={styles.view}>
                 <TextInput
                   placeholder="Building Address Line 1"
@@ -192,12 +196,16 @@ class RegisterStep2 extends Component {
                 />
               </View>
               <View style={styles.viewOne}>
-                <Text>Location:</Text>
+                <Text style={{
+                  fontFamily: "SemiBold",
+                  color: "#5694ca",
+                  marginBottom: 150,
+                  }}>Location:</Text>
                 <DropDownPicker
                   items={this.props.stateList}
                   defaultIndex={0}
                   defaultValue={this.props?.formdata?.stateItem}
-                  containerStyle={{ width: 150, height: 40, marginLeft: 20 }}
+                  containerStyle={{ width: 150, height: 40, marginLeft: 20, marginBottom: 150, }}
                   onChangeItem={(stateItem) =>
                     this.props.changeText(
                       "stateItem",
@@ -210,7 +218,12 @@ class RegisterStep2 extends Component {
                 />
               </View>
               <View style={styles.viewOne}>
-                <Text>Purpose:</Text>
+                <Text style={{
+                  fontFamily: "SemiBold",
+                  color: "#5694ca",
+                  marginBottom: 100,
+                  }}>
+                    Purpose:</Text>
                 <DropDownPicker
                   items={this.props.puposeList}
                   defaultIndex={0}
@@ -219,6 +232,7 @@ class RegisterStep2 extends Component {
                     width: 150,
                     height: 40,
                     marginLeft: 20,
+                    marginBottom: 100,
                   }}
                   zindex={10}
                   onChangeItem={(purpose) =>
@@ -247,10 +261,10 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
-              <Text style={styles.radioText}>Property type:</Text>
+              <Text style={styles.radioText}>Upload Image:</Text>
               <Button
                 title="Open image browser"
-                style={{ paddingVertical: 10, marginHorizontal: 55 }}
+                style={{ paddingVertical: 10, marginHorizontal: 55}}
                 onPress={() => {
                   this.props.openImage(true);
                 }}

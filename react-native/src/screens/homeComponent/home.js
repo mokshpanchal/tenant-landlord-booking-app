@@ -31,6 +31,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: "5%",
   },
+
+  button: {
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: "#fff",
+    paddingVertical: 5,
+    borderRadius: 23,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+    width: "75%",
+  },
 });
 // =====================STYLE_SHEET===========================
 
@@ -69,7 +83,7 @@ class Home extends React.Component {
                 this.setState({ barodaCount: Object.values(value)[0] });
 
                 break;
-              default:
+              case "Mehsana":
                 this.setState({ mehsanaCount: Object.values(value)[0] });
 
                 break;
@@ -104,6 +118,25 @@ class Home extends React.Component {
             borderTopRightRadius: 10,
           }}
         />
+        <View style={{
+          display: "flex",
+          flexDirection: "column",
+          position: "absolute",
+          marginTop: "30%",
+          left: "5%",
+          shadowColor: "#000",
+          shadowRadius: 5,
+          shadowOpacity: 0.7,
+          shadowOffset: { width: 0, height: 3 },
+          elevation: 4}}>
+          <Text style={{color: "#fff", fontSize: 60, fontWeight: "bold"}}>Go</Text>
+          <Text style={{color: "#fff", fontSize: 60, fontWeight: "bold"}}>Near</Text>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => {
+                this.props.pressEvent("location=ahmedabad");
+              }}><Text style={{fontFamily: "SemiBold",}}>Explore</Text></TouchableOpacity>
+        </View>
 
         <View style={styles.main}>
           <View style={styles.property}>
