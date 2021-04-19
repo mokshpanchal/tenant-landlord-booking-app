@@ -188,7 +188,7 @@ class Profile extends React.Component {
     const logOutUser = () => {
       this.utility
         .clearAllValues()
-        .then((data) => this.props.navigation.navigate("Auth"));
+        .then((data) => this.props.navigation.navigate("Login"));
     };
     return (
       <View style={{ backgroundColor: "#FFF", height: "100%", flex: 1 }}>

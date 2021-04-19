@@ -1,20 +1,23 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-const apiUrl = "http://cea13f09864b.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const amountRegex = /^\d+(\.\d{1,2})?$/;
 const passLength = 5;
 const invalidResponseRegex = /^[4-5][0-9][0-9]$/;
 const stateList = ["Ahmedabad", "Surat", "Baroda"];
 class Utility extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  state = { apiUrl: null };
+  constructor() {
+    super();
+    this.getValue("api_url").then((url) => {
+      this.state = { apiUrl: JSON.parse(url) + "/" };
+    });
     console.log("this is util constructor");
   }
   getApiUrl() {
-    return apiUrl;
+    console.log("get api url method", this.state.apiUrl);
+    return this.state.apiUrl;
   }
   async setValue(key, value) {
     try {
@@ -66,8 +69,7 @@ class Utility extends Component {
   async makePostRequest(path, data) {
     // creates entity
     try {
-      console.log("inside make post funcc", path, data);
-      const apiResponse = await fetch(apiUrl + path, {
+      const apiResponse = await fetch(this.getApiUrl() + path, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -93,7 +95,7 @@ class Utility extends Component {
     // creates entity
     try {
       console.log("inside make put funcc", path, data);
-      const apiResponse = await fetch(apiUrl + path, {
+      const apiResponse = await fetch(this.getApiUrl() + path, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -116,7 +118,7 @@ class Utility extends Component {
   }
   async makeGetRequest(path) {
     // get entity
-    const response = await fetch(apiUrl + path, {
+    const response = await fetch(this.getApiUrl() + path, {
       method: "GET",
       headers: {
         "content-type": "application/json",

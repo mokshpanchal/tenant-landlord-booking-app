@@ -53,8 +53,8 @@ class List extends React.Component {
     propertyList: [],
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.utility = new Utility();
   }
   setPropertyList() {
@@ -79,6 +79,7 @@ class List extends React.Component {
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
+    let { url } = this.utility.getApiUrl();
     return (
       <ScrollView
         style={{
@@ -114,9 +115,7 @@ class List extends React.Component {
                         !property?.image_url
                           ? require("../../../assets/1.jpg")
                           : {
-                              uri:
-                                this.utility.getApiUrl().slice(0, -1) +
-                                property.image_url,
+                              uri: url?.slice(0, -1) + property.image_url,
                             }
                       }
                       style={{
