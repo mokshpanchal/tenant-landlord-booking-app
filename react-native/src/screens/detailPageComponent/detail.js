@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
+import {Linking} from 'react-native'
 
 const styles = StyleSheet.create({
   view: {
@@ -37,16 +38,15 @@ const styles = StyleSheet.create({
   },
 
   property: {
-    height: "100%",
+    height: "80%",
     width: "80%",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
-    margin: "5%",
-    borderBottomWidth: 2,
+    marginTop: "5%",
+    marginLeft: "5%",
     borderWidth: 0,
     borderRadius: 15,
-    marginBottom: 20,
   },
 
   corner: {
@@ -55,6 +55,21 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 5,
     marginTop: "2%",
+  },
+
+  callbutton: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: "#3ead23",
+    paddingVertical: 10,
+    borderRadius: 23,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+    width: "75%",
   },
 });
 // =====================STYLE_SHEET===========================
@@ -96,13 +111,10 @@ class detail extends React.Component {
         <TouchableOpacity
           activeOpacity={1}
           style={{
-            width: "60%",
+            width: "90%",
             height: "70%",
             borderRadius: 15,
-            marginTop: "2.5%",
-            position: "absolute",
-            left: "7%",
-            marginRight: "70%",
+            left: "10%",
           }}
           onPress={() => {
             navigate("Detail", { id: property?.id });
@@ -144,7 +156,7 @@ class detail extends React.Component {
         >
           <Text
             style={{
-              fontSize: 16,
+              fontSize: 24,
               color: "#23b3d5",
               fontWeight: "bold",
             }}
@@ -153,7 +165,7 @@ class detail extends React.Component {
           </Text>
           <Text
             style={{
-              fontSize: 12,
+              fontSize: 16,
               fontWeight: "bold",
               color: "#057a0f",
             }}
@@ -166,7 +178,7 @@ class detail extends React.Component {
           {property?.for_rent == "true" ? (
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 16,
                 fontWeight: "bold",
               }}
             >
@@ -177,7 +189,7 @@ class detail extends React.Component {
               {"\n"}
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 16,
                   fontWeight: "bold",
                   position: "absolute",
                 }}
@@ -195,6 +207,15 @@ class detail extends React.Component {
               Published {property?.created_at} ago
             </Text>
           )}
+          <TouchableOpacity style={styles.callbutton}
+          onPress={()=>Linking.openURL(`tel:${property?.contact}`)}> 
+          <Text  style={{
+            color: "#FFF",
+            fontFamily: "SemiBold",
+            paddingLeft: 20,
+            paddingRight: 20,
+          }}> {property?.contact} </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );

@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
     width: "100%",
   },
 
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
     width: "75%",
     position: "relative",
     marginLeft: "12.5%",
@@ -199,7 +201,7 @@ class Profile extends React.Component {
           />
           {/* </View> */}
           {/* <View style={{display: "flex", flexDirection: "column", position: "absolute"}}> */}
-          <Text style={{ margin: 15, paddingHorizontal: 20 }}>
+          <Text style={{ margin: 15, paddingHorizontal: 20, marginTop: 30 }}>
             <Text
               style={{
                 fontSize: 25,
