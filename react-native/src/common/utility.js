@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-const apiUrl = "http://f5cfbdf3ce82.ngrok.io/";
+const apiUrl = "http://cea13f09864b.ngrok.io/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const amountRegex = /^\d+(\.\d{1,2})?$/;
 const passLength = 5;
@@ -80,25 +80,13 @@ class Utility extends Component {
       if (invalidResponseRegex.test(apiResponse.status)) {
         let errors = Object.values(response.errors).join();
         console.log(errors);
-        Alert.alert("Error Occured!", errors, [
-          {
-            text: "OK",
-          },
-        ]);
+        this.showAlert("Error Occured!", errors);
         return false;
       }
       console.log("make post", response);
       return response;
     } catch (error) {
-      Alert.alert(
-        "Error Occured!",
-        "Error occured while registering, please try again later!",
-        [
-          {
-            text: "OK",
-          },
-        ]
-      );
+      this.showAlert();
     }
   }
   async makePutRequest(path, data) {
@@ -109,7 +97,6 @@ class Utility extends Component {
         method: "PUT",
         headers: {
           "content-type": "application/json",
-          accept: "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -118,25 +105,13 @@ class Utility extends Component {
       if (invalidResponseRegex.test(apiResponse.status)) {
         let errors = Object.values(response.errors).join();
         console.log(errors);
-        Alert.alert("Error Occured!", errors, [
-          {
-            text: "OK",
-          },
-        ]);
+        this.showAlert("Error Occured!", errors);
         return false;
       }
       console.log("make put", response);
       return response;
     } catch (error) {
-      Alert.alert(
-        "Error Occured!",
-        "Error occured while api request, please try again later!",
-        [
-          {
-            text: "OK",
-          },
-        ]
-      );
+      this.showAlert();
     }
   }
   async makeGetRequest(path) {
@@ -151,6 +126,12 @@ class Utility extends Component {
     const jsonResponse = await response.json();
     return jsonResponse;
   }
+  showAlert(
+    title = "Error Occured!",
+    message = "Error occured while api request, please try again later!",
+    options = [{ text: "OK" }]
+  ) {
+    Alert.alert(title, message, options);
+  }
 }
-
 export default Utility;
