@@ -111,9 +111,13 @@ class detail extends React.Component {
           <Image
             key={property?.id}
             source={
-              property?.image_url
-                ? this.utility.getApiUrl().slice(0, -1) + property?.image_url
-                : require("../../../assets/1.jpg")
+              !property?.image_url
+                ? require("../../../assets/1.jpg")
+                : {
+                    uri:
+                      this.utility.getApiUrl().slice(0, -1) +
+                      property.image_url,
+                  }
             }
             style={{ width: "100%", height: "100%", borderRadius: 15 }}
           />
