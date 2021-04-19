@@ -79,6 +79,10 @@ class List extends React.Component {
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
+    console.log(String( this.utility.getApiUrl().slice(0, -1))+
+    property.image_url)
+    var property_image = property?.image_url ? (String( this.utility.getApiUrl().slice(0, -1))+
+    property.image_url) :  require("../../../assets/1.jpg")
     return (
       <ScrollView
         style={{
@@ -110,11 +114,7 @@ class List extends React.Component {
                   >
                     <Image
                       key={property?.id}
-                      source={
-                        property?.image_url
-                          ? this.utility.getApiUrl().slice(0, -1) +
-                            property?.image_url
-                          : require("../../../assets/1.jpg")
+                      source={(property_image)
                       }
                       style={{
                         width: "100%",
@@ -145,6 +145,14 @@ class List extends React.Component {
                       justifyContent: "flex-start",
                     }}
                   >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                    >
+                    {property?.name}
+                    </Text>
                     <Text
                       style={{
                         fontSize: 16,

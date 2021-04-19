@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
     color: "#000",
-    height: 150,
+    height: 180,
     backgroundColor: "#fff",
     margin: 0,
     display: "flex",
@@ -58,8 +58,38 @@ const styles = StyleSheet.create({
     width: "30%",
     backgroundColor: "#fff",
     marginLeft: "5%",
-    marginTop: "5%",
+    marginTop: "7%",
   },
+  button:
+    {
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 30,
+      backgroundColor: "#5694ca",
+      paddingVertical: 10,
+      borderRadius: 23,
+      shadowColor: "#000",
+      shadowRadius: 5,
+      shadowOpacity: 0.7,
+      shadowOffset: { width: 0, height: 3 },
+      width: "100%",
+      },
+
+      logoutbutton:
+      {
+        alignItems: "center",
+        marginTop: 20,
+        backgroundColor: "#DC143C",
+        paddingVertical: 10,
+        borderRadius: 23,
+        shadowColor: "#000",
+        shadowRadius: 5,
+        shadowOpacity: 0.7,
+        shadowOffset: { width: 0, height: 3 },
+        width: "75%",
+        position: "relative",
+        marginLeft: "12.5%"
+        }
 });
 // =====================STYLE_SHEET===========================
 
@@ -167,18 +197,28 @@ class Profile extends React.Component {
             source={require("../../../assets/avatar.png")}
             style={styles.profile}
           />
-          <Text style={{ margin: 20, paddingHorizontal: 10 }}>
-            {user?.name}
-            {"\n"}
-            {user?.email}
-            {"\n"}
-            {user?.phone_number}
-            {"\n"}
-            {user?.created_at}
-            {"\n"}
-            <Button title="Logout" onPress={logOutUser}></Button>
-          </Text>
-        </View>
+          {/* </View> */}
+          {/* <View style={{display: "flex", flexDirection: "column", position: "absolute"}}> */}
+          <Text style={{ margin: 15, paddingHorizontal: 20 }}>
+            <Text style={{fontSize: 25, fontWeight: "bold", color: "#5694ca", paddingLeft: 5}}>
+              {user?.name}
+              </Text>
+              {"\n"}
+              <Text style={{fontSize: 12, fontWeight: "bold"}}>
+                {user?.email}
+              </Text>
+              {"\n"}
+              <Text style={{fontSize: 12, fontWeight: "bold", color: "green"}}>
+                {user?.phone_number}
+              </Text>
+              {"\n"}
+              <Text style={{fontSize: 12, fontWeight: "bold", color: "grey"}}>
+                {user?.created_at}
+              </Text>
+              {"\n"}
+              </Text>
+            </View>
+          
         <Text
           style={{
             margin: 20,
@@ -228,8 +268,29 @@ class Profile extends React.Component {
         <View
           style={{ paddingVertical: 30, paddingHorizontal: 50, width: "100%" }}
         >
-          <Button title="Change Password" onPress={changePassword}></Button>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={changePassword}>
+          {/* <Button title="Change Password" onPress={changePassword}></Button> */}
+          <Text style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+              }}> 
+              Change Password </Text>
+          </TouchableOpacity>
         </View>
+        <TouchableOpacity 
+            style={styles.logoutbutton}
+            onPress={logOutUser}>
+              {/* <Button title="Logout" onPress={logOutUser}></Button> */}
+              <Text style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+              paddingLeft: 20,
+              paddingRight: 20,
+              }}> 
+                Logout </Text>
+            </TouchableOpacity>
       </View>
     );
   }
