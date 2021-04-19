@@ -21,6 +21,17 @@ class Users::PasswordsController < Devise::PasswordsController
   #   super
   # end
 
+  def create_reset_password_token
+    user = User.find(params[:id])
+    raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
+    @token = raw
+    user.reset_password_token = hashed
+    user.reset_password_sent_at = Time.now.utc
+    user.save
+    render json: {reset_password_token: hashed}
+  end
+
+
   # protected
 
   # def after_resetting_password_path_for(resource)

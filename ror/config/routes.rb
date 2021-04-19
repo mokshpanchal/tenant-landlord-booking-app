@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   	resources :verications
 
     get '/search' => 'properties#search', as: :search
+    devise_scope :user do
+      get '/create_reset_password_token' => "users/passwords#create_reset_password_token", as: :get_token
+    end
 end

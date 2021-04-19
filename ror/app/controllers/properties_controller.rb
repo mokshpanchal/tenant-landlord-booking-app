@@ -1,5 +1,7 @@
 class PropertiesController < ApplicationController
   include ResourceRenderer
+  before_action :accept_all_params
+
 	def index
 		# property = Property.where(id: params[:id]).first
     properties = Property.all
@@ -12,11 +14,19 @@ class PropertiesController < ApplicationController
 
   def create
   	# return render_unprocessable_entity("Please verify your account to upload property details", 422) if current_user.present? && !current_user.verification.present? || current_user.verification.is_verified == "approved"
-		property = Property.new(property_params)
+		property = Property.new(property_params.except(:property_attachments_attributes))
 		if property.save!
-			property_params[:property_attachments]['site'].each do |pr|
-        property_attachment = property.property_attachments.create!(site: pr, property_id: property.id)
-      end if property_params[:property_attachments].present?
+			pr = property_params[:property_attachments_attributes][:site]
+      tempfile  = Tempfile.new(property.id.to_s)
+      tempfile.binmode
+      tempfile.write(Base64.decode64(pr))
+      file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc")
+      property.picture = file
+      property.save!
+      property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
+      # if property_params[:property_attachments_attributes].present?
+      #   property_attachment = property.property_attachments.create!(site: file, property_id: property.id)
+      # end
 			render_success_response(property, "Property added successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
@@ -25,7 +35,7 @@ class PropertiesController < ApplicationController
 
   def show		
   	property = Property.where(id: params[:id]).first
-		if property.pesent?
+		if property.present?
 			render_success_response(single_serializer(property, PropertySerializer, current_user: current_user), 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
@@ -35,13 +45,18 @@ class PropertiesController < ApplicationController
   def update
   	property = Property.where(id: params[:id]).first
   	if property.update(property_update_params.except(:property_attachments_attributes))
-  		property_update_params[:property_attachments]['site'].each do |pr|
-        property_attachment = property.property_attachments.find(property_update_params[:property_attachments][:id])
-      end
-        if property_attachment.present?
-        	property_attachment.update(site: pr, property_id: property_update_params[:property_attachments][:property_id])
-        end
-  		render_success_response(single_serializer(property, PropertySerializer, current_user: current_user),"Property updated successfully", 200)
+  		# property_update_params[:property_attachments_attributes][:site].each do |pr|
+    #     property_attachment = property.property_attachments.find(property_update_params[:property_attachments_attributes][:id])
+      # end
+        pr = property_params[:property_attachments_attributes][:site]
+        tempfile  = Tempfile.new(property.id.to_s)
+        tempfile.binmode
+        tempfile.write(Base64.decode64(pr))
+        file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc")
+        property.picture = file
+        property.save!
+        property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
+  		  render_success_response(single_serializer(property, PropertySerializer, current_user: current_user),"Property updated successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
@@ -78,12 +93,16 @@ class PropertiesController < ApplicationController
 
   private
 
+  def accept_all_params
+    params.permit!
+  end
+
   def property_params
-  	params.require(:property).permit(:user_id, :name, :address_1, :address_2, :post_code, :location, :status, :for_rent, :for_sell, :property_type_id, property_attachments_attributes: [:site])
+  	params.require(:property).permit(:user_id, :name, :address_1, :address_2, :post_code, :location, :status, :for_rent, :for_sell, :property_type_id, property_attachments_attributes: :site)
   end
 
   def property_update_params
-  	params.require(:property).permit(:name, :address_1, :address_2, :post_code, :location, :status, :for_rent, :for_sell, :property_type_id, property_attachments_attributes: [:site])
+  	params.require(:property).permit(:name, :address_1, :address_2, :post_code, :location, :status, :for_rent, :for_sell, :property_type_id, property_attachments_attributes: :site)
   end
 
 end
