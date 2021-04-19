@@ -60,36 +60,34 @@ const styles = StyleSheet.create({
     marginLeft: "5%",
     marginTop: "7%",
   },
-  button:
-    {
-      alignItems: "center",
-      justifyContent: "center",
-      marginTop: 30,
-      backgroundColor: "#5694ca",
-      paddingVertical: 10,
-      borderRadius: 23,
-      shadowColor: "#000",
-      shadowRadius: 5,
-      shadowOpacity: 0.7,
-      shadowOffset: { width: 0, height: 3 },
-      width: "100%",
-      },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    backgroundColor: "#5694ca",
+    paddingVertical: 10,
+    borderRadius: 23,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    width: "100%",
+  },
 
-      logoutbutton:
-      {
-        alignItems: "center",
-        marginTop: 20,
-        backgroundColor: "#DC143C",
-        paddingVertical: 10,
-        borderRadius: 23,
-        shadowColor: "#000",
-        shadowRadius: 5,
-        shadowOpacity: 0.7,
-        shadowOffset: { width: 0, height: 3 },
-        width: "75%",
-        position: "relative",
-        marginLeft: "12.5%"
-        }
+  logoutbutton: {
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: "#DC143C",
+    paddingVertical: 10,
+    borderRadius: 23,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    width: "75%",
+    position: "relative",
+    marginLeft: "12.5%",
+  },
 });
 // =====================STYLE_SHEET===========================
 
@@ -103,7 +101,6 @@ class Profile extends React.Component {
       confirm_password_error: "",
     },
     search: "",
-    isFormSubmitted: false,
     validData: false,
   };
 
@@ -116,18 +113,9 @@ class Profile extends React.Component {
     this.utility.getValue("user").then((user) => {
       let loggedUser = JSON.parse(user);
       this.setState({ user: loggedUser });
-      // const apiResponse = this.utility
-      //   .makeGetRequest("users/" + loggedUser.id)
-      //   .then((resp) => {
-      //     console.log("user api response", resp);
-      //     if (resp.success) {
-      //       this.setState({ user: resp.data });
-      //     }
-      //   });
       console.log("user in profile", JSON.parse(user));
     });
   }
-
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
@@ -160,9 +148,7 @@ class Profile extends React.Component {
     };
     var user = this.state.user;
     const changePassword = () => {
-      this.setState({ isFormSubmitted: true });
       const validated = validateForm();
-      console.log("validates", validated);
       this.setState({ errorForm: validated });
       if (
         validated.password_error.length ||
@@ -171,18 +157,32 @@ class Profile extends React.Component {
       ) {
         return false;
       }
-      console.log(this.state);
-      let requestData = {
-        password: this.state.password,
-        current_password: this.state.current_password,
-        password_confirmation: this.state.password_confirmation,
-      };
+
       const apiResponse = this.utility
-        .makePutRequest("users/password", requestData)
+        .makeGetRequest("create_reset_password_token?id=" + user.id)
         .then((resp) => {
-          console.log("response user", resp);
-          if (resp?.success) {
+          if (resp) {
+            return resp.reset_password_token;
+          } else {
+            return this.utility.showAlert();
           }
+        })
+        .then((token) => {
+          let requestData = {
+            password: this.state.password,
+            current_password: this.state.current_password,
+            password_confirmation: this.state.password_confirmation,
+            reset_password_token: token,
+          };
+          this.utility
+            .makePutRequest("users/password", requestData)
+            .then((response) => {
+              console.log("response user", response);
+              return this.utility.showAlert(
+                "Password changed!",
+                "Your password has been reset successfully"
+              );
+            });
         });
     };
     const logOutUser = () => {
@@ -200,25 +200,32 @@ class Profile extends React.Component {
           {/* </View> */}
           {/* <View style={{display: "flex", flexDirection: "column", position: "absolute"}}> */}
           <Text style={{ margin: 15, paddingHorizontal: 20 }}>
-            <Text style={{fontSize: 25, fontWeight: "bold", color: "#5694ca", paddingLeft: 5}}>
+            <Text
+              style={{
+                fontSize: 25,
+                fontWeight: "bold",
+                color: "#5694ca",
+                paddingLeft: 5,
+              }}
+            >
               {user?.name}
-              </Text>
-              {"\n"}
-              <Text style={{fontSize: 12, fontWeight: "bold"}}>
-                {user?.email}
-              </Text>
-              {"\n"}
-              <Text style={{fontSize: 12, fontWeight: "bold", color: "green"}}>
-                {user?.phone_number}
-              </Text>
-              {"\n"}
-              <Text style={{fontSize: 12, fontWeight: "bold", color: "grey"}}>
-                {user?.created_at}
-              </Text>
-              {"\n"}
-              </Text>
-            </View>
-          
+            </Text>
+            {"\n"}
+            <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+              {user?.email}
+            </Text>
+            {"\n"}
+            <Text style={{ fontSize: 12, fontWeight: "bold", color: "green" }}>
+              {user?.phone_number}
+            </Text>
+            {"\n"}
+            <Text style={{ fontSize: 12, fontWeight: "bold", color: "grey" }}>
+              {user?.created_at}
+            </Text>
+            {"\n"}
+          </Text>
+        </View>
+
         <Text
           style={{
             margin: 20,
@@ -268,29 +275,31 @@ class Profile extends React.Component {
         <View
           style={{ paddingVertical: 30, paddingHorizontal: 50, width: "100%" }}
         >
-          <TouchableOpacity 
-            style={styles.button}
-            onPress={changePassword}>
-          {/* <Button title="Change Password" onPress={changePassword}></Button> */}
-          <Text style={{
-              color: "#FFF",
-              fontFamily: "SemiBold",
-              }}> 
-              Change Password </Text>
+          <TouchableOpacity style={styles.button} onPress={changePassword}>
+            {/* <Button title="Change Password" onPress={changePassword}></Button> */}
+            <Text
+              style={{
+                color: "#FFF",
+                fontFamily: "SemiBold",
+              }}
+            >
+              Change Password{" "}
+            </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity 
-            style={styles.logoutbutton}
-            onPress={logOutUser}>
-              {/* <Button title="Logout" onPress={logOutUser}></Button> */}
-              <Text style={{
+        <TouchableOpacity style={styles.logoutbutton} onPress={logOutUser}>
+          {/* <Button title="Logout" onPress={logOutUser}></Button> */}
+          <Text
+            style={{
               color: "#FFF",
               fontFamily: "SemiBold",
               paddingLeft: 20,
               paddingRight: 20,
-              }}> 
-                Logout </Text>
-            </TouchableOpacity>
+            }}
+          >
+            Logout{" "}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   }
