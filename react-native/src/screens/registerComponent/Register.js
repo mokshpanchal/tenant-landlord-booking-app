@@ -380,7 +380,6 @@ class Register extends Component {
   }
 
   register() {
-    return this.handlePress("formStep", 2);
     this.stepOneValidation();
     if (!this.isValidStepOne) return;
     const formData = this.state.formOneData;
@@ -409,10 +408,6 @@ class Register extends Component {
       });
   }
   createProperty() {
-    let formStep = this.forSellPurpose() ? 4 : 3;
-    console.log("formstep var value", formStep);
-    return this.handlePress("formStep", formStep);
-    //========================================================
     this.utility.getValue("user").then((data) => {
       if (!data) return false;
       data = JSON.parse(data);
@@ -451,8 +446,8 @@ class Register extends Component {
     });
   }
   setRentDetail() {
-    return this.handlePress("formStep", 4);
     this.stepThreeValidation();
+    if (!this.state.property) return false;
     if (!this.isValidStepThree) return false;
     const formData = this.state.formThreeData;
     const rentData = {
@@ -480,10 +475,8 @@ class Register extends Component {
   }
 
   setAmenities() {
-    // this.stepFourValidation();
-    // if (!this.isValidStepThree) return false;
+    if (!this.state.property) return false;
     const formData = this.state.formFourData;
-    console.log(formData);
     const amenity_detail = {
       amenity: {
         bedroom_count: parseInt(formData.bedroom_count),
@@ -497,17 +490,16 @@ class Register extends Component {
         property_id: this.state.property.id,
       },
     };
-    console.log("amenity obj", amenity_detail);
-    // console.log("prepared amenity data", amenity_detail);
-    // const apiResponse = this.utility
-    //   .makePostRequest("amenity_detail", amenity_detail)
-    //   .then((resp) => {
-    //     console.log("response property", resp);
-    //     if (resp?.success) {
-    //       this.setState({ amenity_detail: resp.data });
-    //       return this.props.navigation.navigate("Dashboard");
-    //     }
-    //   });
+    console.log("prepared amenity data", amenity_detail);
+    const apiResponse = this.utility
+      .makePostRequest("amenities", amenity_detail)
+      .then((resp) => {
+        console.log("response property", resp);
+        if (resp?.success) {
+          this.setState({ amenity_detail: resp.data });
+          return this.props.navigation.navigate("Dashboard");
+        }
+      });
   }
 }
 export default Register;

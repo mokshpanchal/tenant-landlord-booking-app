@@ -63,16 +63,17 @@ class List extends React.Component {
       ? true
       : this.utility.makeGetRequest("search").then((resp) => {
           console.log("response property", resp);
-          if (resp.success) {
-            return this.setState({ propertyList: resp.data });
+          if (resp?.success) {
+            this.setState({ propertyList: resp?.data });
           }
         });
   }
   componentDidMount() {
-    console.log(this.props);
-    if (this.props.searchKey.length > 0)
-      return this.setState({ propertyList: this.props.propertyList });
-    let res = this.setPropertyList();
+    this.utility.getValue("api_url").then((res) => {
+      if (this.props.searchKey.length > 0)
+        return this.setState({ propertyList: this.props.propertyList });
+      this.setPropertyList();
+    });
   }
   componentWillUnmount() {
     this.props.resetSearch("");
@@ -117,7 +118,7 @@ class List extends React.Component {
                         !property?.image_url
                           ? require("../../../assets/1.jpg")
                           : {
-                              uri: url?.slice(0, -1) + property.image_url,
+                              uri: url?.slice(0, -1) + property?.image_url,
                             }
                       }
                       style={{
@@ -174,9 +175,9 @@ class List extends React.Component {
                           color: "#057a0f",
                         }}
                       >
-                        {property.user?.name}
+                        {property?.user.name}
                       </Text>
-                      {property.user?.role == "seller" ? (
+                      {property?.user.role == "seller" ? (
                         <Image
                           source={require("../../../assets/verified.png")}
                           style={{ width: 20, height: 20 }}
@@ -205,7 +206,7 @@ class List extends React.Component {
                         }}
                       >
                         Members Allowed:{" "}
-                        {property.rent_detail?.members == undefined
+                        {property?.rent_detail?.members == undefined
                           ? "2"
                           : property?.rent_detail?.members}
                         {"\n"}

@@ -120,15 +120,19 @@ class Utility extends Component {
   }
   async makeGetRequest(path) {
     // get entity
-    const response = await fetch(this.getApiUrl() + path, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-        accept: "application/json",
-      },
-    });
-    const jsonResponse = await response.json();
-    return jsonResponse;
+    try {
+      const response = await fetch(this.getApiUrl() + path, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+      });
+      const jsonResponse = await response.json();
+      return jsonResponse;
+    } catch (error) {
+      this.showAlert();
+    }
   }
   showAlert(
     title = "Error Occured!",
