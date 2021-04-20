@@ -165,6 +165,17 @@ class List extends React.Component {
                     >
                       Location : {property?.location}
                     </Text>
+                    <View style={{display:"flex", flexDirection:"row"}}>
+                    <Text style={{fontSize: 12, fontWeight: "bold",  color: "#057a0f"}}>
+                      {property.user?.name }
+                      </Text>
+                      {property.user?.role == "seller" ? (
+                      <Image
+                      source={require("../../../assets/verified.png")}
+                        style={{width: 20, height: 20,}}
+                      />):(<Image/>)
+                      }
+                    </View>
                     <Text
                       style={{
                         fontSize: 12,
@@ -194,6 +205,7 @@ class List extends React.Component {
                             fontSize: 12,
                             fontWeight: "bold",
                             position: "absolute",
+                            color: "#D3D3D3"
                           }}
                         >
                           Published {property?.created_at} ago

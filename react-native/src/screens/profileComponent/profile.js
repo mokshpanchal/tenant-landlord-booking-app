@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
+import { ScrollView } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   view: {
@@ -202,16 +203,25 @@ class Profile extends React.Component {
           {/* </View> */}
           {/* <View style={{display: "flex", flexDirection: "column", position: "absolute"}}> */}
           <Text style={{ margin: 15, paddingHorizontal: 20, marginTop: 30 }}>
+          <View style={{display:"flex", flexDirection:"row"}}>
             <Text
               style={{
                 fontSize: 25,
                 fontWeight: "bold",
                 color: "#5694ca",
-                paddingLeft: 5,
+                paddingLeft: 2,
               }}
             >
               {user?.name}
             </Text>
+            {user?.role == "seller" ? (
+                      <Image
+                      source={require("../../../assets/verified.png")}
+                        style={{width: 30, height: 30,}}
+                      />):(<Image/>)
+                      }
+          </View>
+
             {"\n"}
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
               {user?.email}
@@ -222,7 +232,7 @@ class Profile extends React.Component {
             </Text>
             {"\n"}
             <Text style={{ fontSize: 12, fontWeight: "bold", color: "grey" }}>
-              {user?.created_at}
+              Joined on {user?.created_at}
             </Text>
             {"\n"}
           </Text>
@@ -234,6 +244,8 @@ class Profile extends React.Component {
             fontWeight: "bold",
             textAlign: "center",
             paddingHorizontal: 10,
+            fontSize: 18,
+            color: "#5694ca"
           }}
         >
           Change Your Password:{"\n"}
@@ -249,7 +261,7 @@ class Profile extends React.Component {
             }
           />
         </View>
-        <Text>{this.state.errorForm?.current_password_error}</Text>
+        <Text style={{color: "#DC143C", textAlign: "center"}}>{this.state.errorForm?.current_password_error}</Text>
         <View style={styles.form_view}>
           <TextInput
             secureTextEntry
@@ -261,7 +273,7 @@ class Profile extends React.Component {
             }
           />
         </View>
-        <Text>{this.state.errorForm?.password_error}</Text>
+        <Text style={{color: "#DC143C", textAlign: "center"}}>{this.state.errorForm?.password_error}</Text>
         <View style={styles.form_view}>
           <TextInput
             secureTextEntry
@@ -273,22 +285,21 @@ class Profile extends React.Component {
             }
           />
         </View>
-        <Text>{this.state.errorForm?.confirm_password_error}</Text>
+        <Text style={{color: "#DC143C", textAlign: "center"}}>{this.state.errorForm?.confirm_password_error}</Text>
         <View
           style={{ paddingVertical: 30, paddingHorizontal: 50, width: "100%" }}
         >
-          <TouchableOpacity style={styles.button} onPress={changePassword}>
-            {/* <Button title="Change Password" onPress={changePassword}></Button> */}
-            <Text
-              style={{
-                color: "#FFF",
-                fontFamily: "SemiBold",
-              }}
-            >
-              Change Password{" "}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.button} onPress={changePassword}>
+          {/* <Button title="Change Password" onPress={changePassword}></Button> */}
+          <Text
+            style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+            }}
+          >
+            Change Password{" "}
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.logoutbutton} onPress={logOutUser}>
           {/* <Button title="Logout" onPress={logOutUser}></Button> */}
           <Text
@@ -302,6 +313,32 @@ class Profile extends React.Component {
             Logout{" "}
           </Text>
         </TouchableOpacity>
+      </View>
+        
+      <View style={{display:"flex", flexDirection:"row", alignContent: "center", justifyContent: "space-around"}}>
+        <View>
+          <Image
+            source={require("../../../assets/creator1.png")}
+                    style={{width: 50, height: 50, borderRadius: 90,}}
+                    />
+          <Text style={{color: "#5694ca", fontSize: 12,textAlign: "center"}}> Krishna </Text>
+        </View>
+        <View>
+          <Image
+            source={require("../../../assets/creator2.png")}
+                    style={{width: 50, height: 50, borderRadius: 90,}}
+                    />
+          <Text style={{color: "#5694ca", fontSize: 12,textAlign: "center"}}> Aditi </Text>
+        </View>
+        <View>
+          <Image
+            source={require("../../../assets/creator3.png")}
+                    style={{width: 50, height: 50, borderRadius: 90,}}
+                    />
+          <Text style={{color: "#5694ca", fontSize: 12,textAlign: "center"}}> Pankti </Text>
+        </View>
+      </View>
+      <Text style={{color: "#5694ca", fontSize: 12, textAlign: "center"}}> Version 0.1(Beta)</Text>
       </View>
     );
   }

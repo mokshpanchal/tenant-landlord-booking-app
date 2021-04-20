@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
-const apiUrl = "http://cea13f09864b.ngrok.io/";
+const apiUrl = "http://localhost:3000/";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const amountRegex = /^\d+(\.\d{1,2})?$/;
 const passLength = 5;
