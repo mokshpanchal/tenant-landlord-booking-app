@@ -75,6 +75,22 @@ class Register extends Component {
     { value: "2", label: "Sell" },
     { value: "3", label: "PG" },
   ];
+  apartment = [
+    { value: "true", label: "Yes" },
+    { value: "false", label: "No" },
+  ];
+  petFriendly = [
+    { value: "true", label: "Yes" },
+    { value: "false", label: "No" },
+  ];
+  garage = [
+    { value: "true", label: "Yes" },
+    { value: "false", label: "No" },
+  ];
+  liftFacility = [
+    { value: "true", label: "Yes" },
+    { value: "false", label: "No" },
+  ];
   stateList = [
     { value: "AHMEDABAD", label: "Ahmedabad" },
     { value: "SURAT", label: "Surat" },
@@ -107,6 +123,7 @@ class Register extends Component {
     isValidStepOne: false,
     isValidStepTwo: false,
     isValidStepThree: false,
+    isValidStepFour: false,
     openImage: false,
     site: [],
     photos: [],
@@ -128,6 +145,8 @@ class Register extends Component {
         if (this.isValidStepTwo) this.setState({ [fieldname]: fieldvalue });
         break;
       case 2:
+      case 3:
+      case 4:
         this.setState({ [fieldname]: fieldvalue });
         break;
     }
@@ -188,6 +207,141 @@ class Register extends Component {
   forSellPurpose() {
     return this.state.formTwoData.purpose == 2;
   }
+  showStep() {
+    let renderForm = "";
+    let buttonItem = "";
+    switch (this.state.formStep) {
+      case 1:
+        renderForm = (
+          <RegisterStep1
+            formdata={this.state}
+            changeText={this.handleText}
+            pressEvent={this.handlePress}
+          />
+        );
+        buttonItem = (
+          <Text
+            textBreakStrategy="simple"
+            style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+            }}
+            onPress={() => this.register()}
+          >
+            Register
+          </Text>
+        );
+        break;
+      case 2:
+        renderForm = (
+          <RegisterStep2
+            navigation={this.props.navigation}
+            formdata={this.state.formTwoData}
+            propertyTypes={this.state.propertyTypes}
+            currentUserRole={this.state.currentUserRole}
+            puposeList={this.buildingPurpose}
+            stateList={this.stateList}
+            changeText={this.handleText}
+            pressEvent={this.handlePress}
+            openImage={this.handleImagePicker}
+            currentPropertyType={this.state.currentPropertyType}
+          />
+        );
+        buttonItem = (
+          <Text
+            textBreakStrategy="simple"
+            style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+            }}
+            onPress={() => this.createProperty()}
+          >
+            Create Property
+          </Text>
+        );
+        break;
+      case 3:
+        renderForm = (
+          <RegisterStep3
+            navigation={this.props.navigation}
+            formdata={this.state}
+            stateList={this.stateList}
+            changeText={this.handleText}
+            pressEvent={this.handlePress}
+          />
+        );
+        buttonItem = (
+          <Text
+            textBreakStrategy="simple"
+            style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+            }}
+            onPress={() => this.setRentDetail()}
+          >
+            Set Rent Details
+          </Text>
+        );
+        break;
+      case 4:
+        console.log("in case 4");
+        renderForm = (
+          <RegisterStep4
+            formdata={this.state.formFourData}
+            changeText={this.handleText}
+            pressEvent={this.handlePress}
+            apartmentOptions={this.apartment}
+            liftOptions={this.liftFacility}
+            garageOptions={this.garage}
+            petOptions={this.petFriendly}
+          />
+        );
+        buttonItem = (
+          <Text
+            textBreakStrategy="simple"
+            style={{
+              color: "#FFF",
+              fontFamily: "SemiBold",
+            }}
+            onPress={() => this.setAmenities()}
+          >
+            Set Amenities
+          </Text>
+        );
+        break;
+    }
+    let buttoncode = (
+      <View
+        style={{
+          marginHorizontal: 55,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 30,
+          backgroundColor: "#5694ca",
+          paddingVertical: 10,
+          borderRadius: 23,
+          shadowColor: "#000",
+          shadowRadius: 5,
+          shadowOpacity: 0.7,
+          shadowOffset: { width: 0, height: 3 },
+          height: 40,
+          shadowRadius: 1,
+          overflow: "hidden",
+          elevation: 4,
+          color: "#000",
+          backgroundColor: "#5694ca",
+        }}
+      >
+        <Text>{buttonItem}</Text>
+      </View>
+    );
+    return (
+      <Fragment>
+        {renderForm}
+        {buttoncode}
+      </Fragment>
+    );
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -205,90 +359,8 @@ class Register extends Component {
               “Real Estate provides the highest returns, the greatest values,
               and the least risk.” –Armstrong Williams, entrepreneur
             </Text>
-            {this.state.formStep == 1 ? (
-              <RegisterStep1
-                formdata={this.state}
-                changeText={this.handleText}
-                pressEvent={this.handlePress}
-              />
-            ) : this.state.property?.id ? (
-              <RegisterStep3
-                navigation={this.props.navigation}
-                formdata={this.state}
-                stateList={this.stateList}
-                changeText={this.handleText}
-                pressEvent={this.handlePress}
-              />
-            ) : (
-              <RegisterStep2
-                navigation={this.props.navigation}
-                formdata={this.state.formTwoData}
-                propertyTypes={this.state.propertyTypes}
-                currentUserRole={this.state.currentUserRole}
-                puposeList={this.buildingPurpose}
-                stateList={this.stateList}
-                changeText={this.handleText}
-                pressEvent={this.handlePress}
-                openImage={this.handleImagePicker}
-                currentPropertyType={this.state.currentPropertyType}
-              />
-            )}
-            <View
-              style={{
-                marginHorizontal: 55,
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 30,
-                backgroundColor: "#5694ca",
-                paddingVertical: 10,
-                borderRadius: 23,
-                shadowColor: "#000",
-                shadowRadius: 5,
-                shadowOpacity: 0.7,
-                shadowOffset: { width: 0, height: 3 },
-                height: 40,
-                shadowRadius: 1,
-                overflow: "hidden",
-                elevation: 4,
-                color: "#000",
-                backgroundColor: "#5694ca",
-              }}
-            >
-              {this.state.property?.id ? (
-                <Text
-                  textBreakStrategy="simple"
-                  style={{
-                    color: "#FFF",
-                    fontFamily: "SemiBold",
-                  }}
-                  onPress={() => this.setRentDetail()}
-                >
-                  Set Rent Details
-                </Text>
-              ) : this.state.formStep == 1 ? (
-                <Text
-                  textBreakStrategy="simple"
-                  style={{
-                    color: "#FFF",
-                    fontFamily: "SemiBold",
-                  }}
-                  onPress={() => this.register()}
-                >
-                  Register
-                </Text>
-              ) : (
-                <Text
-                  textBreakStrategy="simple"
-                  style={{
-                    color: "#FFF",
-                    fontFamily: "SemiBold",
-                  }}
-                  onPress={() => this.createProperty()}
-                >
-                  Create Property
-                </Text>
-              )}
-            </View>
+            {this.showStep()}
+
             {this.state.formStep == 1 ? (
               <Text
                 textBreakStrategy="simple"
@@ -337,6 +409,10 @@ class Register extends Component {
       });
   }
   createProperty() {
+    let formStep = this.forSellPurpose() ? 4 : 3;
+    console.log("formstep var value", formStep);
+    return this.handlePress("formStep", formStep);
+    //========================================================
     this.utility.getValue("user").then((data) => {
       if (!data) return false;
       data = JSON.parse(data);
@@ -367,14 +443,15 @@ class Register extends Component {
           console.log("response property", resp);
           if (resp?.success) {
             this.setState({ property: resp.data });
-            if (this.forSellPurpose()) {
-              return this.props.navigation.navigate("Dashboard");
-            }
+            let formStep = this.forSellPurpose() ? 4 : 3;
+
+            return this.handlePress("formStep", formStep);
           }
         });
     });
   }
   setRentDetail() {
+    return this.handlePress("formStep", 4);
     this.stepThreeValidation();
     if (!this.isValidStepThree) return false;
     const formData = this.state.formThreeData;
@@ -396,6 +473,7 @@ class Register extends Component {
         console.log("response property", resp);
         if (resp?.success) {
           this.setState({ rent_detail: resp.data });
+          return this.handlePress("formStep", 4);
           // return this.props.navigation.navigate("Dashboard");
         }
       });
@@ -404,30 +482,32 @@ class Register extends Component {
   setAmenities() {
     // this.stepFourValidation();
     // if (!this.isValidStepThree) return false;
-    const formData = this.state.formThreeData;
+    const formData = this.state.formFourData;
+    console.log(formData);
     const amenity_detail = {
       amenity: {
-        bedroom_count: formData.bedroom_count,
-        bathroom_count: formData.bathroom_count,
-        house_area: formData.house_area,
-        floor_no: formData.floor_no,
+        bedroom_count: parseInt(formData.bedroom_count),
+        bathroom_count: parseInt(formData.bathroom_count),
+        house_area: parseInt(formData.house_area),
+        floor_no: parseInt(formData.floor_no),
         lift: formData.lift,
-        pet_friendly: formdata.pet_friendly,
+        pet_friendly: formData.pet_friendly,
         garage: formData.garage,
-        apartment: formdata.apartment,
+        apartment: formData.apartment,
         property_id: this.state.property.id,
       },
     };
-    console.log("prepared amenity data", amenity_detail);
-    const apiResponse = this.utility
-      .makePostRequest("amenity_detail", amenity_detail)
-      .then((resp) => {
-        console.log("response property", resp);
-        if (resp?.success) {
-          this.setState({ amenity_detail: resp.data });
-          return this.props.navigation.navigate("Dashboard");
-        }
-      });
+    console.log("amenity obj", amenity_detail);
+    // console.log("prepared amenity data", amenity_detail);
+    // const apiResponse = this.utility
+    //   .makePostRequest("amenity_detail", amenity_detail)
+    //   .then((resp) => {
+    //     console.log("response property", resp);
+    //     if (resp?.success) {
+    //       this.setState({ amenity_detail: resp.data });
+    //       return this.props.navigation.navigate("Dashboard");
+    //     }
+    //   });
   }
 }
 export default Register;

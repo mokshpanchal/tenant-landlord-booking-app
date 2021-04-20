@@ -13,7 +13,7 @@ import Utility from "../../common/utility";
 
 const styles = StyleSheet.create({
   property: {
-    height: "40%",
+    // height: "40%",
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -46,6 +46,11 @@ const styles = StyleSheet.create({
 // =====================STYLE_SHEET===========================
 
 class List extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log("list constructor");
+    this.utility = new Utility();
+  }
   utility;
   state = {
     user: {},
@@ -53,12 +58,8 @@ class List extends React.Component {
     propertyList: [],
   };
 
-  constructor(props) {
-    super(props);
-    this.utility = new Utility();
-  }
-  setPropertyList() {
-    return this.state.propertyList.length
+  async setPropertyList() {
+    return (await this.state.propertyList.length)
       ? true
       : this.utility.makeGetRequest("search").then((resp) => {
           console.log("response property", resp);
@@ -71,7 +72,7 @@ class List extends React.Component {
     console.log(this.props);
     if (this.props.searchKey.length > 0)
       return this.setState({ propertyList: this.props.propertyList });
-    this.setPropertyList();
+    let res = this.setPropertyList();
   }
   componentWillUnmount() {
     this.props.resetSearch("");
@@ -79,7 +80,8 @@ class List extends React.Component {
   render() {
     const { search } = this.state;
     const { navigate } = this.props.navigation;
-    let { url } = this.utility.getApiUrl();
+    let url = this.utility.getApiUrl();
+    console.log("url in list", this.utility.getApiUrl());
     return (
       <ScrollView
         style={{
@@ -164,16 +166,24 @@ class List extends React.Component {
                     >
                       Location : {property?.location}
                     </Text>
-                    <View style={{display:"flex", flexDirection:"row"}}>
-                    <Text style={{fontSize: 12, fontWeight: "bold",  color: "#057a0f"}}>
-                      {property.user?.name }
+                    <View style={{ display: "flex", flexDirection: "row" }}>
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontWeight: "bold",
+                          color: "#057a0f",
+                        }}
+                      >
+                        {property.user?.name}
                       </Text>
                       {property.user?.role == "seller" ? (
-                      <Image
-                      source={require("../../../assets/verified.png")}
-                        style={{width: 20, height: 20,}}
-                      />):(<Image/>)
-                      }
+                        <Image
+                          source={require("../../../assets/verified.png")}
+                          style={{ width: 20, height: 20 }}
+                        />
+                      ) : (
+                        <Image />
+                      )}
                     </View>
                     <Text
                       style={{
@@ -204,7 +214,7 @@ class List extends React.Component {
                             fontSize: 12,
                             fontWeight: "bold",
                             position: "absolute",
-                            color: "#D3D3D3"
+                            color: "#D3D3D3",
                           }}
                         >
                           Published {property?.created_at} ago

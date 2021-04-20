@@ -10,10 +10,12 @@ class Utility extends Component {
   state = { apiUrl: null };
   constructor() {
     super();
-    this.getValue("api_url").then((url) => {
-      this.state = { apiUrl: JSON.parse(url) + "/" };
-    });
-    console.log("this is util constructor");
+    if (!this.state.apiUrl) {
+      this.getValue("api_url").then((url) => {
+        this.state = { apiUrl: JSON.parse(url) + "/" };
+        console.log("this is util constructor", this.state);
+      });
+    }
   }
   getApiUrl() {
     console.log("get api url method", this.state.apiUrl);
