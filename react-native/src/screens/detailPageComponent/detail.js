@@ -14,34 +14,17 @@ import {Linking} from 'react-native'
 
 const styles = StyleSheet.create({
   view: {
-    flexDirection: "row",
-    alignItems: "center",
-    //   marginHorizontal: 55,
-    borderWidth: 0,
-    marginTop: 30,
-    paddingHorizontal: 10,
-    // borderColor: "#5694ca",
-    borderRadius: 23,
-    paddingVertical: 2,
-    shadowColor: "#000",
-    shadowRadius: 1,
-    overflow: "hidden",
-    shadowOpacity: 0.7,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 4,
-    color: "#000",
-    height: 40,
+    display: "flex",
+    flexDirection: "column",
     backgroundColor: "#fff",
-    position: "absolute",
-    width: "90%",
-    marginLeft: "5%",
+    height: "100%",    
   },
 
   property: {
     height: "80%",
     width: "80%",
-    display: "flex",
-    flexDirection: "column",
+    // display: "flex",
+    // flexDirection: "column",
     justifyContent: "space-around",
     marginTop: "5%",
     marginLeft: "5%",
@@ -58,9 +41,9 @@ const styles = StyleSheet.create({
   },
 
   callbutton: {
-    alignItems: "center",
     justifyContent: "center",
     marginTop: 20,
+    marginLeft: -20,
     backgroundColor: "#3ead23",
     paddingVertical: 10,
     borderRadius: 23,
@@ -69,7 +52,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
-    width: "75%",
+    width: "85%",
+    display: "flex",
+    flexDirection: "row"
   },
 });
 // =====================STYLE_SHEET===========================
@@ -107,6 +92,7 @@ class detail extends React.Component {
     const { navigate } = this.props.navigation;
     var property = this.state.property;
     return (
+      <View style={styles.view}>
       <View style={styles.property} key={property?.id}>
         <TouchableOpacity
           activeOpacity={1}
@@ -115,6 +101,7 @@ class detail extends React.Component {
             height: "70%",
             borderRadius: 15,
             left: "10%",
+            bottom: "5%",
           }}
           onPress={() => {
             navigate("Detail", { id: property?.id });
@@ -131,7 +118,7 @@ class detail extends React.Component {
                       property.image_url,
                   }
             }
-            style={{ width: "100%", height: "100%", borderRadius: 15 }}
+            style={{ width: "100%", height: "100%", borderRadius: 15, }}
           />
         </TouchableOpacity>
         {property?.for_sell == "true" ? (
@@ -152,6 +139,7 @@ class detail extends React.Component {
             marginLeft: "30%",
             marginTop: "10%",
             justifyContent: "flex-start",
+            paddingVertical: 10,
           }}
         >
           <Text
@@ -163,6 +151,17 @@ class detail extends React.Component {
           >
             Location : {property?.location}
           </Text>
+          <View style={{display:"flex", flexDirection:"row"}}>
+            <Text style={{fontSize: 16, fontWeight: "bold",  color: "#057a0f"}}>
+              {property.user?.name }
+              </Text>
+              {property.user?.role == "seller" ? (
+              <Image
+              source={require("../../../assets/verified.png")}
+                style={{width: 20, height: 20,}}
+              />):(<Image/>)
+              }
+          </View>
           <Text
             style={{
               fontSize: 16,
@@ -192,6 +191,7 @@ class detail extends React.Component {
                   fontSize: 16,
                   fontWeight: "bold",
                   position: "absolute",
+                  color: "#D3D3D3"
                 }}
               >
                 Published {property?.created_at} ago
@@ -208,7 +208,10 @@ class detail extends React.Component {
             </Text>
           )}
           <TouchableOpacity style={styles.callbutton}
-          onPress={()=>Linking.openURL(`tel:${property?.contact}`)}> 
+          onPress={()=>Linking.openURL(`tel:${property?.contact}`)}>
+          <Image 
+                source={require("../../../assets/call.png")}
+                style={{width: 20, height: 20,}}/>
           <Text  style={{
             color: "#FFF",
             fontFamily: "SemiBold",
@@ -217,6 +220,7 @@ class detail extends React.Component {
           }}> {property?.contact} </Text>
           </TouchableOpacity>
         </View>
+      </View>
       </View>
     );
   }

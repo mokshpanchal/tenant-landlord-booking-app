@@ -13,6 +13,7 @@ import {
 import RegisterStep1 from "./step1_reg";
 import RegisterStep2 from "./step2_reg";
 import RegisterStep3 from "./step3_reg";
+import RegisterStep4 from "./step4_reg";
 import AssetImage from "./AssetImage";
 
 import Utility from "../../common/utility";
@@ -96,6 +97,7 @@ class Register extends Component {
     formOneData: {},
     formTwoData: {},
     formThreeData: {},
+    formFourData: {},
     user: {},
     property: {},
     currentUserRole: 1,
@@ -306,6 +308,7 @@ class Register extends Component {
   }
 
   register() {
+    return this.handlePress("formStep", 2);
     this.stepOneValidation();
     if (!this.isValidStepOne) return;
     const formData = this.state.formOneData;
@@ -392,6 +395,36 @@ class Register extends Component {
       .then((resp) => {
         console.log("response property", resp);
         if (resp?.success) {
+          this.setState({ rent_detail: resp.data });
+          // return this.props.navigation.navigate("Dashboard");
+        }
+      });
+  }
+
+  setAmenities() {
+    // this.stepFourValidation();
+    // if (!this.isValidStepThree) return false;
+    const formData = this.state.formThreeData;
+    const amenity_detail = {
+      amenity: {
+        bedroom_count: formData.bedroom_count,
+        bathroom_count: formData.bathroom_count,
+        house_area: formData.house_area,
+        floor_no: formData.floor_no,
+        lift: formData.lift,
+        pet_friendly: formdata.pet_friendly,
+        garage: formData.garage,
+        apartment: formdata.apartment,
+        property_id: this.state.property.id,
+      },
+    };
+    console.log("prepared amenity data", amenity_detail);
+    const apiResponse = this.utility
+      .makePostRequest("amenity_detail", amenity_detail)
+      .then((resp) => {
+        console.log("response property", resp);
+        if (resp?.success) {
+          this.setState({ amenity_detail: resp.data });
           return this.props.navigation.navigate("Dashboard");
         }
       });
