@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const amountRegex = /^\d+(\.\d{1,2})?$/;
 const passLength = 5;
+const zipcodeLength = 6;
 const invalidResponseRegex = /^[4-5][0-9][0-9]$/;
 const stateList = ["Ahmedabad", "Surat", "Baroda"];
 class Utility extends Component {
@@ -13,12 +14,10 @@ class Utility extends Component {
     if (!this.state.apiUrl) {
       this.getValue("api_url").then((url) => {
         this.state = { apiUrl: JSON.parse(url) + "/" };
-        console.log("this is util constructor", this.state);
       });
     }
   }
   getApiUrl() {
-    console.log("get api url method", this.state.apiUrl);
     return this.state.apiUrl;
   }
   async setValue(key, value) {
@@ -51,7 +50,7 @@ class Utility extends Component {
       console.error("Storage clear error ", e);
     }
   }
-  validate(fieldType, fieldValue) {
+  validate(fieldType, fieldValue = "") {
     let isValid = false;
     switch (fieldType) {
       case "email": {
@@ -64,6 +63,11 @@ class Utility extends Component {
       }
       case "amount": {
         isValid = amountRegex.test(fieldValue);
+        break;
+      }
+      case "zipcode": {
+        isValid = fieldValue.length == zipcodeLength;
+        break;
       }
     }
     return isValid;
@@ -83,11 +87,9 @@ class Utility extends Component {
 
       if (invalidResponseRegex.test(apiResponse.status)) {
         let errors = Object.values(response.errors).join();
-        console.log(errors);
         this.showAlert("Error Occured!", errors);
         return false;
       }
-      console.log("make post", response);
       return response;
     } catch (error) {
       this.showAlert();
@@ -96,7 +98,6 @@ class Utility extends Component {
   async makePutRequest(path, data) {
     // creates entity
     try {
-      console.log("inside make put funcc", path, data);
       const apiResponse = await fetch(this.getApiUrl() + path, {
         method: "PUT",
         headers: {
@@ -108,11 +109,9 @@ class Utility extends Component {
 
       if (invalidResponseRegex.test(apiResponse.status)) {
         let errors = Object.values(response.errors).join();
-        console.log(errors);
         this.showAlert("Error Occured!", errors);
         return false;
       }
-      console.log("make put", response);
       return response;
     } catch (error) {
       this.showAlert();

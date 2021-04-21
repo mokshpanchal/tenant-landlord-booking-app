@@ -53,9 +53,16 @@ const styles = StyleSheet.create({
 
 class RegisterStep1 extends Component {
   state = {};
+  errorLine(field) {
+    return (
+      <Text style={{ color: "#DC143C", textAlign: "center" }}>
+        {this.props.formErrors[field] ? this.props.formErrors[field] : null}
+      </Text>
+    );
+  }
   render() {
     return (
-      <ScrollView style={{paddingBottom: 10}}>
+      <ScrollView style={{ paddingBottom: 10 }}>
         <Fragment>
           {this.props.children}
           <View style={styles.view}>
@@ -68,6 +75,7 @@ class RegisterStep1 extends Component {
               }
             />
           </View>
+          {this.errorLine("user_name_error")}
           <View style={styles.view}>
             <TextInput
               placeholder="Email"
@@ -78,6 +86,7 @@ class RegisterStep1 extends Component {
               }
             />
           </View>
+          {this.errorLine("email_error")}
           <View style={styles.view}>
             <TextInput
               placeholder="Phone"
@@ -89,6 +98,7 @@ class RegisterStep1 extends Component {
               }
             />
           </View>
+          {this.errorLine("user_phone_error")}
           <View style={{ display: "flex", flexDirection: "row", margin: 20 }}>
             <Text style={styles.radioText}>Are you?</Text>
             {this.props.formdata.userTypes.map((data, key) => {
@@ -147,6 +157,7 @@ class RegisterStep1 extends Component {
               }
             />
           </View>
+          {this.errorLine("password_error")}
           <View style={styles.view}>
             <TextInput
               secureTextEntry
@@ -162,6 +173,7 @@ class RegisterStep1 extends Component {
               }
             />
           </View>
+          {this.errorLine("cpassword_error")}
         </Fragment>
       </ScrollView>
     );

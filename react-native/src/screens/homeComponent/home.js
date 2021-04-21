@@ -59,9 +59,8 @@ const styles = StyleSheet.create({
     width: "75%",
     position: "absolute",
     bottom: "10%",
-    left: "10%"
-
-  }
+    left: "10%",
+  },
 });
 // =====================STYLE_SHEET===========================
 
@@ -89,24 +88,20 @@ class Home extends React.Component {
         .then((resp) => {
           resp.map((value, key) => {
             switch (Object.keys(value)[0]) {
-              case "Surat":
+              case "SURAT":
                 this.setState({ suratCount: Object.values(value)[0] });
                 break;
-              case "Ahmedabad":
+              case "AHMEDABAD":
                 this.setState({ abdCount: Object.values(value)[0] });
-
                 break;
-              case "Baroda":
+              case "BARODA":
                 this.setState({ barodaCount: Object.values(value)[0] });
-
                 break;
-              case "Mehsana":
+              case "MEHSANA":
                 this.setState({ mehsanaCount: Object.values(value)[0] });
-
                 break;
             }
           });
-          console.log("surat", this.suratCount);
         });
     });
   }
@@ -135,24 +130,34 @@ class Home extends React.Component {
             borderTopRightRadius: 10,
           }}
         />
-        <View style={{
-          display: "flex",
-          flexDirection: "column",
-          position: "absolute",
-          marginTop: "30%",
-          left: "5%",
-          shadowColor: "#000",
-          shadowRadius: 5,
-          shadowOpacity: 0.7,
-          shadowOffset: { width: 0, height: 3 },
-          elevation: 4}}>
-          <Text style={{color: "#fff", fontSize: 60, fontWeight: "bold"}}>Go</Text>
-          <Text style={{color: "#fff", fontSize: 60, fontWeight: "bold"}}>Near</Text>
-          <TouchableOpacity 
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "absolute",
+            marginTop: "30%",
+            left: "5%",
+            shadowColor: "#000",
+            shadowRadius: 5,
+            shadowOpacity: 0.7,
+            shadowOffset: { width: 0, height: 3 },
+            elevation: 4,
+          }}
+        >
+          <Text style={{ color: "#fff", fontSize: 60, fontWeight: "bold" }}>
+            Go
+          </Text>
+          <Text style={{ color: "#fff", fontSize: 60, fontWeight: "bold" }}>
+            Near
+          </Text>
+          <TouchableOpacity
             style={styles.button}
             onPress={() => {
-                this.props.pressEvent("location=ahmedabad");
-              }}><Text style={{fontFamily: "SemiBold",}}>Explore</Text></TouchableOpacity>
+              this.props.pressEvent("location=ahmedabad");
+            }}
+          >
+            <Text style={{ fontFamily: "SemiBold" }}>Explore</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.main}>
@@ -271,11 +276,13 @@ class Home extends React.Component {
             </Text>
           </View>
         </View>
-        {this.state.user?.role == "seller"?(
-        <TouchableOpacity style={styles.ownProperties}  
-        onPress={() => {
-          this.props.pressEvent("search=own-"+this.state.user.id);
-        }}>
+        {this.state.user?.role == "seller" ? (
+          <TouchableOpacity
+            style={styles.ownProperties}
+            onPress={() => {
+              this.props.pressEvent("search=own-" + this.state.user.id);
+            }}
+          >
             {/* <Button title="Change Password" onPress={changePassword}></Button> */}
             <Text
               style={{
@@ -285,7 +292,10 @@ class Home extends React.Component {
             >
               My Propeties{" "}
             </Text>
-          </TouchableOpacity>):(<TouchableOpacity></TouchableOpacity>)}
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity></TouchableOpacity>
+        )}
       </View>
     );
   }
