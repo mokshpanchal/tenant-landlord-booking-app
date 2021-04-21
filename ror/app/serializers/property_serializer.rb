@@ -4,6 +4,7 @@ class PropertySerializer < ActiveModel::Serializer
   has_many :property_attachments, serializer: PropertyAttachmentSerializer
   has_one :rent_detail, serializer: RentDetailSerializer
   has_one :user, serializer: UserSerializer
+  has_one :amenity, serializer: AmenitySerializer
 
   def created_at
   	# object.created_at.to_date

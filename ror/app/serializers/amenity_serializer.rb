@@ -6,18 +6,18 @@ class AmenitySerializer < ActiveModel::Serializer
   end
 
   def lift
-  	return object.lift == 0 ? "true" : "false"
+  	return object.lift == 0 ? "Yes" : "No"
   end
 
   def pet_friendly
-  	return object.pet_friendly == 0 ? "true" : "false"
+  	return object.pet_friendly == 0 ? "Yes" : "No"
   end
 
   def garage
-  	return object.garage == 0 ? "true" : "false"
+  	return object.garage == 0 ? "Yes" : "No"
   end
 
   def apartment
-  	return object.apartment == 0 ? "true" : "false"
+  	return object.apartment == 0 ? "Yes" : "No"
   end
 end
