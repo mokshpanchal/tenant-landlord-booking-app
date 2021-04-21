@@ -26,14 +26,46 @@ PropertyType.create!(category: "house")
 PropertyType.create!(category: "shop")
 PropertyType.create!(category: "office")
 
+property = Property.create!(user_id: 3, name: "Patel's House", address_1: "A-10 Krishna Soc", address_2: "Ranip", post_code: "382400", latitude: "23.0810", longitude: "72.5768", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 1, email: "krishna@gmail.com", contact: "+918160098765")
 
- Property.create!(user_id: 3, name: "Patel's House", address_1: "A-10 Krishna Soc", address_2: "Ranip, Ahmedabad", post_code: "382400", latitude: "23.0810", longitude: "72.5768", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 1, email: "krishna@gmail.com", contact: "+918160098765")
+	pr = Base64.encode64(open("../react-native/assets/p#{property.id}.jpg").read)
+	tempfile  = Tempfile.new(property.id.to_s)
+  tempfile.binmode
+  tempfile.write(Base64.decode64(pr))
+  file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc")
+  property.picture = file
+  property.save!
+  property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
 
- Property.create!(user_id: 4, name: "K showroom", address_1: "A-10 Shiv Arcade", address_2: "Ghatlodia, Ahmedabad", post_code: "382450", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "true", for_sell: "true", property_type_id: 2, email: "moksh@gmail.com", contact: "+918160864310")
+ property = Property.create!(user_id: 4, name: "K showroom", address_1: "A-10 Shiv Arcade", address_2: "Ghatlodia", post_code: "382450", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "true", for_sell: "true", property_type_id: 2, email: "moksh@gmail.com", contact: "+918160864310")
+	pr = Base64.encode64(open("../react-native/assets/p#{property.id}.jpg").read)
+	tempfile  = Tempfile.new(property.id.to_s)
+  tempfile.binmode
+  tempfile.write(File.read("../react-native/assets/p#{property.id}.jpg"))
+  file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc")
+  property.picture = file
+  property.save!
+  property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
 
-  Property.create!(user_id: 5, name: "Mark Office", address_1: "GF-10 Business hub", address_2: "Sola, Ahmedabad", post_code: "380016", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "jaini@gmail.com", contact: "+918160321654")
+  property = Property.create!(user_id: 5, name: "Mark Office", address_1: "GF-10 Business hub", address_2: "Sola", post_code: "380016", latitude: "23.1234", longitude: "72.8765", location: "Ahmedabad", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "jaini@gmail.com", contact: "+918160321654")
+	pr = Base64.encode64(open("../react-native/assets/p#{property.id}.jpg").read)
+	tempfile  = Tempfile.new(property.id.to_s)
+  tempfile.binmode
+  tempfile.write(File.read("../react-native/assets/p#{property.id}.jpg"))
+  file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc")
+  property.picture = file
+  property.save!
+  property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
 
-  Property.create!(user_id: 6, name: " New Shop", address_1: "GF-10 market place", address_2: "Vadodara", post_code: "390009", latitude: "22.2563", longitude: "73.2162", location: "Vadodara", status: "available", for_rent: "false", for_sell: "true", property_type_id: 2, email: "mamta@gmail.com", contact: "+918160671231")
+  property = Property.create!(user_id: 6, name: "Shop", address_1: "GF-10 market place", address_2: "Tarasali", post_code: "390009", latitude: "22.2563", longitude: "73.2162", location: "Baroda", status: "available", for_rent: "true", for_sell: "false", property_type_id: 2, email: "mamta@gmail.com", contact: "+918160671231")
+		pr = Base64.encode64(open("../react-native/assets/p#{property.id}.jpg").read)
+		tempfile  = Tempfile.new(property.id.to_s)
+	  tempfile.binmode
+	  tempfile.write(Base64.strict_encode64(pr))
+	  file = ActionDispatch::Http::UploadedFile.new(:tempfile => tempfile, :filename => "abc", :content_type => "image/jpeg")
+	  property.picture = file
+	  property.save!
+	  property.update(image_url: Rails.application.routes.url_helpers.rails_blob_path(property.picture, only_path: true))
 
   ReservedSlot.create!(property_id: 1, user_id: 1, slot_id: 1, recipient_id: 3)
   ReservedSlot.create!(property_id: 2, user_id: 2, slot_id: 13, recipient_id: 4)
@@ -46,3 +78,4 @@ PropertyType.create!(category: "office")
  Amenity.create!(property_id: 3, bedroom_count: 0, bathroom_count: 1, house_area: "2000ft", floor_no: "0", lift: 1, pet_friendly: 1, garage: 1, apartment: 1, free_when: DateTime.now)
 
  RentDetail.create!(property_id: 2, state_of_property: :untouched, contract_intial_length: 6, break_clause: 10000, security_deposite: 5000, rent_per_month: 50000, percent_increase: 0.1, members: 4)
+ RentDetail.create!(property_id: 4, state_of_property: :untouched, contract_intial_length: 6, break_clause: 10000, security_deposite: 5000, rent_per_month: 50000, percent_increase: 0.1, members: 4)
