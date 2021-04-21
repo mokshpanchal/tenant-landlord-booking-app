@@ -84,6 +84,11 @@ class PropertiesController < ApplicationController
         json = locations.map { |e| {e.to_sym => Property.where(location: e).count}}
         return render json: json
       end
+      if (params[:search].include? "own")
+        id = params[:search].split("-")[1].to_i
+        properties = Property.where(user_id: id)
+        return render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
+      end
       properties = Property.where('lower(name) LIKE ? OR lower(address_1) LIKE ? OR lower(address_2) LIKE ? OR lower(location) LIKE ?',"%#{query}%","%#{query}%","%#{query}%","%#{query}%")
       return render_success_response(array_serializer.new(properties, serializer: PropertySerializer, current_user: current_user),200)
     else

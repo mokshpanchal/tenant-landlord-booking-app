@@ -3,8 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_one :verification
-  has_many :properties
+  has_one :verification, dependent: :destroy
+  has_many :properties, dependent: :destroy
   validates :email, :password, :name, :phone_number, presence: true, on: :create
   validates :email, format: {with: URI::MailTo::EMAIL_REGEXP}
   validates_uniqueness_of :email
