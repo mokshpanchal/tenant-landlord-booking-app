@@ -483,7 +483,7 @@ class Register extends Component {
       amenity: {
         bedroom_count: parseInt(formData.bedroom_count),
         bathroom_count: parseInt(formData.bathroom_count),
-        house_area: parseInt(formData.house_area),
+        house_area: (formData.house_area) +"ft",
         floor_no: parseInt(formData.floor_no),
         lift: formData.lift,
         pet_friendly: formData.pet_friendly,

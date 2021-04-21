@@ -11,13 +11,14 @@ import {
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
 import {Linking} from 'react-native'
+import { ScrollView } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   view: {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#fff",
-    height: "100%",    
+    height: "100%",
   },
 
   property: {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
 
   callbutton: {
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: 60,
     marginLeft: 40,
     backgroundColor: "#3ead23",
     paddingVertical: 10,
@@ -98,7 +99,7 @@ class detail extends React.Component {
           activeOpacity={1}
           style={{
             width: "90%",
-            height: "70%",
+            height: "50%",
             borderRadius: 15,
             left: "10%",
             bottom: "5%",
@@ -207,6 +208,17 @@ class detail extends React.Component {
               {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
             </Text>
           )}
+        {property?.for_rent ?( 
+        <View style={{marginTop: "20%"}}>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}}>Is apartment?: <Text style={{color:"#057a0f"}}> {property?.amenity?.apartment} </Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Floor:  <Text style={{color:"#057a0f"}}>{property?.amenity?.floor_no}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Bedroom(s):  <Text style={{color:"#057a0f"}}>{property?.amenity?.bedroom_count}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Bathroom(s):  <Text style={{color:"#057a0f"}}>{property?.amenity?.bathroom_count}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Poperty area?:  <Text style={{color:"#057a0f"}}>{property?.amenity?.house_area}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Pet friendly?:  <Text style={{color:"#057a0f"}}>{property?.amenity?.apartment}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Lift?:  <Text style={{color:"#057a0f"}}>{property?.amenity?.lift}</Text></Text>
+          <Text style={{color:"#23b3d5", fontWeight: "bold"}} >Garage?:  <Text style={{color:"#057a0f"}}>{property?.amenity?.garage}</Text></Text>
+        </View>):(<TouchableOpacity></TouchableOpacity>)}
         </View>
           <TouchableOpacity style={styles.callbutton}
           onPress={()=>Linking.openURL(`tel:${property?.contact}`)}>
