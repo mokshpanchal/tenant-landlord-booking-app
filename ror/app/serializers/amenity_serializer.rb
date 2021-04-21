@@ -2,7 +2,7 @@ class AmenitySerializer < ActiveModel::Serializer
   attributes :id, :property_id, :bedroom_count, :bathroom_count, :house_area, :floor_no, :lift, :pet_friendly, :garage, :apartment, :free_when
 
   def free_when
-  	return object.to_date
+  	return object.free_when.to_formatted_s(:rfc822)[0,16]
   end
 
   def lift

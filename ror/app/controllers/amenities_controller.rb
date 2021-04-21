@@ -10,9 +10,11 @@ class AmenitiesController < ApplicationController
 	end
 
   def create
+  	params[:amenity][:free_when] = Property.find(params[:amenity][:property_id]).created_at
 		amenity = Amenity.new(amenity_params)
+		byebug
 		if amenity.save
-			render_success_response("Amenities added successfully", 200)
+			render_success_response(single_serializer(amenity, AmenitySerializer),"Amenities added successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)
 		end
