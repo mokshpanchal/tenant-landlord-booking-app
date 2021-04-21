@@ -11,7 +11,7 @@ class AmenitiesController < ApplicationController
 
   def create
 		amenity = Amenity.new(amenity_params)
-		if aminity.save
+		if amenity.save
 			render_success_response("Aminities added successfully", 200)
 		else
 			render_unprocessable_entity("Something went wrong", 422)

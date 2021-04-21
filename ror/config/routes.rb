@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   	}
 
   	resources :properties
-  	resources :aminities
+  	resources :amenities
   	resources :property_types
   	resources :slots
   	resources :rent_details
