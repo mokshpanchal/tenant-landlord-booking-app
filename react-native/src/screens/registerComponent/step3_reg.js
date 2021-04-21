@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginHorizontal: 55,
-    color: "#5694ca"
+    color: "#5694ca",
   },
   radio: {
     fontSize: 15,
@@ -73,6 +73,13 @@ const styles = StyleSheet.create({
 
 class RegisterStep3 extends Component {
   state = {};
+  errorLine(field) {
+    return (
+      <Text style={{ color: "#DC143C", textAlign: "center" }}>
+        {this.props.formErrors[field] ? this.props.formErrors[field] : null}
+      </Text>
+    );
+  }
   render() {
     return (
       <ScrollView>
@@ -87,56 +94,65 @@ class RegisterStep3 extends Component {
             }}
           >
             <Text style={styles.radioText}>Initial Contract Length:</Text>
-            <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30, justifyContent: "center", alignItems: 'center'}}>
-            {this.props.formdata.contractLength.map((data, key) => {
-              return (
-                <View key={key} style={styles.radio}>
-                  {this.props.formdata.selectedContractLength == data ? (
-                    <TouchableOpacity accessible={true}>
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/selected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: 20,
+                marginLeft: 30,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {this.props.formdata.contractLength.map((data, key) => {
+                return (
+                  <View key={key} style={styles.radio}>
+                    {this.props.formdata.selectedContractLength == data ? (
+                      <TouchableOpacity accessible={true}>
+                        <Image
+                          style={{ height: 20, width: 20 }}
+                          source={require("../../../assets/selected-radio.png")}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: "SemiBold",
+                            fontSize: 15,
+                            color: "#5694ca",
+                          }}
+                        >
+                          {data} months
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        accessible={true}
+                        onPress={() =>
+                          this.props.pressEvent("selectedContractLength", data)
+                        }
                       >
-                        {data} months
-                      </Text>
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      accessible={true}
-                      onPress={() =>
-                        this.props.pressEvent("selectedContractLength", data)
-                      }
-                    >
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/unselected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
-                      >
-                        {data} months
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              );
-            })}
-          </View>
+                        <Image
+                          style={{ height: 20, width: 20 }}
+                          source={require("../../../assets/unselected-radio.png")}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: "SemiBold",
+                            fontSize: 15,
+                            color: "#5694ca",
+                          }}
+                        >
+                          {data} months
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
+            </View>
           </View>
           <View style={styles.view}>
             <TextInput
-              placeholder="Security Deposite Money"
+              placeholder="Security Deposit (e.g. 50000)"
               keyboardType="phone-pad"
               placeholderTextColor="#5694ca"
               style={{ paddingHorizontal: 10, width: "100%" }}
@@ -149,9 +165,10 @@ class RegisterStep3 extends Component {
               }
             />
           </View>
+          {this.errorLine("deposit_error")}
           <View style={styles.view}>
             <TextInput
-              placeholder="Per month rent"
+              placeholder="Per month rent (e.g. 2000)"
               keyboardType="phone-pad"
               placeholderTextColor="#5694ca"
               style={{ paddingHorizontal: 10, width: "100%" }}
@@ -164,9 +181,10 @@ class RegisterStep3 extends Component {
               }
             />
           </View>
+          {this.errorLine("rent_error")}
           <View style={styles.view}>
             <TextInput
-              placeholder="Percentage increase annual"
+              placeholder="Percentage increase (annual) (e.g. 2)"
               keyboardType="phone-pad"
               placeholderTextColor="#5694ca"
               style={{ paddingHorizontal: 10, width: "100%" }}
@@ -179,9 +197,10 @@ class RegisterStep3 extends Component {
               }
             />
           </View>
+          {this.errorLine("percent_error")}
           <View style={styles.view}>
             <TextInput
-              placeholder="Member Space"
+              placeholder="Member Space (e.g. 4)"
               keyboardType="phone-pad"
               placeholderTextColor="#5694ca"
               style={{ paddingHorizontal: 10, width: "100%" }}
@@ -190,6 +209,7 @@ class RegisterStep3 extends Component {
               }
             />
           </View>
+          {this.errorLine("member_error")}
           <View
             style={{
               display: "flex",
@@ -200,51 +220,60 @@ class RegisterStep3 extends Component {
             }}
           >
             <Text style={styles.radioText}>Current Property status</Text>
-            <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30, justifyContent: "center", alignItems: 'center'}}>
-            {this.props.formdata.propertyStatus.map((data, key) => {
-              return (
-                <View key={key} style={styles.radio}>
-                  {this.props.formdata.currentPropertyStatus == data ? (
-                    <TouchableOpacity accessible={true}>
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/selected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: 20,
+                marginLeft: 30,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {this.props.formdata.propertyStatus.map((data, key) => {
+                return (
+                  <View key={key} style={styles.radio}>
+                    {this.props.formdata.currentPropertyStatus == data ? (
+                      <TouchableOpacity accessible={true}>
+                        <Image
+                          style={{ height: 20, width: 20 }}
+                          source={require("../../../assets/selected-radio.png")}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: "SemiBold",
+                            fontSize: 15,
+                            color: "#5694ca",
+                          }}
+                        >
+                          {data}
+                        </Text>
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        accessible={true}
+                        onPress={() =>
+                          this.props.pressEvent("currentPropertyStatus", data)
+                        }
                       >
-                        {data}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      accessible={true}
-                      onPress={() =>
-                        this.props.pressEvent("currentPropertyStatus", data)
-                      }
-                    >
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/unselected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
-                      >
-                        {data}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              );
-            })}
+                        <Image
+                          style={{ height: 20, width: 20 }}
+                          source={require("../../../assets/unselected-radio.png")}
+                        />
+                        <Text
+                          style={{
+                            fontFamily: "SemiBold",
+                            fontSize: 15,
+                            color: "#5694ca",
+                          }}
+                        >
+                          {data}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
             </View>
           </View>
         </>

@@ -75,6 +75,13 @@ class RegisterStep2 extends Component {
       photos: [],
     };
   }
+  errorLine(field) {
+    return (
+      <Text style={{ color: "#DC143C", textAlign: "center" }}>
+        {this.props.formErrors[field] ? this.props.formErrors[field] : null}
+      </Text>
+    );
+  }
   renderImage(item, i) {
     return (
       <Image
@@ -106,6 +113,7 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
+              {this.errorLine("building_name_error")}
               <View
                 style={{
                   display: "flex",
@@ -115,55 +123,62 @@ class RegisterStep2 extends Component {
                 }}
               >
                 <Text style={styles.radioText}>Property type:</Text>
-                <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30}}>
-                {this.props.propertyTypes.map((data, key) => {
-                  return (
-                    <View key={key} style={styles.radio}>
-                      {this.props.currentPropertyType == data.id ? (
-                        <TouchableOpacity accessible={true}>
-                          <Image
-                            style={{ height: 20, width: 20 }}
-                            source={require("../../../assets/selected-radio.png")}
-                          />
-                          <Text
-                            style={{
-                              fontFamily: "SemiBold",
-                              fontSize: 15,
-                              color: "#5694ca",
-                            }}
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: 20,
+                    marginLeft: 30,
+                  }}
+                >
+                  {this.props.propertyTypes.map((data, key) => {
+                    return (
+                      <View key={key} style={styles.radio}>
+                        {this.props.currentPropertyType == data.id ? (
+                          <TouchableOpacity accessible={true}>
+                            <Image
+                              style={{ height: 20, width: 20 }}
+                              source={require("../../../assets/selected-radio.png")}
+                            />
+                            <Text
+                              style={{
+                                fontFamily: "SemiBold",
+                                fontSize: 15,
+                                color: "#5694ca",
+                              }}
+                            >
+                              {data?.name}
+                            </Text>
+                          </TouchableOpacity>
+                        ) : (
+                          <TouchableOpacity
+                            accessible={true}
+                            onPress={() =>
+                              this.props.pressEvent(
+                                "currentPropertyType",
+                                data?.id
+                              )
+                            }
                           >
-                            {data?.name}
-                          </Text>
-                        </TouchableOpacity>
-                      ) : (
-                        <TouchableOpacity
-                          accessible={true}
-                          onPress={() =>
-                            this.props.pressEvent(
-                              "currentPropertyType",
-                              data?.id
-                            )
-                          }
-                        >
-                          <Image
-                            style={{ height: 20, width: 20 }}
-                            source={require("../../../assets/unselected-radio.png")}
-                          />
-                          <Text
-                            style={{
-                              fontFamily: "SemiBold",
-                              fontSize: 15,
-                              color: "#5694ca",
-                            }}
-                          >
-                            {data?.name}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                    </View>
-                  );
-                })}
-              </View>
+                            <Image
+                              style={{ height: 20, width: 20 }}
+                              source={require("../../../assets/unselected-radio.png")}
+                            />
+                            <Text
+                              style={{
+                                fontFamily: "SemiBold",
+                                fontSize: 15,
+                                color: "#5694ca",
+                              }}
+                            >
+                              {data?.name}
+                            </Text>
+                          </TouchableOpacity>
+                        )}
+                      </View>
+                    );
+                  })}
+                </View>
               </View>
               <View style={styles.view}>
                 <TextInput
@@ -180,6 +195,7 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
+              {this.errorLine("address1_error")}
               <View style={styles.view}>
                 <TextInput
                   placeholder="Building Address Line 2"
@@ -196,16 +212,25 @@ class RegisterStep2 extends Component {
                 />
               </View>
               <View style={styles.viewOne}>
-                <Text style={{
-                  fontFamily: "SemiBold",
-                  color: "#5694ca",
-                  marginBottom: 150,
-                  }}>Location:</Text>
+                <Text
+                  style={{
+                    fontFamily: "SemiBold",
+                    color: "#5694ca",
+                    marginBottom: 150,
+                  }}
+                >
+                  Location:
+                </Text>
                 <DropDownPicker
                   items={this.props.stateList}
                   defaultIndex={0}
                   defaultValue={this.props?.formdata?.stateItem}
-                  containerStyle={{ width: 150, height: 40, marginLeft: 20, marginBottom: 150, }}
+                  containerStyle={{
+                    width: 150,
+                    height: 40,
+                    marginLeft: 20,
+                    marginBottom: 150,
+                  }}
                   onChangeItem={(stateItem) =>
                     this.props.changeText(
                       "stateItem",
@@ -217,13 +242,17 @@ class RegisterStep2 extends Component {
                   activeLabelStyle={{ color: "green" }}
                 />
               </View>
+              {this.errorLine("state_error")}
               <View style={styles.viewOne}>
-                <Text style={{
-                  fontFamily: "SemiBold",
-                  color: "#5694ca",
-                  marginBottom: 100,
-                  }}>
-                    Purpose:</Text>
+                <Text
+                  style={{
+                    fontFamily: "SemiBold",
+                    color: "#5694ca",
+                    marginBottom: 100,
+                  }}
+                >
+                  Purpose:
+                </Text>
                 <DropDownPicker
                   items={this.props.puposeList}
                   defaultIndex={0}
@@ -246,13 +275,14 @@ class RegisterStep2 extends Component {
                   activeLabelStyle={{ color: "green" }}
                 />
               </View>
+              {this.errorLine("purpose_error")}
               <View style={styles.view}>
                 <TextInput
                   keyboardType="phone-pad"
-                  placeholder="Zipcode"
+                  placeholder="Zipcode (i.e. 395623)"
                   placeholderTextColor="#5694ca"
                   defaultValue={this.props?.formdata?.user_zipcode}
-                  style={{width: "100%"}}
+                  style={{ width: "100%" }}
                   onChangeText={(zipcode) =>
                     this.props.changeText(
                       "user_zipcode",
@@ -262,14 +292,16 @@ class RegisterStep2 extends Component {
                   }
                 />
               </View>
+              {this.errorLine("zipcode_error")}
               <Text style={styles.radioText}>Upload Image:</Text>
               <Button
                 title="Add image of property"
-                style={{ paddingVertical: 10, marginHorizontal: 55,}}
+                style={{ paddingVertical: 10, marginHorizontal: 55 }}
                 onPress={() => {
                   this.props.openImage(true);
                 }}
               />
+              {this.errorLine("image_error")}
               <Text>
                 {this.props?.formdata?.imageSelected
                   ? this.props?.formdata?.imageSelected

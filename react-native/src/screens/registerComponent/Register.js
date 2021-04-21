@@ -69,7 +69,10 @@ class Register extends Component {
     super(props);
     this.utility = new Utility();
   }
-  //https://www.pluralsight.com/guides/how-to-reference-a-function-in-another-component
+  isValidStepOne = false;
+  isValidStepTwo = false;
+  isValidStepThree = false;
+  isValidStepFour = false;
   buildingPurpose = [
     { value: "1", label: "Rent" },
     { value: "2", label: "Sell" },
@@ -111,19 +114,24 @@ class Register extends Component {
     contractLength: [6, 12],
     selectedContractLength: 6,
     formOneData: {},
+    formOneErrors: {},
     formTwoData: {},
+    formTwoErrors: {},
     formThreeData: {},
-    formFourData: {},
+    formThreeErrors: {},
+    formFourData: {
+      apartment: "true",
+      lift: "true",
+      garage: "true",
+      pet_friendly: "true",
+    },
+    formFourErrors: {},
     user: {},
     property: {},
     currentUserRole: 1,
     currentPropertyType: 1,
     currentPropertyStatus: "untouched",
     formStep: 1,
-    isValidStepOne: false,
-    isValidStepTwo: false,
-    isValidStepThree: false,
-    isValidStepFour: false,
     openImage: false,
     site: [],
     photos: [],
@@ -166,37 +174,135 @@ class Register extends Component {
   };
   stepOneValidation() {
     let formFields = { ...this.state.formOneData };
-    this.isValidStepOne =
-      formFields["user_name"]?.length > 0 &&
-      formFields["user_phone"]?.length > 0 &&
-      this.utility.validate("email", formFields["user_email"]) &&
-      this.utility.validate("password", formFields["user_password"]) &&
-      this.utility.validate("password", formFields["user_cpassword"]) &&
-      formFields["user_password"] === formFields["user_cpassword"];
+    let errorKey = {
+      user_name_error: "",
+      user_phone_error: "",
+      email_error: "",
+      password_error: "",
+      cpassword_error: "",
+    };
+    this.isValidStepOne = true;
+    if (!formFields["user_name"]?.length) {
+      this.isValidStepOne = false;
+      errorKey["user_name_error"] = "Name can not be empty.";
+    }
+    if (!formFields["user_phone"]?.length) {
+      this.isValidStepOne = false;
+      errorKey["user_phone_error"] = "Phone can not be empty.";
+    }
+    if (!this.utility.validate("email", formFields["user_email"])) {
+      this.isValidStepOne = false;
+      errorKey["email_error"] = "Email is not valid.";
+    }
+    if (!this.utility.validate("password", formFields["user_password"])) {
+      this.isValidStepOne = false;
+      errorKey["password_error"] = "Password is not valid.";
+    }
+    if (!this.utility.validate("password", formFields["user_cpassword"])) {
+      this.isValidStepOne = false;
+      errorKey["cpassword_error"] = "Confirm Password is not valid.";
+    }
+    if (
+      formFields["user_password"] &&
+      formFields["user_cpassword"] &&
+      formFields["user_password"] !== formFields["user_cpassword"]
+    ) {
+      this.isValidStepOne = false;
+      errorKey["cpassword_error"] +=
+        "Password and Confirm password do not match.";
+    }
+    this.setState({ formOneErrors: errorKey });
   }
   stepTwoValidation() {
     let formFields = { ...this.state.formTwoData };
-    console.log("second step form fields", formFields);
-    this.isValidStepTwo =
-      formFields["user_building_name"]?.length > 0 &&
-      formFields["user_building_address1"]?.length > 0 &&
-      formFields["user_zipcode"]?.length > 0 &&
-      formFields["stateItem"]?.length > 0 &&
-      formFields["purpose"] > 0 &&
-      formFields["imageSelected"] &&
-      formFields["imageSelected"] > 0;
+    let errorKey = {
+      building_name_error: "",
+      address1_error: "",
+      zipcode_error: "",
+      state_error: "",
+      purpose_error: "",
+      image_error: "",
+    };
+    this.isValidStepTwo = true;
+    if (!formFields["user_building_name"]?.length) {
+      this.isValidStepTwo = false;
+      errorKey["building_name_error"] = "Building name can not be empty.";
+    }
+    if (!formFields["user_building_address1"]?.length) {
+      this.isValidStepTwo = false;
+      errorKey["address1_error"] = "Address Line 1 can not be empty.";
+    }
+    if (!this.utility.validate("zipcode", formFields["user_zipcode"])) {
+      this.isValidStepTwo = false;
+      errorKey["zipcode_error"] = "Zipcode is not valid";
+    }
+    if (!formFields["stateItem"]?.length) {
+      this.isValidStepTwo = false;
+      errorKey["state_error"] = "Please select city.";
+    }
+    if (!formFields["purpose"]) {
+      this.isValidStepTwo = false;
+      errorKey["purpose_error"] = "Please select purpose.";
+    }
+    if (!formFields["imageSelected"]) {
+      this.isValidStepTwo = false;
+      errorKey["image_error"] = "Please select atlease one image.";
+    }
+    this.setState({ formTwoErrors: errorKey });
   }
   stepThreeValidation() {
     let formFields = { ...this.state.formThreeData };
-    console.log("third step form fields", formFields);
-    this.isValidStepThree =
-      this.state.contractLength.includes(this.state.selectedContractLength) &&
-      this.utility.validate("amount", formFields["security_deposit"]) &&
-      this.utility.validate("amount", formFields["monthly_rent"]) &&
-      this.utility.validate("amount", formFields["percent_increase"]) &&
-      this.utility.validate("amount", formFields["percent_increase"]) &&
-      formFields["member_space"] > 0;
-    console.log("step 3 validation", this.isValidStepThree);
+    let errorKey = {
+      deposit_error: "",
+      rent_error: "",
+      percent_error: "",
+      member_error: "",
+    };
+    this.isValidStepThree = true;
+    if (!this.utility.validate("amount", formFields["security_deposit"])) {
+      this.isValidStepThree = false;
+      errorKey["deposit_error"] = "Deposit amount is not valid.";
+    }
+    if (!this.utility.validate("amount", formFields["monthly_rent"])) {
+      this.isValidStepThree = false;
+      errorKey["rent_error"] = "Monthly Rent is not valid.";
+    }
+    if (!this.utility.validate("amount", formFields["percent_increase"])) {
+      this.isValidStepThree = false;
+      errorKey["percent_error"] = "Increase Percentage is not valid.";
+    }
+    if (!formFields["member_space"]) {
+      this.isValidStepThree = false;
+      errorKey["member_error"] = "Atlease one member space is required.";
+    }
+    this.setState({ formThreeErrors: errorKey });
+  }
+  stepFourValidation() {
+    let formFields = { ...this.state.formFourData };
+    let errorKey = {
+      bedroom_error: "",
+      bathroom_error: "",
+      house_area_error: "",
+      floor_error: "",
+    };
+    this.isValidStepFour = true;
+    if (!formFields["bedroom_count"]) {
+      this.isValidStepFour = false;
+      errorKey["bedroom_error"] = "Please enter valid number of bedrooms.";
+    }
+    if (!formFields["bathroom_count"]) {
+      this.isValidStepFour = false;
+      errorKey["bathroom_error"] = "Please enter valid number of bathrooms.";
+    }
+    if (!formFields["house_area"]) {
+      this.isValidStepFour = false;
+      errorKey["house_area_error"] = "House area is not valid.";
+    }
+    if (!formFields["floor_no"]) {
+      this.isValidStepFour = false;
+      errorKey["floor_error"] = "Floor number is not valid.";
+    }
+    this.setState({ formFourErrors: errorKey });
   }
   isBuyer() {
     return this.state.currentUserRole === 1;
@@ -217,6 +323,7 @@ class Register extends Component {
             formdata={this.state}
             changeText={this.handleText}
             pressEvent={this.handlePress}
+            formErrors={this.state.formOneErrors}
           />
         );
         buttonItem = (
@@ -237,6 +344,7 @@ class Register extends Component {
           <RegisterStep2
             navigation={this.props.navigation}
             formdata={this.state.formTwoData}
+            formErrors={this.state.formTwoErrors}
             propertyTypes={this.state.propertyTypes}
             currentUserRole={this.state.currentUserRole}
             puposeList={this.buildingPurpose}
@@ -265,6 +373,7 @@ class Register extends Component {
           <RegisterStep3
             navigation={this.props.navigation}
             formdata={this.state}
+            formErrors={this.state.formThreeErrors}
             stateList={this.stateList}
             changeText={this.handleText}
             pressEvent={this.handlePress}
@@ -284,10 +393,10 @@ class Register extends Component {
         );
         break;
       case 4:
-        console.log("in case 4");
         renderForm = (
           <RegisterStep4
             formdata={this.state.formFourData}
+            formErrors={this.state.formFourErrors}
             changeText={this.handleText}
             pressEvent={this.handlePress}
             apartmentOptions={this.apartment}
@@ -330,7 +439,7 @@ class Register extends Component {
           elevation: 4,
           color: "#000",
           backgroundColor: "#5694ca",
-          marginBottom: 10
+          marginBottom: 10,
         }}
       >
         <Text>{buttonItem}</Text>
@@ -357,8 +466,7 @@ class Register extends Component {
             />
             <Text style={styles.mainText}> Tenant Landlord Booking </Text>
             <Text style={styles.subText}>
-              “Real Estate provides the highest returns, the greatest values,
-              and the least risk.” –Armstrong Williams, entrepreneur
+              {this.isBuyer() ? "Buyer" : "Seller"} Registration
             </Text>
             {this.showStep()}
 
@@ -369,7 +477,7 @@ class Register extends Component {
                 style={{
                   color: "#5694ca",
                   textAlign: "center",
-                  paddingBottom: 10
+                  paddingBottom: 10,
                 }}
               >
                 Already a member?
@@ -395,8 +503,6 @@ class Register extends Component {
         role: this.isBuyer() ? "buyer" : "seller",
       },
     };
-    console.log("is buyer", this.isBuyer());
-    console.log(regData);
     const apiResponse = this.utility
       .makePostRequest("users/signup", regData)
       .then((resp) => {
@@ -433,11 +539,9 @@ class Register extends Component {
           property_attachments_attributes: { site: this.state.site[0] },
         },
       };
-      console.log("prepared property data", propertyData);
       const apiResponse = this.utility
         .makePostRequest("properties", propertyData)
         .then((resp) => {
-          console.log("response property", resp);
           if (resp?.success) {
             this.setState({ property: resp.data });
             let formStep = this.forSellPurpose() ? 4 : 3;
@@ -463,27 +567,26 @@ class Register extends Component {
         members: formData.member_space,
       },
     };
-    console.log("prepared rent data", rentData);
     const apiResponse = this.utility
       .makePostRequest("rent_details", rentData)
       .then((resp) => {
-        console.log("response property", resp);
         if (resp?.success) {
           this.setState({ rent_detail: resp.data });
           return this.handlePress("formStep", 4);
-          // return this.props.navigation.navigate("Dashboard");
         }
       });
   }
 
   setAmenities() {
+    this.stepFourValidation();
+    if (!this.isValidStepFour) return false;
     if (!this.state.property) return false;
     const formData = this.state.formFourData;
     const amenity_detail = {
       amenity: {
         bedroom_count: parseInt(formData.bedroom_count),
         bathroom_count: parseInt(formData.bathroom_count),
-        house_area: (formData.house_area) +"ft",
+        house_area: formData.house_area + "ft",
         floor_no: parseInt(formData.floor_no),
         lift: formData.lift,
         pet_friendly: formData.pet_friendly,
@@ -492,11 +595,9 @@ class Register extends Component {
         property_id: this.state.property.id,
       },
     };
-    console.log("prepared amenity data", amenity_detail);
     const apiResponse = this.utility
       .makePostRequest("amenities", amenity_detail)
       .then((resp) => {
-        console.log("response property", resp);
         if (resp?.success) {
           this.setState({ amenity_detail: resp.data });
           return this.props.navigation.navigate("Dashboard");
