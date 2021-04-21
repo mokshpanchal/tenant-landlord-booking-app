@@ -330,6 +330,7 @@ class Register extends Component {
           elevation: 4,
           color: "#000",
           backgroundColor: "#5694ca",
+          marginBottom: 10
         }}
       >
         <Text>{buttonItem}</Text>
@@ -368,6 +369,7 @@ class Register extends Component {
                 style={{
                   color: "#5694ca",
                   textAlign: "center",
+                  paddingBottom: 10
                 }}
               >
                 Already a member?

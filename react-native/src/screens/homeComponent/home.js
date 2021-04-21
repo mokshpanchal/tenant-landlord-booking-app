@@ -45,6 +45,23 @@ const styles = StyleSheet.create({
     elevation: 4,
     width: "75%",
   },
+  ownProperties: {
+    alignItems: "center",
+    marginTop: 20,
+    backgroundColor: "#fff",
+    paddingVertical: 5,
+    borderRadius: 23,
+    shadowColor: "#000",
+    shadowRadius: 5,
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 4,
+    width: "75%",
+    position: "absolute",
+    bottom: "10%",
+    left: "10%"
+
+  }
 });
 // =====================STYLE_SHEET===========================
 
@@ -254,6 +271,21 @@ class Home extends React.Component {
             </Text>
           </View>
         </View>
+        {this.state.user?.role == "seller"?(
+        <TouchableOpacity style={styles.ownProperties}  
+        onPress={() => {
+          this.props.pressEvent("search=own-"+this.state.user.id);
+        }}>
+            {/* <Button title="Change Password" onPress={changePassword}></Button> */}
+            <Text
+              style={{
+                color: "#5694ca",
+                fontFamily: "SemiBold",
+              }}
+            >
+              My Propeties{" "}
+            </Text>
+          </TouchableOpacity>):(<TouchableOpacity></TouchableOpacity>)}
       </View>
     );
   }

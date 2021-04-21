@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginHorizontal: 55,
+    color: "#5694ca"
   },
   radio: {
     fontSize: 15,
@@ -79,6 +80,7 @@ class RegisterStep4 extends Component {
   render() {
     return (
       <ScrollView>
+        <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 10,}}>
         <Text style={styles.radioText}>Is apartment?</Text>
         {this.props.apartmentOptions.map((data, key) => {
           return (
@@ -128,6 +130,7 @@ class RegisterStep4 extends Component {
             </View>
           );
         })}
+        </View>
         <View style={styles.view}>
           <TextInput
             placeholder="Bedrooms"
@@ -172,7 +175,8 @@ class RegisterStep4 extends Component {
             }
           />
         </View>
-        <Text style={styles.radioText}>Lift Available?</Text>
+        <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 10, }}>
+        <Text style={styles.radioText}>Lift available?</Text>
         {this.props.liftOptions.map((data, key) => {
           return (
             <View key={key} style={styles.radio}>
@@ -217,7 +221,9 @@ class RegisterStep4 extends Component {
             </View>
           );
         })}
-        <Text style={styles.radioText}>Garage available?</Text>
+        </View>
+        <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 10, }}>
+        <Text style={styles.radioText}>Own Garage?</Text>
         {this.props.garageOptions.map((data, key) => {
           return (
             <View key={key} style={styles.radio}>
@@ -262,6 +268,8 @@ class RegisterStep4 extends Component {
             </View>
           );
         })}
+        </View>
+        <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 10, }}>
         <Text style={styles.radioText}>Pets allowed?</Text>
         {this.props.petOptions.map((data, key) => {
           return (
@@ -311,6 +319,7 @@ class RegisterStep4 extends Component {
             </View>
           );
         })}
+        </View>
       </ScrollView>
     );
   }

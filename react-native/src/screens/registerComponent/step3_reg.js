@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  ViewBase,
 } from "react-native";
 
 // =====================STYLE_SHEET===========================
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
     marginHorizontal: 55,
+    color: "#5694ca"
   },
   radio: {
     fontSize: 15,
@@ -85,6 +87,7 @@ class RegisterStep3 extends Component {
             }}
           >
             <Text style={styles.radioText}>Initial Contract Length:</Text>
+            <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30, justifyContent: "center", alignItems: 'center'}}>
             {this.props.formdata.contractLength.map((data, key) => {
               return (
                 <View key={key} style={styles.radio}>
@@ -101,7 +104,7 @@ class RegisterStep3 extends Component {
                           color: "#5694ca",
                         }}
                       >
-                        {data}
+                        {data} months
                       </Text>
                     </TouchableOpacity>
                   ) : (
@@ -122,13 +125,14 @@ class RegisterStep3 extends Component {
                           color: "#5694ca",
                         }}
                       >
-                        {data}
+                        {data} months
                       </Text>
                     </TouchableOpacity>
                   )}
                 </View>
               );
             })}
+          </View>
           </View>
           <View style={styles.view}>
             <TextInput
@@ -196,6 +200,7 @@ class RegisterStep3 extends Component {
             }}
           >
             <Text style={styles.radioText}>Current Property status</Text>
+            <View style={{display: "flex", flexDirection: "row", marginTop: 20, marginLeft: 30, justifyContent: "center", alignItems: 'center'}}>
             {this.props.formdata.propertyStatus.map((data, key) => {
               return (
                 <View key={key} style={styles.radio}>
@@ -240,6 +245,7 @@ class RegisterStep3 extends Component {
                 </View>
               );
             })}
+            </View>
           </View>
         </>
       </ScrollView>
