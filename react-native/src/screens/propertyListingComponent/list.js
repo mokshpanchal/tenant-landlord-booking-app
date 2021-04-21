@@ -226,6 +226,7 @@ class List extends React.Component {
                         style={{
                           fontSize: 12,
                           fontWeight: "bold",
+                          color: "#D3D3D3",
                         }}
                       >
                         {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
