@@ -167,6 +167,15 @@ class detail extends React.Component {
             style={{
               fontSize: 16,
               fontWeight: "bold",
+              color: "#000",
+            }}
+          >
+            {property?.address_1 + "," + property?.address_2 + "," + property?.post_code}
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "bold",
               color: "#057a0f",
             }}
           >
