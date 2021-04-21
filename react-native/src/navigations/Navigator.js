@@ -9,7 +9,7 @@ import list from "../screens/propertyListingComponent/list";
 import Dashboard from "../screens/dashboardComponent/dashboard";
 import AssetImage from "../screens/registerComponent/AssetImage";
 import AuthLoading from "../screens/AuthLoading";
-
+import Apipath from "../screens/Apipath";
 const stackNavigatorOptions = {
   headerShown: false,
   headerStatusBarHeight: 0,
@@ -30,6 +30,7 @@ const AppStack = createStackNavigator(
 );
 const AuthStack = createStackNavigator(
   {
+    ApiPath: { screen: Apipath },
     Login: { screen: Login },
     Register: { screen: Register },
   },

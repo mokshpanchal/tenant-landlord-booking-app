@@ -72,54 +72,245 @@ const styles = StyleSheet.create({
 
 class RegisterStep4 extends Component {
   state = {};
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
   render() {
     return (
-        <ScrollView>
-            <Text style={styles.radioText}>Is apartment?</Text>
-            {this.props.formdata.apartment.map((data, key) => {
-              return (
-                <View key={key} style={styles.radio}>
-                  {this.props.formdata.apartment == data ? (
-                    <TouchableOpacity accessible={true}>
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/selected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
-                      >
-                        {data}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      accessible={true}
-                      onPress={() =>
-                        this.props.pressEvent("currentPropertyStatus", data)
-                      }
-                    >
-                      <Image
-                        style={{ height: 20, width: 20 }}
-                        source={require("../../../assets/unselected-radio.png")}
-                      />
-                      <Text
-                        style={{
-                          fontFamily: "SemiBold",
-                          fontSize: 15,
-                          color: "#5694ca",
-                        }}
-                      >
-                        {data}
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
-              );
-            })}
+      <ScrollView>
+        <Text style={styles.radioText}>Is apartment?</Text>
+        {this.props.apartmentOptions.map((data, key) => {
+          return (
+            <View key={key} style={styles.radio}>
+              {this.props.formdata?.apartment == data.value ? (
+                <TouchableOpacity accessible={true}>
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/selected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  accessible={true}
+                  onPress={() =>
+                    this.props.changeText(
+                      "apartment",
+                      data?.value,
+                      "formFourData"
+                    )
+                  }
+                >
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/unselected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          );
+        })}
+        <View style={styles.view}>
+          <TextInput
+            placeholder="Bedrooms"
+            keyboardType="phone-pad"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(bedrooms) =>
+              this.props.changeText("bedroom_count", bedrooms, "formFourData")
+            }
+          />
+        </View>
+        <View style={styles.view}>
+          <TextInput
+            placeholder="Bathrooms"
+            keyboardType="phone-pad"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(bathrooms) =>
+              this.props.changeText("bathroom_count", bathrooms, "formFourData")
+            }
+          />
+        </View>
+        <View style={styles.view}>
+          <TextInput
+            placeholder="Floor number"
+            keyboardType="phone-pad"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(floorNumber) =>
+              this.props.changeText("floor_no", floorNumber, "formFourData")
+            }
+          />
+        </View>
+        <View style={styles.view}>
+          <TextInput
+            placeholder="House Area"
+            keyboardType="phone-pad"
+            placeholderTextColor="#5694ca"
+            style={{ paddingHorizontal: 10, width: "100%" }}
+            onChangeText={(houseArea) =>
+              this.props.changeText("house_area", houseArea, "formFourData")
+            }
+          />
+        </View>
+        <Text style={styles.radioText}>Lift Available?</Text>
+        {this.props.liftOptions.map((data, key) => {
+          return (
+            <View key={key} style={styles.radio}>
+              {this.props.formdata?.lift == data.value ? (
+                <TouchableOpacity accessible={true}>
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/selected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  accessible={true}
+                  onPress={() =>
+                    this.props.changeText("lift", data?.value, "formFourData")
+                  }
+                >
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/unselected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          );
+        })}
+        <Text style={styles.radioText}>Garage available?</Text>
+        {this.props.garageOptions.map((data, key) => {
+          return (
+            <View key={key} style={styles.radio}>
+              {this.props.formdata?.garage == data.value ? (
+                <TouchableOpacity accessible={true}>
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/selected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  accessible={true}
+                  onPress={() =>
+                    this.props.changeText("garage", data?.value, "formFourData")
+                  }
+                >
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/unselected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          );
+        })}
+        <Text style={styles.radioText}>Pets allowed?</Text>
+        {this.props.petOptions.map((data, key) => {
+          return (
+            <View key={key} style={styles.radio}>
+              {this.props.formdata?.pet_friendly == data.value ? (
+                <TouchableOpacity accessible={true}>
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/selected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  accessible={true}
+                  onPress={() =>
+                    this.props.changeText(
+                      "pet_friendly",
+                      data?.value,
+                      "formFourData"
+                    )
+                  }
+                >
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../../assets/unselected-radio.png")}
+                  />
+                  <Text
+                    style={{
+                      fontFamily: "SemiBold",
+                      fontSize: 15,
+                      color: "#5694ca",
+                    }}
+                  >
+                    {data?.label}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          );
+        })}
       </ScrollView>
     );
   }
