@@ -95,7 +95,7 @@ class RegisterStep2 extends Component {
                 <TextInput
                   placeholder="Building Name"
                   placeholderTextColor="#5694ca"
-                  style={{ paddingHorizontal: 10 }}
+                  style={{ paddingHorizontal: 10, width: "100%" }}
                   defaultValue={this.props?.formdata?.user_building_name}
                   onChangeText={(building_name) =>
                     this.props.changeText(
@@ -169,7 +169,7 @@ class RegisterStep2 extends Component {
                 <TextInput
                   placeholder="Building Address Line 1"
                   placeholderTextColor="#5694ca"
-                  style={{ paddingHorizontal: 10 }}
+                  style={{ paddingHorizontal: 10, width: "100%" }}
                   defaultValue={this.props?.formdata?.user_building_address1}
                   onChangeText={(building_address) =>
                     this.props.changeText(
@@ -184,7 +184,7 @@ class RegisterStep2 extends Component {
                 <TextInput
                   placeholder="Building Address Line 2"
                   placeholderTextColor="#5694ca"
-                  style={{ paddingHorizontal: 10 }}
+                  style={{ paddingHorizontal: 10, width: "100%" }}
                   defaultValue={this.props?.formdata?.user_building_address2}
                   onChangeText={(building_address) =>
                     this.props.changeText(
@@ -252,6 +252,7 @@ class RegisterStep2 extends Component {
                   placeholder="Zipcode"
                   placeholderTextColor="#5694ca"
                   defaultValue={this.props?.formdata?.user_zipcode}
+                  style={{width: "100%"}}
                   onChangeText={(zipcode) =>
                     this.props.changeText(
                       "user_zipcode",
@@ -263,8 +264,8 @@ class RegisterStep2 extends Component {
               </View>
               <Text style={styles.radioText}>Upload Image:</Text>
               <Button
-                title="Open image browser"
-                style={{ paddingVertical: 10, marginHorizontal: 55}}
+                title="Add image of property"
+                style={{ paddingVertical: 10, marginHorizontal: 55,}}
                 onPress={() => {
                   this.props.openImage(true);
                 }}

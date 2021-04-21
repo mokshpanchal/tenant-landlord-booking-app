@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   callbutton: {
     justifyContent: "center",
     marginTop: 20,
-    marginLeft: -20,
+    marginLeft: 40,
     backgroundColor: "#3ead23",
     paddingVertical: 10,
     borderRadius: 23,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
-    width: "85%",
+    width: "80%",
     display: "flex",
     flexDirection: "row"
   },
@@ -136,7 +136,7 @@ class detail extends React.Component {
         )}
         <View
           style={{
-            marginLeft: "30%",
+            marginLeft: "20%",
             marginTop: "10%",
             justifyContent: "flex-start",
             paddingVertical: 10,
@@ -194,7 +194,7 @@ class detail extends React.Component {
                   color: "#D3D3D3"
                 }}
               >
-                Published {property?.created_at} ago
+                {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
               </Text>
             </Text>
           ) : (
@@ -204,9 +204,10 @@ class detail extends React.Component {
                 fontWeight: "bold",
               }}
             >
-              Published {property?.created_at} ago
+              {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
             </Text>
           )}
+        </View>
           <TouchableOpacity style={styles.callbutton}
           onPress={()=>Linking.openURL(`tel:${property?.contact}`)}>
           <Image 
@@ -219,7 +220,6 @@ class detail extends React.Component {
             paddingRight: 20,
           }}> {property?.contact} </Text>
           </TouchableOpacity>
-        </View>
       </View>
       </View>
     );

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     width: "90%",
     display: "flex",
-    maxHeight: "20%",
+    // maxHeight: "20%",
     flex: 1,
     flexDirection: "column",
     marginTop: "5%",
@@ -218,7 +218,7 @@ class List extends React.Component {
                             color: "#D3D3D3",
                           }}
                         >
-                          Published {property?.created_at} ago
+                        {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
                         </Text>
                       </Text>
                     ) : (
@@ -228,7 +228,7 @@ class List extends React.Component {
                           fontWeight: "bold",
                         }}
                       >
-                        Published {property?.created_at} ago
+                        {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
                       </Text>
                     )}
                   </View>
@@ -236,7 +236,7 @@ class List extends React.Component {
               );
             })
           ) : (
-            <Text>No property matched with your current search!</Text>
+            <Text style={{textAlign: "center", color: "#5694ca", fontSize: 14}}> No property matched with your current search!</Text>
           )}
         </View>
       </ScrollView>
