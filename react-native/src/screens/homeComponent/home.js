@@ -7,9 +7,11 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import Icon from "@expo/vector-icons/Entypo";
 import Utility from "../../common/utility";
+const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   property: {
@@ -24,17 +26,17 @@ const styles = StyleSheet.create({
 
   main: {
     backgroundColor: "#fff",
-    width: "70%",
+    width: width*0.7,
     display: "flex",
-    maxHeight: "20%",
+    maxHeight: height*0.2,
     flex: 1,
     flexDirection: "row",
-    marginTop: "5%",
+    marginTop: height*0.01,
   },
 
   button: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: height*0.01,
     backgroundColor: "#fff",
     paddingVertical: 5,
     borderRadius: 23,
@@ -43,11 +45,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
-    width: "75%",
+    width: width*0.2,
   },
+
   ownProperties: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: height*0.01,
     backgroundColor: "#fff",
     paddingVertical: 5,
     borderRadius: 23,
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     width: "75%",
     position: "absolute",
-    bottom: "10%",
+    bottom: "4%",
     left: "10%",
   },
 });
@@ -134,8 +137,8 @@ class Home extends React.Component {
           style={{
             display: "flex",
             flexDirection: "column",
-            position: "absolute",
-            marginTop: "30%",
+            marginTop: -(height*0.21),
+            position: "relative",
             left: "5%",
             shadowColor: "#000",
             shadowRadius: 5,
@@ -144,10 +147,10 @@ class Home extends React.Component {
             elevation: 4,
           }}
         >
-          <Text style={{ color: "#fff", fontSize: 60, fontWeight: "bold" }}>
+          <Text style={{ color: "#fff", fontSize: 50, fontWeight: "bold" }}>
             Go
           </Text>
-          <Text style={{ color: "#fff", fontSize: 60, fontWeight: "bold" }}>
+          <Text style={{ color: "#fff", fontSize: 50, fontWeight: "bold" }}>
             Near
           </Text>
           <TouchableOpacity
@@ -156,7 +159,7 @@ class Home extends React.Component {
               this.props.pressEvent("location=ahmedabad");
             }}
           >
-            <Text style={{ fontFamily: "SemiBold" }}>Explore</Text>
+            <Text style={{ fontFamily: "SemiBold", }}>Explore</Text>
           </TouchableOpacity>
         </View>
 

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    position: "absolute",
+    position: "relative",
     bottom: 0,
     backgroundColor: "#FFF"
   },

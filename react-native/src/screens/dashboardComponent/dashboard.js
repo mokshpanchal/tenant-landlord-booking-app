@@ -1,11 +1,12 @@
 import React, { useState, Component, Fragment } from "react";
-import { Text, Platform, View } from "react-native";
+import { Text, Platform, View, Touchable } from "react-native";
 import Home from "../homeComponent/home";
 import List from "../propertyListingComponent/list";
 import Profile from "../profileComponent/profile";
 import Search from "../../common/search";
 import Footer from "../../common/footer";
 import Utility from "../../common/utility";
+import { TouchableOpacity } from "react-native-gesture-handler";
 class Dashboard extends Component {
   utility;
   constructor(props) {
@@ -77,7 +78,7 @@ class Dashboard extends Component {
         {this.renderElement}
 
         {screen != "home" ? (
-          <Text>""</Text>
+          <TouchableOpacity></TouchableOpacity>
         ) : (
           <Search
             navigation={this.props.navigation}
