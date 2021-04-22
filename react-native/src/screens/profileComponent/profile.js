@@ -8,8 +8,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
+  Dimensions
 } from "react-native";
 import Utility from "../../common/utility";
+const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   view: {
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
     color: "#000",
-    height: 180,
+    height: height*0.2,
     backgroundColor: "#fff",
     margin: 0,
     display: "flex",
@@ -32,9 +34,9 @@ const styles = StyleSheet.create({
   form_view: {
     flexDirection: "row",
     alignItems: "center",
-    marginHorizontal: 55,
+    marginHorizontal: width*0.13,
     borderWidth: 0,
-    marginTop: 20,
+    marginTop: height*0.01,
     paddingHorizontal: 10,
     borderRadius: 23,
     paddingVertical: 2,
@@ -42,19 +44,20 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
-    height: 40,
+    height: height*0.05,
     shadowRadius: 1,
     overflow: "hidden",
     elevation: 4,
     color: "#000",
     backgroundColor: "#fff",
   },
+  
   profile: {
     borderWidth: 0,
     borderRadius: 90,
     overflow: "hidden",
-    height: 110,
-    width: "30%",
+    height: height*0.15,
+    width: width*0.3,
     backgroundColor: "#fff",
     marginLeft: "5%",
     marginTop: "7%",
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 30,
+    // marginTop: height*0.03,
     backgroundColor: "#5694ca",
     paddingVertical: 10,
     borderRadius: 23,
@@ -71,12 +74,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
-    width: "100%",
+    width: width*0.75,
+    height: height*0.05
   },
 
   logoutbutton: {
     alignItems: "center",
-    marginTop: 20,
+    justifyContent:"center",
+    marginTop: height*0.03,
     backgroundColor: "#DC143C",
     paddingVertical: 10,
     borderRadius: 23,
@@ -85,9 +90,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { width: 0, height: 3 },
     elevation: 4,
-    width: "75%",
-    position: "relative",
-    marginLeft: "12.5%",
+    width: width*0.75,
+    height: height*0.05
+    // position: "relative",
+    // marginLeft: "12.5%",
   },
 });
 // =====================STYLE_SHEET===========================
@@ -200,14 +206,14 @@ class Profile extends React.Component {
           />
           {/* </View> */}
           {/* <View style={{display: "flex", flexDirection: "column", position: "absolute"}}> */}
-          <Text style={{ margin: 15, paddingHorizontal: 20, marginTop: 30 }}>
+          <Text style={{ margin: height*0.02, paddingHorizontal: width*0.05, marginTop: height*0.04}}>
             <View style={{ display: "flex", flexDirection: "row" }}>
               <Text
                 style={{
                   fontSize: 25,
                   fontWeight: "bold",
                   color: "#5694ca",
-                  paddingLeft: 2,
+                  paddingLeft: width*0.001,
                 }}
               >
                 {user?.name}
@@ -215,7 +221,7 @@ class Profile extends React.Component {
               {user?.role == "seller" ? (
                 <Image
                   source={require("../../../assets/verified.png")}
-                  style={{ width: 30, height: 30 }}
+                  style={{ width: width*0.05, height: height*0.05, padding: 5 }}
                 />
               ) : (
                 <Image />
@@ -240,7 +246,7 @@ class Profile extends React.Component {
 
         <Text
           style={{
-            margin: 20,
+            margin: height*0.02,
             fontWeight: "bold",
             textAlign: "center",
             paddingHorizontal: 10,
@@ -269,7 +275,7 @@ class Profile extends React.Component {
             secureTextEntry
             placeholder="New Password"
             placeholderTextColor="#5694ca"
-            style={{ paddingHorizontal: 10, width: "100%" }}
+            style={{ paddingHorizontal: 10, width: width }}
             onChangeText={(new_password) =>
               this.setState({ password: new_password })
             }
@@ -283,7 +289,7 @@ class Profile extends React.Component {
             secureTextEntry
             placeholder="Confirm Password"
             placeholderTextColor="#5694ca"
-            style={{ paddingHorizontal: 10, width: "100%" }}
+            style={{ paddingHorizontal: 10, width: width }}
             onChangeText={(c_password) =>
               this.setState({ password_confirmation: c_password })
             }
@@ -293,7 +299,7 @@ class Profile extends React.Component {
           {this.state.errorForm?.confirm_password_error}
         </Text>
         <View
-          style={{ paddingVertical: 30, paddingHorizontal: 50, width: "100%" }}
+          style={{ paddingVertical: height*0.02, paddingHorizontal: 50, width: width }}
         >
           <TouchableOpacity style={styles.button} onPress={changePassword}>
             {/* <Button title="Change Password" onPress={changePassword}></Button> */}
@@ -312,8 +318,8 @@ class Profile extends React.Component {
               style={{
                 color: "#FFF",
                 fontFamily: "SemiBold",
-                paddingLeft: 20,
-                paddingRight: 20,
+                paddingLeft: width*0.02,
+                paddingRight: width*0.02,
               }}
             >
               Logout{" "}
@@ -332,7 +338,7 @@ class Profile extends React.Component {
           <View>
             <Image
               source={require("../../../assets/creator1.png")}
-              style={{ width: 50, height: 50, borderRadius: 90 }}
+              style={{ width: width*0.15, height: width*0.15, borderRadius: 90 }}
             />
             <Text
               style={{ color: "#5694ca", fontSize: 12, textAlign: "center" }}
@@ -344,7 +350,7 @@ class Profile extends React.Component {
           <View>
             <Image
               source={require("../../../assets/creator2.png")}
-              style={{ width: 50, height: 50, borderRadius: 90 }}
+              style={{ width: width*0.15, height: width*0.15, borderRadius: 90 }}
             />
             <Text
               style={{ color: "#5694ca", fontSize: 12, textAlign: "center" }}
@@ -356,7 +362,7 @@ class Profile extends React.Component {
           <View>
             <Image
               source={require("../../../assets/creator3.png")}
-              style={{ width: 50, height: 50, borderRadius: 90 }}
+              style={{ width: width*0.15, height: width*0.15, borderRadius: 90 }}
             />
             <Text
               style={{ color: "#5694ca", fontSize: 12, textAlign: "center" }}

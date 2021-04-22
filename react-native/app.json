@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TLB",
-    "slug": "TLB",
+    "name": "Tenant-Lord",
+    "slug": "Tenant-Lord",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

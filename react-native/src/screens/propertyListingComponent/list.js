@@ -7,10 +7,11 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Utility from "../../common/utility";
-
+const {height, width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   property: {
     // height: "40%",
@@ -22,7 +23,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderWidth: 0,
     borderRadius: 15,
-    marginBottom: 20,
+    marginBottom: height*0.01,
+    paddingBottom: height*0.01
   },
 
   main: {
@@ -41,6 +43,26 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 5,
     marginTop: "2%",
+  },
+
+  top: {
+    width: "100%",
+    height: height*0.05,
+    borderBottomLeftRadius: 25,
+    borderBottomRightRadius: 25,
+    shadowColor: "#000",
+    shadowRadius: 20,
+    overflow: "hidden",
+    shadowOpacity: 1,
+    shadowOffset:{width:0, height: 0},
+    elevation: 10,
+    color: "#000",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    position: "absolute",
+    backgroundColor: "#FFF",
+    marginBottom: "5%"
   },
 });
 // =====================STYLE_SHEET===========================
@@ -92,6 +114,16 @@ class List extends React.Component {
           flexDirection: "column",
         }}
       >
+        <View style={styles.top}>
+          <Text style={{
+                        fontSize: 16,
+                        color: "#23b3d5",
+                        fontWeight: "bold",
+                        paddingVertical: 10
+                      }}>
+                        Available Properties
+            </Text>
+        </View>
         <View style={styles.main}>
           {this.state.propertyList.length ? (
             this.state.propertyList.map((property) => {
@@ -229,7 +261,7 @@ class List extends React.Component {
                           color: "#D3D3D3",
                         }}
                       >
-                        {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at +" ago" }
+                        {parseInt(property?.created_at) == 0 ? "Published Today" : "Published " + property?.created_at + " ago" }
                       </Text>
                     )}
                   </View>
